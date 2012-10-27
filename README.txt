@@ -12,23 +12,23 @@ With CP Contact Form with Paypal you can insert a contact form into a WordPress 
 
 == Description ==
 
-With CP Contact Form with Paypal you can inserts a contact form into a WordPress website and connect it to a PayPal payment.
+With CP Contact Form with Paypal you can insert a **contact form** into a WordPress website and connect it to a PayPal payment.
 
 Once the user has filled the contact form fields and click the submit button the posted data is saved into the WordPress database and the user is automatically redirected to PayPal to complete a payment. After completed the payment the website administrator (the email indicated from the settings) will receive an email with the form data and the user will receive a confirmation/thank you email.
 
-Both the paid and unpaid forms sent will appear in the WordPress settings area with the mark of "Paid" or "Not Paid" so you can check all the details and contact the user if needed.
+Both the paid and unpaid requests sent from the contact form will appear in the WordPress settings area with the mark of "Paid" or "Not Paid" so you can check all the details and contact the user if needed.
 
 This WordPress plugin is useful for different types of contact forms, booking forms, consultation services, payments for joining events, ect...
 
-Features:
+= Features: =
 
-* Supports many contact forms into the same WP website, each one with its own prices and settings.
-* Allows checking the messages for both paid and un-paid submissions.
-* You can customize the notification email details, including from address, subject and content.
-* The website administrator receives an email notification of the paid contact message.
-* The customer receives a "thank you - confirmation" message.
-* Easy setup of the PayPal payment, basically just indicate the price and email linked to the PayPal account. There are optional fields for language and currency settings.
-* Includes optional captcha verification.
+* Supports many **contact forms** into the same WP website, each one with its own prices and settings.
+* Allows checking the **messages** for both paid and un-paid submissions sent from the contact form.
+* You can **customize the notification email** details, including from address, subject and content.
+* The website administrator receives an **email notification** of the paid contact message.
+* The customer receives a **"thank you - confirmation" message**.
+* **Easy setup** of the PayPal payment, basically just indicate the price and email linked to the PayPal account. There are optional fields for language and currency settings.
+* Includes optional **captcha** verification as part of the contact form.
 
 == Installation ==
 
@@ -38,7 +38,7 @@ To install CP Contact Form with Paypal, follow these steps:
 2.	Upload the entire cp-contact-form-with-paypal/ directory to the /wp-content/plugins/ directory
 3.	Activate the plugin through the Plugins menu in WordPress
 4.	Configure the settings at the administration menu >> Settings >> CP Contact Form with Paypal
-5.	To insert the form into some content or post use the icon that will appear when editing contents
+5.	To insert the contact form into some content or post use the icon that will appear when editing contents
 
 == Frequently Asked Questions ==
 
@@ -48,10 +48,14 @@ A: The product's page contains detailed information about each field and customi
 
 http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
 
+= Q: Where can I publish the contact form? =
+
+A: You can publish the contact forms into pages and posts. Other versions of the plugin also allow publishing it as a widget.
+
 == Screenshots ==
 
-1. Forms List
-2. Form Settings
+1. Contact Forms List
+2. Contact Form Settings
 3. Inserting a contact form into a page
 4. Sample contact form
 
@@ -60,6 +64,10 @@ http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
 = 1.0 =
 * First stable version released.
 * More configuration options added.
+
+= 1.0.1 =
+* Speed improvements, the contact form loads faster
+* Improved validation options for the contact form fields
 
 == Upgrade Notice ==
 
