@@ -1,7 +1,7 @@
 === CP Contact Form with Paypal ===
 Contributors: codepeople
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GZX2Y9BBJKWN2
-Tags: contact form,contact,form,paypal,payment,mail,email,forms,form to email,form2mail
+Donate link: http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
+Tags: contact form,contact,form,paypal,payment,mail,email,forms,form to email
 Requires at least: 3.0.5
 Tested up to: 3.4.2
 Stable tag: 1.0.1
