@@ -522,9 +522,9 @@ function cp_contact_form_paypal_check_posted_data() {
     $buffer = "";
     foreach ($_POST as $item => $value)
         if (isset($fields[$item]))
-            $buffer .= $fields[$item] . ": ". $value . "\n\n";
+            $buffer .= $fields[$item] . ": ". (is_array($value)?(implode(", ",$value)):($value)) . "\n\n";
         else if (isset($fields[str_replace("_"," ",$item)]))
-            $buffer .= $fields[str_replace("_"," ",$item)] . ": ". $value . "\n\n";
+            $buffer .= $fields[str_replace("_"," ",$item)] . ": ". (is_array($value)?(implode(", ",$value)):($value)) . "\n\n";
     $buffer_A = $buffer;
     
     // insert into database
@@ -568,7 +568,7 @@ function cp_contact_form_paypal_check_posted_data() {
 <input type="hidden" name="currency_code" value="<?php echo cp_contactformpp_get_option('currency', CP_CONTACTFORMPP_DEFAULT_CURRENCY); ?>" />
 <input type="hidden" name="lc" value="<?php echo cp_contactformpp_get_option('paypal_language', CP_CONTACTFORMPP_DEFAULT_PAYPAL_LANGUAGE); ?>" />
 <input type="hidden" name="bn" value="PP-BuyNowBF" />
-<input type="hidden" name="notify_url" value="<?php echo cp_contactformpp_get_FULL_site_url(); ?>?cp_contactformpp_ipncheck=1&itemnumber=<?php echo $item_number; ?>" />
+<input type="hidden" name="notify_url" value="<?php echo cp_contactformpp_get_FULL_site_url(); ?>/?cp_contactformpp_ipncheck=1&itemnumber=<?php echo $item_number; ?>" />
 <input type="hidden" name="ipn_test" value="1" />
 <input class="pbutton" type="hidden" value="Buy Now" /></div>
 </form>
@@ -603,12 +603,12 @@ function cp_contactformpp_check_IPN_verification() {
     $payment_type = $_POST['payment_type'];
 
 
-/**	if ($payment_status != 'Completed' && $payment_type != 'echeck')
+	if ($payment_status != 'Completed' && $payment_type != 'echeck')
 	    return;
 
 	if ($payment_type == 'echeck' && $payment_status != 'Pending')
 	    return;
-	*/   
+  
 	$str = '';    
     if ($_POST["first_name"]) $str .= 'Buyer: '.$_POST["first_name"]." ".$_POST["last_name"]."\n";	    
     if ($_POST["payer_email"]) $str .= 'Payer email: '.$_POST["payer_email"]."\n";
@@ -821,7 +821,7 @@ class CP_ContactFormPP_Widget extends WP_Widget
     $title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
 
     if (!empty($title))
-      echo $before_title . $title . $after_title;;
+      echo $before_title . $title . $after_title;
 
     // WIDGET CODE GOES HERE
     define('CP_AUTH_INCLUDE', true);
