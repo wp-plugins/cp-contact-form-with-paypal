@@ -85,7 +85,7 @@ define ('CP_CONTACTFORMPP_ID',$myrows[0]->id);
     var result = $dexQuery.ajax({
         type: "GET",
         url: "<?php echo cp_contactformpp_get_site_url(); ?>?hdcaptcha_cp_contact_form_paypal_post="+form.hdcaptcha_cp_contact_form_paypal_post.value,
-        async: false,
+        async: false
     }).responseText;
     if (result == "captchafailed")
     {
