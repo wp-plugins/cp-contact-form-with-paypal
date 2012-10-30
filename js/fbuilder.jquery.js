@@ -244,7 +244,7 @@
             },
             showCsslayout: function(v) {
                 return '<label>Add Css Layout Keywords</label><input readonly class="large" name="sCsslayout" id="sCsslayout" value="'+v+'" />';
-            },            
+            }            
         };
         var fform=function(){};        
         $.extend(fform.prototype,{
@@ -462,7 +462,7 @@
                 show:function(){
                     var str = "";
                     for (var i=0;i<this.choices.length;i++)
-                        str += '<div class="'+this.layout+'"><input name="'+this.name+'" id="list'+i+'" class="field group '+((this.required)?" required":"")+'" value="'+this.choices[i]+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/> <span>'+this.choices[i]+'<span></div>';
+                        str += '<div class="'+this.layout+'"><input name="'+this.name+'[]" id="list'+i+'" class="field group '+((this.required)?" required":"")+'" value="'+this.choices[i]+'" type="checkbox" '+((this.choiceSelected[i])?"checked":"")+'/> <span>'+this.choices[i]+'<span></div>';
                     return '<div class="fields" id="field-'+this.index+'"><label>'+this.title+''+((this.required)?"*":"")+'</label><div class="dfield">'+str+'</div><div class="clearer"></div></div>';
                 },
                 showChoiceIntance: function() {
