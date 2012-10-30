@@ -825,7 +825,7 @@ class CP_ContactFormPP_Widget extends WP_Widget
 
     // WIDGET CODE GOES HERE
     define('CP_AUTH_INCLUDE', true);
-    @include_once dirname( __FILE__ ) . '/cp_contactformpp_public_int.inc.php';
+    @include dirname( __FILE__ ) . '/cp_contactformpp_public_int.inc.php';
 
     echo $after_widget;
   }
