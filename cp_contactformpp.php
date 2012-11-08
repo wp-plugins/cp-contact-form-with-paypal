@@ -300,6 +300,14 @@ function cp_contactformpp_filter_content($content) {
     return $content;
 }
 
+function cp_contactformpp_show_booking_form($id = "")
+{
+    if ($id != '')
+        define ('CP_CONTACTFORMPP_ID',$id);
+    define('CP_AUTH_INCLUDE', true);
+    @include dirname( __FILE__ ) . '/cp_contactformpp_public_int.inc.php';    
+}
+
 
 /* Code for the admin area */
 
