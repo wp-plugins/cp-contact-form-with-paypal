@@ -103,15 +103,13 @@ define ('CP_CONTACTFORMPP_ID',$myrows[0]->id);
   <input type="hidden" name="cp_contactformpp_id" value="<?php echo CP_CONTACTFORMPP_ID; ?>" />
   <input type="hidden" name="cp_ref_page" value="<?php esc_attr(cp_contactformpp_get_FULL_site_url); ?>" />
 
-  <input type="hidden" name="form_structure" id="form_structure" size="180" value="<?php echo esc_attr(cp_contactformpp_cleanJSON(cp_contactformpp_get_option('form_structure', CP_CONTACTFORMPP_DEFAULT_form_structure))); ?>" />
+  <input type="hidden" name="form_structure" id="form_structure" size="180" value="<?php echo str_replace("\r","",str_replace("\n","",esc_attr(cp_contactformpp_cleanJSON(cp_contactformpp_get_option('form_structure', CP_CONTACTFORMPP_DEFAULT_form_structure))))); ?>" />
 
 
     <div id="fbuilder">
         <div id="formheader"></div>
         <div id="fieldlist"></div>
     </div>
-
-
 
 <?php
      $codes = $wpdb->get_results( 'SELECT * FROM '.CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME.' WHERE `form_id`='.CP_CONTACTFORMPP_ID);
@@ -135,22 +133,10 @@ define ('CP_CONTACTFORMPP_ID',$myrows[0]->id);
   <br />
 <?php } ?>
 
-
-
-
-
 <input type="submit" class="submit" name="cp_contactformpp_subbtn" id="cp_contactformpp_subbtn" value="<?php _e("Submit"); ?>">
 
 <div style="display:none" id="cp_contactformpp_subbtn_animation" style="background:#ffffff;width:18;height:18;padding:1px;">
  <img src="<?php echo plugins_url('/images/loading.gif', __FILE__); ?>" width="16" height="16" alt="loading" />
 </div>
 
-
 </form>
-
-
-
-
-
-
-
