@@ -112,7 +112,7 @@ define('SERVICES_JSON_SUPPRESS_ERRORS', 32);
  * $value = $json->decode($input);
  * </code>
  */
-class Services_JSON
+class Services_JSON_cp_contact_form_pp
 {
    /**
     * constructs a new JSON instance
@@ -130,7 +130,7 @@ class Services_JSON
     *                                   bubble up with an error, so all return values
     *                                   from encode() should be checked with isError()
     */
-    function Services_JSON($use = 0)
+    function Services_JSON_cp_contact_form_pp($use = 0)
     {
         $this->use = $use;
     }
@@ -381,7 +381,7 @@ class Services_JSON
                                             array_values($var));
 
                     foreach($properties as $property) {
-                        if(Services_JSON::isError($property)) {
+                        if(Services_JSON_cp_contact_form_pp::isError($property)) {
                             return $property;
                         }
                     }
@@ -393,7 +393,7 @@ class Services_JSON
                 $elements = array_map(array($this, 'encode'), $var);
 
                 foreach($elements as $element) {
-                    if(Services_JSON::isError($element)) {
+                    if(Services_JSON_cp_contact_form_pp::isError($element)) {
                         return $element;
                     }
                 }
@@ -408,7 +408,7 @@ class Services_JSON
                                         array_values($vars));
 
                 foreach($properties as $property) {
-                    if(Services_JSON::isError($property)) {
+                    if(Services_JSON_cp_contact_form_pp::isError($property)) {
                         return $property;
                     }
                 }
@@ -418,7 +418,7 @@ class Services_JSON
             default:
                 return ($this->use & SERVICES_JSON_SUPPRESS_ERRORS)
                     ? 'null'
-                    : new Services_JSON_Error(gettype($var)." can not be encoded as JSON string");
+                    : new Services_JSON_Error_cp_contact_form_pp(gettype($var)." can not be encoded as JSON string");
         }
     }
 
@@ -435,7 +435,7 @@ class Services_JSON
     {
         $encoded_value = $this->encode($value);
 
-        if(Services_JSON::isError($encoded_value)) {
+        if(Services_JSON_cp_contact_form_pp::isError($encoded_value)) {
             return $encoded_value;
         }
 
@@ -767,8 +767,8 @@ class Services_JSON
     {
         if (class_exists('pear')) {
             return PEAR::isError($data, $code);
-        } elseif (is_object($data) && (get_class($data) == 'services_json_error' ||
-                                 is_subclass_of($data, 'services_json_error'))) {
+        } elseif (is_object($data) && (get_class($data) == 'services_json_error_cp_contact_form_pp' ||
+                                 is_subclass_of($data, 'services_json_error_cp_contact_form_pp'))) {
             return true;
         }
 
@@ -778,9 +778,9 @@ class Services_JSON
 
 if (class_exists('PEAR_Error')) {
 
-    class Services_JSON_Error extends PEAR_Error
+    class Services_JSON_Error_cp_contact_form_pp extends PEAR_Error
     {
-        function Services_JSON_Error($message = 'unknown error', $code = null,
+        function Services_JSON_Error_cp_contact_form_pp($message = 'unknown error', $code = null,
                                      $mode = null, $options = null, $userinfo = null)
         {
             parent::PEAR_Error($message, $code, $mode, $options, $userinfo);
@@ -792,9 +792,9 @@ if (class_exists('PEAR_Error')) {
     /**
      * @todo Ultimately, this class shall be descended from PEAR_Error
      */
-    class Services_JSON_Error
+    class Services_JSON_Error_cp_contact_form_pp
     {
-        function Services_JSON_Error($message = 'unknown error', $code = null,
+        function Services_JSON_Error_cp_contact_form_pp($message = 'unknown error', $code = null,
                                      $mode = null, $options = null, $userinfo = null)
         {
 
