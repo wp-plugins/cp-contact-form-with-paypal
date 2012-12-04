@@ -517,7 +517,7 @@ function cp_contact_form_paypal_check_posted_data() {
     //---------------------------
 
     @include_once dirname( __FILE__ ) . '/JSON.inc.php';
-    $json = new Services_JSON();
+    $json = new Services_JSON_cp_contact_form_pp();
     $form_data = $json->decode(cp_contactformpp_cleanJSON(cp_contactformpp_get_option('form_structure', CP_CONTACTFORMPP_DEFAULT_form_structure)));
     $fields = array();
     foreach ($form_data[0] as $item)
