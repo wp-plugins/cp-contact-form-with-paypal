@@ -129,10 +129,9 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_contactformpp_pos
         
      <script>
      
-         $contactFormPPQuery = jQuery.noConflict();
-         
          $contactFormPPQuery(document).ready(function() {
             var f = $contactFormPPQuery("#fbuilder").fbuilderCFPP();
+            
             f.fBuild.loadData("form_structure");
             
             $contactFormPPQuery("#saveForm").click(function() {       
@@ -152,8 +151,6 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_contactformpp_pos
      	   });
      		    
          });
-        
-        
          
         
         
