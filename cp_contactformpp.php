@@ -363,28 +363,24 @@ function set_cp_contactformpp_insert_button() {
 }
 
 function set_cp_contactformpp_insert_adminScripts($hook) {
-
-    wp_enqueue_script( 'jquery' );
-    wp_enqueue_script( 'jquery-ui-sortable' );
-    wp_enqueue_script( 'jquery-ui-tabs' );
-    wp_enqueue_script( 'jquery-ui-droppable' );
-    wp_enqueue_script( 'jquery-ui-button' );
-    wp_enqueue_script( 'query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__) );
-    wp_enqueue_script( 'cp_contactformpp_buikder_script', plugins_url('/js/fbuilder.jquery.js', __FILE__) );
+    wp_deregister_script('query-stringify');
+    wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
+    wp_enqueue_script( 'cp_contactformpp_buikder_script', plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-sortable","jquery-ui-tabs","jquery-ui-droppable","jquery-ui-button","query-stringify") );
 
     if( 'post.php' != $hook  && 'post-new.php' != $hook )
         return;
     wp_enqueue_script( 'cp_contactformpp_script', plugins_url('/cp_contactformpp_scripts.js', __FILE__) );
 }
 
-function set_cp_contactformpp_insert_publicScripts($hook) {
-    wp_enqueue_script( 'jquery' );
-    wp_enqueue_script( 'jquery-ui-tabs' );
-    wp_enqueue_script( 'jquery-ui-button' );
-    wp_enqueue_script( 'query-ui-custom', plugins_url('/js/jquery-ui-1.8.22.custom.min.js', __FILE__) );
-    wp_enqueue_script( 'query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__) );
-    wp_enqueue_script( 'cp_contactformpp_builder_script', plugins_url('/js/fbuilder.jquery.js', __FILE__) );
-    wp_enqueue_script( 'cp_contactformpp_validate_script', plugins_url('/js/jquery.validate.js', __FILE__) );
+function set_cp_contactformpp_insert_publicScripts($hook) {  
+    wp_deregister_script('query-stringify');
+    wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
+    
+    wp_deregister_script('cp_contactformpp_validate_script');
+    wp_register_script('cp_contactformpp_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
+    
+    wp_enqueue_script( 'cp_contactformpp_buikder_script', 
+    plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-tabs","jquery-ui-button","jquery-ui-datepicker","query-stringify","cp_contactformpp_validate_script") );
 }
 
 function cp_contactformpp_get_site_url()
