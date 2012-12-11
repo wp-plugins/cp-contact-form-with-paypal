@@ -20,7 +20,6 @@ define ('CP_CONTACTFORMPP_ID',$myrows[0]->id);
 <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__); ?>" type="text/css" rel="stylesheet" />
 
 <script type="text/javascript">
-           $contactFormPPQuery = jQuery.noConflict();
            $contactFormPPQuery(document).ready(function() {
          	   var f = $contactFormPPQuery("#fbuilder").fbuilderCFPP({pub:true,messages: {
 	                	required: '<?php echo str_replace("'","\\'",cp_contactformpp_get_option('vs_text_is_required', CP_CONTACTFORMPP_DEFAULT_vs_text_is_required)); ?>',
