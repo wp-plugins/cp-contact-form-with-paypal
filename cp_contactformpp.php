@@ -193,7 +193,7 @@ function _cp_contactformpp_install() {
          );";
     $wpdb->query($sql);
 
-    $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(id) FROM ".$table ) );
+    $count = $wpdb->get_var(  "SELECT COUNT(id) FROM ".$table_name  );
     if (!$count)
     {                
         $wpdb->insert( $table_name, array( 'id' => 1,
@@ -465,8 +465,10 @@ function cp_contact_form_paypal_check_posted_data() {
     
     global $wpdb;
     
-    if ($_GET["cp_contact_form_paypal_post"] == 'loadcoupons')   
-        cp_contactformpp_load_discount_codes();    
+    if(isset($_GET) && array_key_exists('cp_contact_form_paypal_post',$_GET)) {
+        if ($_GET["cp_contact_form_paypal_post"] == 'loadcoupons')   
+            cp_contactformpp_load_discount_codes();    
+    }    
         
         
     if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_contactformpp_post_options'] ) && is_admin() )
@@ -569,7 +571,7 @@ function cp_contact_form_paypal_check_posted_data() {
 <input type="hidden" name="return" value="<?php echo cp_contactformpp_get_option('fp_return_page', CP_CONTACTFORMPP_DEFAULT_fp_return_page); ?>">
 <input type="hidden" name="cancel_return" value="<?php echo $_POST["cp_ref_page"]; ?>" />
 <input type="hidden" name="no_note" value="1" />
-<input type="hidden" name="currency_code" value="<?php echo cp_contactformpp_get_option('currency', CP_CONTACTFORMPP_DEFAULT_CURRENCY); ?>" />
+<input type="hidden" name="currency_code" value="<?php echo strtoupper(cp_contactformpp_get_option('currency', CP_CONTACTFORMPP_DEFAULT_CURRENCY)); ?>" />
 <input type="hidden" name="lc" value="<?php echo cp_contactformpp_get_option('paypal_language', CP_CONTACTFORMPP_DEFAULT_PAYPAL_LANGUAGE); ?>" />
 <input type="hidden" name="bn" value="PP-BuyNowBF" />
 <input type="hidden" name="notify_url" value="<?php echo cp_contactformpp_get_FULL_site_url(); ?>/?cp_contactformpp_ipncheck=1&itemnumber=<?php echo $item_number; ?>" />
