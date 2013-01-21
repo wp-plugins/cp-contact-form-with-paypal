@@ -380,7 +380,7 @@ function set_cp_contactformpp_insert_publicScripts($hook) {
     wp_register_script('cp_contactformpp_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
     
     wp_enqueue_script( 'cp_contactformpp_buikder_script', 
-    plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-tabs","jquery-ui-button","jquery-ui-datepicker","query-stringify","cp_contactformpp_validate_script") );
+    plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-tabs","jquery-ui-button","jquery-ui-datepicker","query-stringify","cp_contactformpp_validate_script"), false, true );
 }
 
 function cp_contactformpp_get_site_url()
