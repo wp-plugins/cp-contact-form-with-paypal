@@ -10,6 +10,19 @@
             opt = $.extend({
                     messages: {
 	                	required: "This field is required.",
+	                	email: "Please enter a valid email(function($) {    
+    $.fn.fbuilderCFPP = function(options){
+        var opt = $.extend({},
+                {
+        			typeList:new Array({id:"ftext",name:"Single Line Text"},{id:"fnumber",name:"Number"},{id:"femail",name:"Email"},{id:"fdate",name:"Date"},{id:"ftextarea",name:"Paragraph Text"},{id:"fcheck",name:"Checkboxes"},{id:"fradio",name:"Multiple Choice"},{id:"fdropdown",name:"Dropdown"}),
+        			pub:false,
+                    title:""
+        		},options, true);
+        if (opt.pub)
+        {
+            opt = $.extend({
+                    messages: {
+	                	required: "This field is required.",
 	                	email: "Please enter a valid email address.",
 	                	datemmddyyyy: "Please enter a valid date with this format(mm/dd/yyyy)",
 	                	dateddmmyyyy: "Please enter a valid date with this format(dd/mm/yyyy)",
@@ -646,5 +659,22 @@
        this.fBuild = ffunct;
        return this;    
     }	 
+    
+	var f = $("#fbuilder").fbuilderCFPP($.parseJSON(cp_contactformpp_fbuilder_config.obj));
+               f.fBuild.loadData("form_structure");
+                $("#cp_contactformpp_pform").validate({
+			        errorElement: "div",
+			        errorPlacement: function(e, element) {			                        
+                        if (element.hasClass('group')){ 
+                            element = element.parent().siblings(":last");
+                        }
+                        offset = element.offset();
+                        e.insertBefore(element)
+                        e.addClass('message');  // add a class to the wrapper
+                        e.css('position', 'absolute');
+                        e.css('left',0 );
+                        e.css('top',element.outerHeight());
+                    }
+                });    
 })(jQuery);
 $contactFormPPQuery = jQuery.noConflict();
