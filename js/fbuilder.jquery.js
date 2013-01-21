@@ -648,21 +648,24 @@
 	   return this;
 	}
 
-	var f = $("#fbuilder").fbuilderCFPP($.parseJSON(cp_contactformpp_fbuilder_config.obj));
-			   f.fBuild.loadData("form_structure");
-				$("#cp_contactformpp_pform").validate({
-					errorElement: "div",
-					errorPlacement: function(e, element) {
-						if (element.hasClass('group')){
-							element = element.parent().siblings(":last");
-						}
-						offset = element.offset();
-						e.insertBefore(element)
-						e.addClass('message');  // add a class to the wrapper
-						e.css('position', 'absolute');
-						e.css('left',0 );
-						e.css('top',element.outerHeight());
-					}
-				});
+    if (typeof cp_contactformpp_fbuilder_config != 'undefined')
+    {
+		var f = $("#fbuilder").fbuilderCFPP($.parseJSON(cp_contactformpp_fbuilder_config.obj));
+		f.fBuild.loadData("form_structure");
+		$("#cp_contactformpp_pform").validate({
+			errorElement: "div",
+			errorPlacement: function(e, element) {
+				if (element.hasClass('group')){
+					element = element.parent().siblings(":last");
+				}
+				offset = element.offset();
+				e.insertBefore(element)
+				e.addClass('message');  // add a class to the wrapper
+				e.css('position', 'absolute');
+				e.css('left',0 );
+				e.css('top',element.outerHeight());
+			}
+		});
+	}	
 })(jQuery);
 $contactFormPPQuery = jQuery.noConflict();
