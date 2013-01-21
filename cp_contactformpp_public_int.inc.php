@@ -13,64 +13,24 @@ else
     $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE );
 
 define ('CP_CONTACTFORMPP_ID',$myrows[0]->id);
-
+wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder_config', array('obj'  	=>
+'{"pub":true,"messages": {
+	                	"required": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_is_required', CP_CONTACTFORMPP_DEFAULT_vs_text_is_required)).'",
+	                	"email": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_is_email', CP_CONTACTFORMPP_DEFAULT_vs_text_is_email)).'",
+	                	"datemmddyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_datemmddyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_datemmddyyyy)).'",
+	                	"dateddmmyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_dateddmmyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_dateddmmyyyy)).'",
+	                	"number": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_number', CP_CONTACTFORMPP_DEFAULT_vs_text_number)).'",
+	                	"digits": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_digits', CP_CONTACTFORMPP_DEFAULT_vs_text_digits)).'",
+	                	"max": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_max', CP_CONTACTFORMPP_DEFAULT_vs_text_max)).'",
+	                	"min": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_min', CP_CONTACTFORMPP_DEFAULT_vs_text_min)).'"
+	                }}'
+));
 ?>
 </p>
 <link href="<?php echo plugins_url('css/stylepublic.css', __FILE__); ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__); ?>" type="text/css" rel="stylesheet" />
 
 <script type="text/javascript">
-           $contactFormPPQuery(document).ready(function() {
-         	   var f = $contactFormPPQuery("#fbuilder").fbuilderCFPP({pub:true,messages: {
-	                	required: '<?php echo str_replace("'","\\'",cp_contactformpp_get_option('vs_text_is_required', CP_CONTACTFORMPP_DEFAULT_vs_text_is_required)); ?>',
-	                	email: '<?php echo str_replace("'","\\'",cp_contactformpp_get_option('vs_text_is_email', CP_CONTACTFORMPP_DEFAULT_vs_text_is_email)); ?>',
-	                	datemmddyyyy: '<?php echo str_replace("'","\\'",cp_contactformpp_get_option('vs_text_datemmddyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_datemmddyyyy)); ?>',
-	                	dateddmmyyyy: '<?php echo str_replace("'","\\'",cp_contactformpp_get_option('vs_text_dateddmmyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_dateddmmyyyy)); ?>',
-	                	number: '<?php echo str_replace("'","\\'",cp_contactformpp_get_option('vs_text_number', CP_CONTACTFORMPP_DEFAULT_vs_text_number)); ?>',
-	                	digits: '<?php echo str_replace("'","\\'",cp_contactformpp_get_option('vs_text_digits', CP_CONTACTFORMPP_DEFAULT_vs_text_digits)); ?>',
-	                	max: '<?php echo str_replace("'","\\'",cp_contactformpp_get_option('vs_text_max', CP_CONTACTFORMPP_DEFAULT_vs_text_max)); ?>',
-	                	min: '<?php echo str_replace("'","\\'",cp_contactformpp_get_option('vs_text_min', CP_CONTACTFORMPP_DEFAULT_vs_text_min)); ?>'
-	                }});
-               f.fBuild.loadData("form_structure");
-                $contactFormPPQuery("#cp_contactformpp_pform").validate({
-			        //ignore: "",
-			        errorElement: "div",
-			        errorPlacement: function(e, element) {
-                        if (element.hasClass('group')){
-                            element = element.parent().siblings(":last");
-                            //element = element.siblings(":last");
-                        }
-                        //else
-                        //    e.insertAfter(element);
-                        offset = element.offset();
-                        e.insertBefore(element)
-                        e.addClass('message');  // add a class to the wrapper
-                        e.css('position', 'absolute');
-                        e.css('left',0 );
-                        ////e.css('left', offset.left );//+ element.outerWidth()
-                        //e.css('top', offset.top+element.outerHeight()+0);
-                        e.css('top',element.outerHeight());
-                    }/**,
-                    submitHandler: function(form) {
-                        $contactFormPPQuery("#cp_contactformpp_subbtn").attr("disabled", "disabled");
-                        $contactFormPPQuery("#cp_contactformpp_subbtn_animation").show();
-                        $contactFormPPQuery.post('<?php echo cp_contactformpp_get_site_url(); ?>/', $contactFormPPQuery("#cp_contactformpp_pform").serialize(),  function(data) {
-                            if (data == "captchafailed")
-                            {
-                                 $contactFormPPQuery("#cp_contactformpp_subbtn").removeAttr("disabled");
-                                 $contactFormPPQuery("#cp_contactformpp_subbtn_animation").hide();
-                                 $contactFormPPQuery("#hdcaptcha_error").html("<?php echo esc_attr(cp_contactformpp_get_option('cv_text_enter_valid_captcha', CP_CONTACTFORMPP_DEFAULT_cv_text_enter_valid_captcha)); ?>");
-                                 $contactFormPPQuery("#hdcaptcha_error").css('top',$contactFormPPQuery("#hdcaptcha").outerHeight());
-                                 $contactFormPPQuery("#hdcaptcha_error").css("display","inline");
-                                 $contactFormPPQuery("#captchaimg").attr('src', $contactFormPPQuery("#captchaimg").attr('src')+'&'+Date());
-                            }
-                            else
-                                document.location.href='<?php echo cp_contactformpp_get_option('fp_return_page', CP_CONTACTFORMPP_DEFAULT_fp_return_page); ?>';
-                        });
-                        return false;
-                    }*/
-                });
-           });
  function doValidate(form)
  {
     document.cp_contactformpp_pform.cp_ref_page.value = document.location;
