@@ -34,7 +34,7 @@ wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder
  function doValidate(form)
  {
     document.cp_contactformpp_pform.cp_ref_page.value = document.location;
-    <?php if (cp_contactformpp_get_option('dexcv_enable_captcha', TDE_APP_DEFAULT_dexcv_enable_captcha) != 'false') { ?> if (form.hdcaptcha_cp_contact_form_paypal_post.value == '')
+    <?php if (cp_contactformpp_get_option('cv_enable_captcha', CP_CONTACTFORMPP_DEFAULT_cv_enable_captcha) != 'false') { ?> if (form.hdcaptcha_cp_contact_form_paypal_post.value == '')
     {
         alert('<?php _e('Please enter the captcha verification code.'); ?>');
         return false;
@@ -52,7 +52,7 @@ wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder
         alert('<?php _e('Incorrect captcha code. Please try again.'); ?>');
         return false;
     }
-    else <?php } ?>
+    else <?php } ?>    
         return true;
  }
 </script>
