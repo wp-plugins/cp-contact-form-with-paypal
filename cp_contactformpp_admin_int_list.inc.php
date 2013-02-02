@@ -39,8 +39,8 @@ if (isset($_GET['a']) && $_GET['a'] == '1')
                                       
                                       'enable_paypal' => get_option('enable_paypal', CP_CONTACTFORMPP_DEFAULT_ENABLE_PAYPAL),
                                       'paypal_email' => get_option('paypal_email', CP_CONTACTFORMPP_DEFAULT_PAYPAL_EMAIL),
-                                      'request_cost' => get_option('request_cost', CP_CONTACTFORMPP_DEFAULT_PRODUCT_NAME),
-                                      'paypal_product_name' => get_option('paypal_product_name', CP_CONTACTFORMPP_DEFAULT_COST),
+                                      'request_cost' => get_option('request_cost', CP_CONTACTFORMPP_DEFAULT_COST),
+                                      'paypal_product_name' => get_option('paypal_product_name',CP_CONTACTFORMPP_DEFAULT_PRODUCT_NAME ),
                                       'currency' => get_option('currency', CP_CONTACTFORMPP_DEFAULT_CURRENCY),
                                       'paypal_language' => get_option('paypal_language', CP_CONTACTFORMPP_DEFAULT_PAYPAL_LANGUAGE),                                         
 
