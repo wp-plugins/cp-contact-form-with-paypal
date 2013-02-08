@@ -363,9 +363,13 @@ function set_cp_contactformpp_insert_button() {
 }
 
 function set_cp_contactformpp_insert_adminScripts($hook) {
-    wp_deregister_script('query-stringify');
-    wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
-    wp_enqueue_script( 'cp_contactformpp_buikder_script', plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-sortable","jquery-ui-tabs","jquery-ui-droppable","jquery-ui-button","query-stringify") );
+    if ($_GET["page"] == "cp_contact_form_paypal")
+    {    
+        wp_deregister_script('query-stringify');
+        wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
+        wp_enqueue_script( 'cp_contactformpp_buikder_script', plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-sortable","jquery-ui-tabs","jquery-ui-droppable","jquery-ui-button","jquery-ui-datepicker","query-stringify") );
+        wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
+    }
 
     if( 'post.php' != $hook  && 'post-new.php' != $hook )
         return;
