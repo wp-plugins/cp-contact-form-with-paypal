@@ -15,6 +15,7 @@ License: GPL
 
 // CP Contact Form with Paypal constants
 
+define('CP_CONTACTFORMPP_DEFAULT_CURRENCY_SYMBOL','$');
 
 define('CP_CONTACTFORMPP_DEFAULT_form_structure', '[[{"name":"email","index":0,"title":"Email","ftype":"femail","userhelp":"","csslayout":"","required":true,"predefined":"","size":"medium"},{"name":"subject","index":1,"title":"Subject","required":true,"ftype":"ftext","userhelp":"","csslayout":"","predefined":"","size":"medium"},{"name":"message","index":2,"size":"large","required":true,"title":"Message","ftype":"ftextarea","userhelp":"","csslayout":"","predefined":""}],[{"title":"Contact Form","description":"","formlayout":"top_aligned"}]]');
 
@@ -56,6 +57,9 @@ define('CP_CONTACTFORMPP_DEFAULT_cv_text_enter_valid_captcha', 'Please enter a v
 
 
 define('CP_CONTACTFORMPP_DEFAULT_ENABLE_PAYPAL', 1);
+define('CP_CONTACTFORMPP_DEFAULT_PAYPAL_MODE', 'production');
+define('CP_CONTACTFORMPP_DEFAULT_PAYPAL_RECURRENT', '0');
+define('CP_CONTACTFORMPP_DEFAULT_PAYPAL_IDENTIFY_PRICES', '0');
 define('CP_CONTACTFORMPP_DEFAULT_PAYPAL_EMAIL','put_your@email_here.com');
 define('CP_CONTACTFORMPP_DEFAULT_PRODUCT_NAME','Reservation');
 define('CP_CONTACTFORMPP_DEFAULT_COST','25');
@@ -175,6 +179,9 @@ function _cp_contactformpp_install() {
          paypal_product_name varchar(255) DEFAULT '' NOT NULL,
          currency varchar(10) DEFAULT '' NOT NULL,
          paypal_language varchar(10) DEFAULT '' NOT NULL,
+         paypal_mode varchar(20) DEFAULT '' NOT NULL,
+         paypal_recurrent varchar(20) DEFAULT '' NOT NULL ,
+         paypal_identify_prices varchar(20) DEFAULT '' NOT NULL ,         
 
          cv_enable_captcha VARCHAR(20) DEFAULT '' NOT NULL,
          cv_width VARCHAR(20) DEFAULT '' NOT NULL,
@@ -229,7 +236,10 @@ function _cp_contactformpp_install() {
                                       'paypal_product_name' => cp_contactformpp_get_option('paypal_product_name', CP_CONTACTFORMPP_DEFAULT_PRODUCT_NAME),
                                       'currency' => cp_contactformpp_get_option('currency', CP_CONTACTFORMPP_DEFAULT_CURRENCY),
                                       'paypal_language' => cp_contactformpp_get_option('paypal_language', CP_CONTACTFORMPP_DEFAULT_PAYPAL_LANGUAGE),                                      
-
+                                      'paypal_mode' => cp_contactformpp_get_option('paypal_mode', CP_CONTACTFORMPP_DEFAULT_PAYPAL_MODE),
+                                      'paypal_recurrent' => cp_contactformpp_get_option('paypal_recurrent', CP_CONTACTFORMPP_DEFAULT_PAYPAL_RECURRENT),
+                                      'paypal_identify_prices' => cp_contactformpp_get_option('paypal_identify_prices', CP_CONTACTFORMPP_DEFAULT_PAYPAL_IDENTIFY_PRICES),
+                                      
                                       'cv_enable_captcha' => cp_contactformpp_get_option('cv_enable_captcha', CP_CONTACTFORMPP_DEFAULT_cv_enable_captcha),
                                       'cv_width' => cp_contactformpp_get_option('cv_width', CP_CONTACTFORMPP_DEFAULT_cv_width),
                                       'cv_height' => cp_contactformpp_get_option('cv_height', CP_CONTACTFORMPP_DEFAULT_cv_height),
@@ -532,9 +542,10 @@ function cp_contact_form_paypal_check_posted_data() {
     $buffer = "";
     foreach ($_POST as $item => $value)
         if (isset($fields[$item]))
+        {
             $buffer .= $fields[$item] . ": ". (is_array($value)?(implode(", ",$value)):($value)) . "\n\n";
-        else if (isset($fields[str_replace("_"," ",$item)]))
-            $buffer .= $fields[str_replace("_"," ",$item)] . ": ". (is_array($value)?(implode(", ",$value)):($value)) . "\n\n";
+            $params[$item] = $value;
+        }
     $buffer_A = $buffer;
     
     // insert into database
@@ -544,6 +555,7 @@ function cp_contact_form_paypal_check_posted_data() {
                                                                         'time' => current_time('mysql'),
                                                                         'ipaddr' => $_SERVER['REMOTE_ADDR'],
                                                                         'notifyto' => $_POST[$to],
+                                                                        'paypal_post' => serialize($params),
                                                                         'data' =>$buffer_A .($coupon?"\n\nCoupon code:".$coupon->code.$discount_note:"")                                                                        
                                                                          ) );
     if (!$rows_affected)
@@ -618,7 +630,7 @@ function cp_contactformpp_check_IPN_verification() {
 
 	if ($payment_type == 'echeck' && $payment_status != 'Pending')
 	    return;
-  
+
 	$str = '';    
     if ($_POST["first_name"]) $str .= 'Buyer: '.$_POST["first_name"]." ".$_POST["last_name"]."\n";	    
     if ($_POST["payer_email"]) $str .= 'Payer email: '.$_POST["payer_email"]."\n";
@@ -636,8 +648,11 @@ function cp_contactformpp_check_IPN_verification() {
 	if ($_POST["business"]) $str .= 'Business: '.$_POST["business"]."\n";
 	if ($_POST["receiver_email"]) $str .= 'Receiver email: '.$_POST["receiver_email"]."\n";	    
       
+    $myrows = $wpdb->get_results( "SELECT * FROM ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." WHERE id=".$_GET['itemnumber'] );
+    $params = unserialize($myrows[0]->paypal_post);      
+    
     $wpdb->query("UPDATE ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." SET paid=1,paypal_post='".$wpdb->escape($str)."' WHERE id=".$_GET['itemnumber']); 
-    cp_contactformpp_process_ready_to_go_reservation($_GET["itemnumber"], $payer_email);
+    cp_contactformpp_process_ready_to_go_reservation($_GET["itemnumber"], $payer_email, $params);
 
     echo 'OK';
 
@@ -646,7 +661,7 @@ function cp_contactformpp_check_IPN_verification() {
 }    
     
     
-function cp_contactformpp_process_ready_to_go_reservation($itemnumber, $payer_email = "")
+function cp_contactformpp_process_ready_to_go_reservation($itemnumber, $payer_email = "", $params = array())
 {    
 
    global $wpdb;
@@ -672,6 +687,12 @@ function cp_contactformpp_process_ready_to_go_reservation($itemnumber, $payer_em
     // 1- Send email
     //---------------------------
     $message = str_replace('<%INFO%>',$buffer,cp_contactformpp_get_option('fp_message', CP_CONTACTFORMPP_DEFAULT_fp_message));
+    foreach ($params as $item => $value)        
+    {
+        $message = str_replace('<%'.$item.'%>',(is_array($value)?(implode(", ",$value)):($value)),$message);    
+        if (strpos($item,"_link"))
+            $attachments[] = $value;
+    }      
     $subject = cp_contactformpp_get_option('fp_subject', CP_CONTACTFORMPP_DEFAULT_fp_subject);
     $from = cp_contactformpp_get_option('fp_from_email', CP_CONTACTFORMPP_DEFAULT_fp_from_email);
     $to = explode(",",cp_contactformpp_get_option('fp_destination_emails', CP_CONTACTFORMPP_DEFAULT_fp_destination_emails));
@@ -692,6 +713,8 @@ function cp_contactformpp_process_ready_to_go_reservation($itemnumber, $payer_em
     if (trim($_POST[$to]) != '' || $payer_email != '' && 'true' == cp_contactformpp_get_option('cu_enable_copy_to_user', CP_CONTACTFORMPP_DEFAULT_cu_enable_copy_to_user))
     {
         $message = str_replace('<%INFO%>',$buffer_A,cp_contactformpp_get_option('cu_message', CP_CONTACTFORMPP_DEFAULT_cu_message));
+        foreach ($params as $item => $value)        
+            $message = str_replace('<%'.$item.'%>',(is_array($value)?(implode(", ",$value)):($value)),$message);        
         $subject = cp_contactformpp_get_option('cu_subject', CP_CONTACTFORMPP_DEFAULT_cu_subject);
         if ($_POST[$to] != '')  
             wp_mail(trim($_POST[$to]), $subject, $message,

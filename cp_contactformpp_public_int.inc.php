@@ -29,7 +29,6 @@ wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder
 </p>
 <link href="<?php echo plugins_url('css/stylepublic.css', __FILE__); ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__); ?>" type="text/css" rel="stylesheet" />
-
 <script type="text/javascript">
  function doValidate(form)
  {
@@ -61,25 +60,12 @@ wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder
   <input type="hidden" name="cp_contactformpp_pform_process" value="1" />
   <input type="hidden" name="cp_contactformpp_id" value="<?php echo CP_CONTACTFORMPP_ID; ?>" />
   <input type="hidden" name="cp_ref_page" value="<?php esc_attr(cp_contactformpp_get_FULL_site_url); ?>" />
-
   <input type="hidden" name="form_structure" id="form_structure" size="180" value="<?php echo str_replace("\r","",str_replace("\n","",esc_attr(cp_contactformpp_cleanJSON(cp_contactformpp_get_option('form_structure', CP_CONTACTFORMPP_DEFAULT_form_structure))))); ?>" />
-
-
     <div id="fbuilder">
         <div id="formheader"></div>
         <div id="fieldlist"></div>
     </div>
-
-<?php
-     $codes = $wpdb->get_results( 'SELECT * FROM '.CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME.' WHERE `form_id`='.CP_CONTACTFORMPP_ID);
-     if (count($codes))
-     {
-?>
-         <?php _e('Coupon code (optional)'); ?>:<br />
-         <input type="text" name="couponcode" value=""><br />
-<?php } ?>
-  <br />
-
+<br />
 <?php if (cp_contactformpp_get_option('cv_enable_captcha', CP_CONTACTFORMPP_DEFAULT_cv_enable_captcha) != 'false') { ?>
   Please enter the security code:<br />
   <img src="<?php echo plugins_url('/captcha/captcha.php?width='.cp_contactformpp_get_option('cv_width', CP_CONTACTFORMPP_DEFAULT_cv_width).'&height='.cp_contactformpp_get_option('cv_height', CP_CONTACTFORMPP_DEFAULT_cv_height).'&letter_count='.cp_contactformpp_get_option('cv_chars', CP_CONTACTFORMPP_DEFAULT_cv_chars).'&min_size='.cp_contactformpp_get_option('cv_min_font_size', CP_CONTACTFORMPP_DEFAULT_cv_min_font_size).'&max_size='.cp_contactformpp_get_option('cv_max_font_size', CP_CONTACTFORMPP_DEFAULT_cv_max_font_size).'&noise='.cp_contactformpp_get_option('cv_noise', CP_CONTACTFORMPP_DEFAULT_cv_noise).'&noiselength='.cp_contactformpp_get_option('cv_noise_length', CP_CONTACTFORMPP_DEFAULT_cv_noise_length).'&bcolor='.cp_contactformpp_get_option('cv_background', CP_CONTACTFORMPP_DEFAULT_cv_background).'&border='.cp_contactformpp_get_option('cv_border', CP_CONTACTFORMPP_DEFAULT_cv_border).'&font='.cp_contactformpp_get_option('cv_font', CP_CONTACTFORMPP_DEFAULT_cv_font), __FILE__); ?>"  id="captchaimg" alt="security code" border="0"  />
@@ -91,11 +77,5 @@ wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder
   </div>
   <br />
 <?php } ?>
-
 <input type="submit" class="submit" name="cp_contactformpp_subbtn" id="cp_contactformpp_subbtn" value="<?php _e("Submit"); ?>">
-
-<div style="display:none" id="cp_contactformpp_subbtn_animation" style="background:#ffffff;width:18;height:18;padding:1px;">
- <img src="<?php echo plugins_url('/images/loading.gif', __FILE__); ?>" width="16" height="16" alt="loading" />
-</div>
-
 </form>

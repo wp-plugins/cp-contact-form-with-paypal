@@ -24,7 +24,7 @@ This WordPress plugin is useful for different types of contact forms, booking fo
 
 * Supports many **contact forms** into the same WP website, each one with its own prices and settings.
 * Allows checking the **messages** for both paid and un-paid submissions sent from the contact form.
-* You can **customize the notification email** details, including from address, subject and content.
+* You can **customize the notification email** details, including from address, subject and content with the contact form fields.
 * The website administrator receives an **email notification** of the paid contact message.
 * The customer receives a **"thank you - confirmation" message**.
 * **Easy setup** of the PayPal payment, basically just indicate the price and email linked to the PayPal account. There are optional fields for language and currency settings.

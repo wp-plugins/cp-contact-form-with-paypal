@@ -80,6 +80,11 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_contactformpp_pos
         </tr>    
     
         <tr valign="top">        
+        <th scope="row">Paypal Mode (Production/Sandbox)</th>
+        <td><em>Production</em></td>
+        </tr>
+            
+        <tr valign="top">        
         <th scope="row">Paypal email</th>
         <td><input type="text" name="paypal_email" size="40" value="<?php echo esc_attr(cp_contactformpp_get_option('paypal_email',CP_CONTACTFORMPP_DEFAULT_PAYPAL_EMAIL)); ?>" /></td>
         </tr>
@@ -87,8 +92,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_contactformpp_pos
         <tr valign="top">
         <th scope="row">Request cost</th>
         <td><input type="text" name="request_cost" value="<?php echo esc_attr(cp_contactformpp_get_option('request_cost',CP_CONTACTFORMPP_DEFAULT_COST)); ?>" /></td>
-        </tr>
-        
+        </tr>         
         
         <tr valign="top">
         <th scope="row">Paypal product name</th>
@@ -104,6 +108,16 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_contactformpp_pos
         <th scope="row">Paypal language</th>
         <td><input type="text" name="paypal_language" value="<?php echo esc_attr(cp_contactformpp_get_option('paypal_language',CP_CONTACTFORMPP_DEFAULT_PAYPAL_LANGUAGE)); ?>" /></td>
         </tr>  
+        
+        <tr valign="top">        
+        <th scope="row">Automatically identify prices on dropdown and checkboxes?</th>
+        <td><em>N/A</em></td>
+        </tr>       
+                
+        <tr valign="top">        
+        <th scope="row">Payment frequency (one-time/recurrent-subscription)</th>
+        <td><em>One time payment</em></td>
+        </tr>        
         
         <tr valign="top">
         <th scope="row">Discount Codes</th>
@@ -175,7 +189,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_contactformpp_pos
 
      </script>
      
-     <div style="background:#fafafa;width:780px;">
+     <div style="background:#fafafa;width:780px;" class="form-builder">
      
          <div class="column width50">
              <div id="tabs">
