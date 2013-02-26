@@ -146,7 +146,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
                              <input type="button" name="calmanage_<?php echo $item->id; ?>" value="Messages" onclick="cp_viewMessages(<?php echo $item->id; ?>);" /> &nbsp;                              
                              <input type="button" name="caldelete_<?php echo $item->id; ?>" value="Delete" onclick="cp_deleteItem(<?php echo $item->id; ?>);" />                             
     </td>
-    <td nowrap>[CP_CONTACT_FORM_PAYPAL form="<?php echo $item->id; ?>"]</td>          
+    <td nowrap>[CP_CONTACT_FORM_PAYPAL id="<?php echo $item->id; ?>"]</td>          
    </tr>
 <?php  
    } 

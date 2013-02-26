@@ -281,18 +281,18 @@ function cp_contactformpp_filter_content($content) {
         $forms = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE );
         foreach ($forms as $form)
         {
-            $shorttag =  "[CP_CONTACT_FORM_PAYPAL form=\"".$form->id."\"]";
+            $shorttag =  "[CP_CONTACT_FORM_PAYPAL id=\"".$form->id."\"]";
             if (strpos($content, $shorttag) !== false)
             {
-                $shorttag_sel =  "[CP_CONTACT_FORM_PAYPAL form=\"".$form->id."\"]";
+                $shorttag_sel =  "[CP_CONTACT_FORM_PAYPAL id=\"".$form->id."\"]";
                 define ('CP_CONTACTFORMPP_ID',$form->id);
             }
             else
             {
-                $shorttag =  "[CP_CONTACT_FORM_PAYPAL form=".$form->id."]";
+                $shorttag =  "[CP_CONTACT_FORM_PAYPAL id=".$form->id."]";
                 if (strpos($content, $shorttag) !== false)
                 {
-                    $shorttag_sel =  "[CP_CONTACT_FORM_PAYPAL form=".$form->id."]";
+                    $shorttag_sel =  "[CP_CONTACT_FORM_PAYPAL id=".$form->id."]";
                     define ('CP_CONTACTFORMPP_ID',$form->id);
                 }
             }
@@ -710,7 +710,7 @@ function cp_contactformpp_process_ready_to_go_reservation($itemnumber, $payer_em
     //---------------------------
     $to = cp_contactformpp_get_option('cu_user_email_field', CP_CONTACTFORMPP_DEFAULT_cu_user_email_field);    
     $_POST[$to] = $myrows[0]->notifyto;
-    if (trim($_POST[$to]) != '' || $payer_email != '' && 'true' == cp_contactformpp_get_option('cu_enable_copy_to_user', CP_CONTACTFORMPP_DEFAULT_cu_enable_copy_to_user))
+    if ((trim($_POST[$to]) != '' || $payer_email != '') && 'true' == cp_contactformpp_get_option('cu_enable_copy_to_user', CP_CONTACTFORMPP_DEFAULT_cu_enable_copy_to_user))
     {
         $message = str_replace('<%INFO%>',$buffer_A,cp_contactformpp_get_option('cu_message', CP_CONTACTFORMPP_DEFAULT_cu_message));
         foreach ($params as $item => $value)        
