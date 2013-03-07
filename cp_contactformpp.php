@@ -28,6 +28,7 @@ define('CP_CONTACTFORMPP_DEFAULT_cu_enable_copy_to_user', 'true');
 define('CP_CONTACTFORMPP_DEFAULT_cu_user_email_field', '');
 define('CP_CONTACTFORMPP_DEFAULT_cu_subject', 'Confirmation: Message received...');
 define('CP_CONTACTFORMPP_DEFAULT_cu_message', "Thank you for your message. We will reply you as soon as possible.\n\nThis is a copy of the data sent:\n\n<%INFO%>\n\nBest Regards.");
+define('CP_CONTACTFORMPP_DEFAULT_email_format','text');
 
 define('CP_CONTACTFORMPP_DEFAULT_vs_use_validation', 'true');
 
@@ -60,6 +61,7 @@ define('CP_CONTACTFORMPP_DEFAULT_ENABLE_PAYPAL', 1);
 define('CP_CONTACTFORMPP_DEFAULT_PAYPAL_MODE', 'production');
 define('CP_CONTACTFORMPP_DEFAULT_PAYPAL_RECURRENT', '0');
 define('CP_CONTACTFORMPP_DEFAULT_PAYPAL_IDENTIFY_PRICES', '0');
+define('CP_CONTACTFORMPP_DEFAULT_PAYPAL_ZERO_PAYMENT', '0');
 define('CP_CONTACTFORMPP_DEFAULT_PAYPAL_EMAIL','put_your@email_here.com');
 define('CP_CONTACTFORMPP_DEFAULT_PRODUCT_NAME','Reservation');
 define('CP_CONTACTFORMPP_DEFAULT_COST','25');
@@ -67,7 +69,7 @@ define('CP_CONTACTFORMPP_DEFAULT_CURRENCY','USD');
 define('CP_CONTACTFORMPP_DEFAULT_PAYPAL_LANGUAGE','EN');
 
 
-// databas
+// database
 define('CP_CONTACTFORMPP_FORMS_TABLE', 'cp_contact_form_paypal_settings');
 
 define('CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME_NO_PREFIX', "cp_contact_form_paypal_discount_codes");
@@ -80,9 +82,33 @@ define('CP_CONTACTFORMPP_POSTS_TABLE_NAME', $wpdb->prefix ."cp_contact_form_payp
 // end CP Contact Form with Paypal constants
 
 
-register_activation_hook(__FILE__,'cp_contactformpp_install');
-register_deactivation_hook( __FILE__, 'cp_contactformpp_remove' );
+// code initialization, hooks
+// -----------------------------------------
 
+register_activation_hook(__FILE__,'cp_contactformpp_install');
+
+add_action( 'init', 'cp_contact_form_paypal_check_posted_data', 11 );
+
+
+if ( is_admin() ) {
+    add_action('media_buttons', 'set_cp_contactformpp_insert_button', 100);
+    add_action('admin_enqueue_scripts', 'set_cp_contactformpp_insert_adminScripts', 1);
+    add_action('admin_menu', 'cp_contactformpp_admin_menu');    
+
+    $plugin = plugin_basename(__FILE__);
+    add_filter("plugin_action_links_".$plugin, 'cp_contactformpp_customAdjustmentsLink');
+    add_filter("plugin_action_links_".$plugin, 'cp_contactformpp_settingsLink');
+    add_filter("plugin_action_links_".$plugin, 'cp_contactformpp_helpLink');
+
+    function cp_contactformpp_admin_menu() {
+        add_options_page('CP Contact Form with Paypal Options', 'CP Contact Form with Paypal', 'manage_options', 'cp_contact_form_paypal', 'cp_contactformpp_html_post_page' );
+    }
+} else { // if not admin    
+    add_shortcode( 'CP_CONTACT_FORM_PAYPAL', 'cp_contactformpp_filter_content' );
+}
+
+// functions
+//------------------------------------------
 
 function cp_contactformpp_install($networkwide)  {
 	global $wpdb;
@@ -157,11 +183,13 @@ function _cp_contactformpp_install() {
          fp_inc_additional_info VARCHAR(10) DEFAULT '' NOT NULL,
          fp_return_page VARCHAR(250) DEFAULT '' NOT NULL,
          fp_message text DEFAULT '' NOT NULL,
+         fp_emailformat VARCHAR(10) DEFAULT '' NOT NULL,         
 
          cu_enable_copy_to_user VARCHAR(10) DEFAULT '' NOT NULL,
          cu_user_email_field VARCHAR(250) DEFAULT '' NOT NULL,
          cu_subject VARCHAR(250) DEFAULT '' NOT NULL,
          cu_message text DEFAULT '' NOT NULL,
+         cp_emailformat VARCHAR(10) DEFAULT '' NOT NULL,         
 
          vs_use_validation VARCHAR(10) DEFAULT '' NOT NULL,
          vs_text_is_required VARCHAR(250) DEFAULT '' NOT NULL,
@@ -182,7 +210,8 @@ function _cp_contactformpp_install() {
          paypal_mode varchar(20) DEFAULT '' NOT NULL,
          paypal_recurrent varchar(20) DEFAULT '' NOT NULL ,
          paypal_identify_prices varchar(20) DEFAULT '' NOT NULL ,         
-
+         paypal_zero_payment varchar(10) DEFAULT '' NOT NULL ,
+         
          cv_enable_captcha VARCHAR(20) DEFAULT '' NOT NULL,
          cv_width VARCHAR(20) DEFAULT '' NOT NULL,
          cv_height VARCHAR(20) DEFAULT '' NOT NULL,
@@ -214,11 +243,13 @@ function _cp_contactformpp_install() {
                                       'fp_inc_additional_info' => cp_contactformpp_get_option('fp_inc_additional_info', CP_CONTACTFORMPP_DEFAULT_fp_inc_additional_info),
                                       'fp_return_page' => cp_contactformpp_get_option('fp_return_page', CP_CONTACTFORMPP_DEFAULT_fp_return_page),
                                       'fp_message' => cp_contactformpp_get_option('fp_message', CP_CONTACTFORMPP_DEFAULT_fp_message),
+                                      'fp_emailformat' => cp_contactformpp_get_option('fp_emailformat', CP_CONTACTFORMPP_DEFAULT_email_format),
 
                                       'cu_enable_copy_to_user' => cp_contactformpp_get_option('cu_enable_copy_to_user', CP_CONTACTFORMPP_DEFAULT_cu_enable_copy_to_user),
                                       'cu_user_email_field' => cp_contactformpp_get_option('cu_user_email_field', CP_CONTACTFORMPP_DEFAULT_cu_user_email_field),
                                       'cu_subject' => cp_contactformpp_get_option('cu_subject', CP_CONTACTFORMPP_DEFAULT_cu_subject),
                                       'cu_message' => cp_contactformpp_get_option('cu_message', CP_CONTACTFORMPP_DEFAULT_cu_message),
+                                      'cp_emailformat' => cp_contactformpp_get_option('cp_emailformat', CP_CONTACTFORMPP_DEFAULT_email_format),
 
                                       'vs_use_validation' => cp_contactformpp_get_option('vs_use_validation', CP_CONTACTFORMPP_DEFAULT_vs_use_validation),
                                       'vs_text_is_required' => cp_contactformpp_get_option('vs_text_is_required', CP_CONTACTFORMPP_DEFAULT_vs_text_is_required),
@@ -239,6 +270,7 @@ function _cp_contactformpp_install() {
                                       'paypal_mode' => cp_contactformpp_get_option('paypal_mode', CP_CONTACTFORMPP_DEFAULT_PAYPAL_MODE),
                                       'paypal_recurrent' => cp_contactformpp_get_option('paypal_recurrent', CP_CONTACTFORMPP_DEFAULT_PAYPAL_RECURRENT),
                                       'paypal_identify_prices' => cp_contactformpp_get_option('paypal_identify_prices', CP_CONTACTFORMPP_DEFAULT_PAYPAL_IDENTIFY_PRICES),
+                                      'paypal_zero_payment' => cp_contactformpp_get_option('paypal_zero_payment', CP_CONTACTFORMPP_DEFAULT_PAYPAL_ZERO_PAYMENT),
                                       
                                       'cv_enable_captcha' => cp_contactformpp_get_option('cv_enable_captcha', CP_CONTACTFORMPP_DEFAULT_cv_enable_captcha),
                                       'cv_width' => cp_contactformpp_get_option('cv_width', CP_CONTACTFORMPP_DEFAULT_cv_width),
@@ -255,88 +287,61 @@ function _cp_contactformpp_install() {
                                      )
                       );     
     }
-
-    add_option("cp_contactformpp_data", 'Default', '', 'yes'); // Creates new database field
 }
-
-function cp_contactformpp_remove() {
-    delete_option('cp_contactformpp_data'); // Deletes the database field
-}
-
 
 /* Filter for placing the maps into the contents */
 
-add_filter('the_content','cp_contactformpp_filter_content');
 
-function cp_contactformpp_filter_content($content) {
-
+function cp_contactformpp_filter_content($atts) {
     global $wpdb;
-
-    if (strpos($content, "[CP_CONTACT_FORM_PAYPAL") !== false)
-    {
-
-        $shorttag =  "[CP_CONTACT_FORM_PAYPAL]";
-        $shorttag_sel =  "[CP_CONTACT_FORM_PAYPAL]";
-        
-        $forms = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE );
-        foreach ($forms as $form)
-        {
-            $shorttag =  "[CP_CONTACT_FORM_PAYPAL id=\"".$form->id."\"]";
-            if (strpos($content, $shorttag) !== false)
-            {
-                $shorttag_sel =  "[CP_CONTACT_FORM_PAYPAL id=\"".$form->id."\"]";
-                define ('CP_CONTACTFORMPP_ID',$form->id);
-            }
-            else
-            {
-                $shorttag =  "[CP_CONTACT_FORM_PAYPAL id=".$form->id."]";
-                if (strpos($content, $shorttag) !== false)
-                {
-                    $shorttag_sel =  "[CP_CONTACT_FORM_PAYPAL id=".$form->id."]";
-                    define ('CP_CONTACTFORMPP_ID',$form->id);
-                }
-            }
-        }
-   
-
-        ob_start();
-        define('CP_AUTH_INCLUDE', true);
-        @include dirname( __FILE__ ) . '/cp_contactformpp_public_int.inc.php';
-        $buffered_contents = ob_get_contents();
-        ob_end_clean();
-
-        $content = str_replace($shorttag_sel, $buffered_contents, $content);
-    }
-    return $content;
-}
-
-function cp_contactformpp_show_booking_form($id = "")
-{
+    extract( shortcode_atts( array(
+		'id' => '',
+	), $atts ) );
     if ($id != '')
         define ('CP_CONTACTFORMPP_ID',$id);
+    ob_start();
+    cp_contactformpp_get_public_form();
+    $buffered_contents = ob_get_contents();
+    ob_end_clean();
+    return $buffered_contents;
+}
+
+
+function cp_contactformpp_get_public_form() {
+    global $wpdb;
     define('CP_AUTH_INCLUDE', true);
-    @include dirname( __FILE__ ) . '/cp_contactformpp_public_int.inc.php';    
+
+    if (defined('CP_CONTACTFORMPP_ID'))
+        $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE." WHERE id=".CP_CONTACTFORMPP_ID );
+    else
+        $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE );
+
+    wp_deregister_script('query-stringify');
+    wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
+
+    wp_deregister_script('cp_contactformpp_validate_script');
+    wp_register_script('cp_contactformpp_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
+
+    wp_enqueue_script( 'cp_contactformpp_buikder_script',
+    plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-datepicker","query-stringify","cp_contactformpp_validate_script"), false, true );
+
+    define ('CP_CONTACTFORMPP_ID',$myrows[0]->id);
+    wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder_config', array('obj'  	=>
+    '{"pub":true,"messages": {
+    	                	"required": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_is_required', CP_CONTACTFORMPP_DEFAULT_vs_text_is_required)).'",
+    	                	"email": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_is_email', CP_CONTACTFORMPP_DEFAULT_vs_text_is_email)).'",
+    	                	"datemmddyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_datemmddyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_datemmddyyyy)).'",
+    	                	"dateddmmyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_dateddmmyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_dateddmmyyyy)).'",
+    	                	"number": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_number', CP_CONTACTFORMPP_DEFAULT_vs_text_number)).'",
+    	                	"digits": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_digits', CP_CONTACTFORMPP_DEFAULT_vs_text_digits)).'",
+    	                	"max": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_max', CP_CONTACTFORMPP_DEFAULT_vs_text_max)).'",
+    	                	"min": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_min', CP_CONTACTFORMPP_DEFAULT_vs_text_min)).'"
+    	                }}'
+    ));
+    $codes = $wpdb->get_results( 'SELECT * FROM '.CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME.' WHERE `form_id`='.CP_CONTACTFORMPP_ID);
+    @include dirname( __FILE__ ) . '/cp_contactformpp_public_int.inc.php';
 }
 
-
-/* Code for the admin area */
-
-if ( is_admin() ) {
-    add_action('media_buttons', 'set_cp_contactformpp_insert_button', 100);
-    add_action('admin_enqueue_scripts', 'set_cp_contactformpp_insert_adminScripts', 1);
-    add_action('admin_menu', 'cp_contactformpp_admin_menu');    
-
-    $plugin = plugin_basename(__FILE__);
-    add_filter("plugin_action_links_".$plugin, 'cp_contactformpp_customAdjustmentsLink');
-    add_filter("plugin_action_links_".$plugin, 'cp_contactformpp_settingsLink');
-    add_filter("plugin_action_links_".$plugin, 'cp_contactformpp_helpLink');
-
-    function cp_contactformpp_admin_menu() {
-        add_options_page('CP Contact Form with Paypal Options', 'CP Contact Form with Paypal', 'manage_options', 'cp_contact_form_paypal', 'cp_contactformpp_html_post_page' );
-    }
-} else { // if not admin
-    add_action('wp_enqueue_scripts', 'set_cp_contactformpp_insert_publicScripts');
-}
 
 function cp_contactformpp_settingsLink($links) {
     $settings_link = '<a href="options-general.php?page=cp_contact_form_paypal">'.__('Settings').'</a>';
@@ -344,17 +349,25 @@ function cp_contactformpp_settingsLink($links) {
 	return $links;
 }
 
+
 function cp_contactformpp_helpLink($links) {
     $help_link = '<a href="http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal">'.__('Help').'</a>';
 	array_unshift($links, $help_link);
 	return $links;
 }
 
+
 function cp_contactformpp_customAdjustmentsLink($links) {
     $customAdjustments_link = '<a href="http://wordpress.dwbooster.com/contact-us">'.__('Request custom changes').'</a>';
 	array_unshift($links, $customAdjustments_link);
 	return $links;
 }
+
+
+function set_cp_contactformpp_insert_button() {
+    print '<a href="javascript:cp_contactformpp_insertForm();" title="'.__('Insert CP Contact Form with Paypal').'"><img hspace="5" src="'.plugins_url('/images/cp_form.gif', __FILE__).'" alt="'.__('Insert CP Contact Form with Paypal').'" /></a>';
+}
+
 
 function cp_contactformpp_html_post_page() {
     if ($_GET["cal"] != '')
@@ -368,9 +381,6 @@ function cp_contactformpp_html_post_page() {
         @include_once dirname( __FILE__ ) . '/cp_contactformpp_admin_int_list.inc.php';        
 }
 
-function set_cp_contactformpp_insert_button() {
-    print '<a href="javascript:cp_contactformpp_insertForm();" title="'.__('Insert CP Contact Form with Paypal').'"><img hspace="5" src="'.plugins_url('/images/cp_form.gif', __FILE__).'" alt="'.__('Insert CP Contact Form with Paypal').'" /></a>';
-}
 
 function set_cp_contactformpp_insert_adminScripts($hook) {
     if ($_GET["page"] == "cp_contact_form_paypal")
@@ -384,17 +394,6 @@ function set_cp_contactformpp_insert_adminScripts($hook) {
     if( 'post.php' != $hook  && 'post-new.php' != $hook )
         return;
     wp_enqueue_script( 'cp_contactformpp_script', plugins_url('/cp_contactformpp_scripts.js', __FILE__) );
-}
-
-function set_cp_contactformpp_insert_publicScripts($hook) {  
-    wp_deregister_script('query-stringify');
-    wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
-    
-    wp_deregister_script('cp_contactformpp_validate_script');
-    wp_register_script('cp_contactformpp_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
-    
-    wp_enqueue_script( 'cp_contactformpp_buikder_script', 
-    plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-tabs","jquery-ui-button","jquery-ui-datepicker","query-stringify","cp_contactformpp_validate_script"), false, true );
 }
 
 function cp_contactformpp_get_site_url()
@@ -438,6 +437,7 @@ function cp_contactformpp_load_discount_codes() {
         $wpdb->insert( CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME, array('form_id' => CP_CONTACTFORMPP_ID,
                                                                          'code' => $_GET["code"],
                                                                          'discount' => $_GET["discount"],
+                                                                         'availability' => $_GET["discounttype"],
                                                                          'expires' => $_GET["expires"],
                                                                          ));     
                                                                        
@@ -450,7 +450,8 @@ function cp_contactformpp_load_discount_codes() {
         echo '<table>';
         echo '<tr>';
         echo '  <th style="padding:2px;background-color: #cccccc;font-weight:bold;">Cupon Code</th>';
-        echo '  <th style="padding:2px;background-color: #cccccc;font-weight:bold;">Discount %</th>';
+        echo '  <th style="padding:2px;background-color: #cccccc;font-weight:bold;">Discount</th>';
+        echo '  <th style="padding:2px;background-color: #cccccc;font-weight:bold;">Type</th>';
         echo '  <th style="padding:2px;background-color: #cccccc;font-weight:bold;">Valid until</th>';
         echo '  <th style="padding:2px;background-color: #cccccc;font-weight:bold;">Options</th>';
         echo '</tr>';
@@ -459,6 +460,7 @@ function cp_contactformpp_load_discount_codes() {
            echo '<tr>';
            echo '<td>'.$value->code.'</td>';
            echo '<td>'.$value->discount.'</td>';
+           echo '<td>'.($value->availability==1?"Fixed Value":"Percent").'</td>';
            echo '<td>'.substr($value->expires,0,10).'</td>';
            echo '<td>[<a href="javascript:dex_delete_coupon('.$value->id.')">Delete</a>]</td>';              
            echo '</tr>';
@@ -473,7 +475,7 @@ function cp_contactformpp_load_discount_codes() {
 
 /* hook for checking posted data for the admin area */
 
-add_action( 'init', 'cp_contact_form_paypal_check_posted_data', 11 );
+
 
 function cp_contact_form_paypal_check_posted_data() {
     
@@ -497,7 +499,7 @@ function cp_contact_form_paypal_check_posted_data() {
 
     define("CP_CONTACTFORMPP_ID",$_POST["cp_contactformpp_id"]);
 
-    session_start();
+    @session_start();
     if ($_GET['hdcaptcha_cp_contact_form_paypal_post'] == '') $_GET['hdcaptcha_cp_contact_form_paypal_post'] = $_POST['hdcaptcha_cp_contact_form_paypal_post'];
     if ( 
            (cp_contactformpp_get_option('cv_enable_captcha', CP_CONTACTFORMPP_DEFAULT_cv_enable_captcha) != 'false') &&              
@@ -527,10 +529,7 @@ function cp_contact_form_paypal_check_posted_data() {
 
     // get form info
     //---------------------------
-
-    @include_once dirname( __FILE__ ) . '/JSON.inc.php';
-    $json = new Services_JSON_cp_contact_form_pp();
-    $form_data = $json->decode(cp_contactformpp_cleanJSON(cp_contactformpp_get_option('form_structure', CP_CONTACTFORMPP_DEFAULT_form_structure)));
+    $form_data = json_decode(cp_contactformpp_cleanJSON(cp_contactformpp_get_option('form_structure', CP_CONTACTFORMPP_DEFAULT_form_structure)));
     $fields = array();
     foreach ($form_data[0] as $item)
         $fields[$item->name] = $item->title;
@@ -813,58 +812,5 @@ function cp_contactformpp_get_option ($field, $default_value)
         $value = $default_value;    
     return $value;
 }
-
-function cp_contactformpp_is_administrator()
-{
-    return current_user_can('manage_options');
-}
-
-
-
-// WIDGET CODE BELOW
-// ***********************************************************************
-
-class CP_ContactFormPP_Widget extends WP_Widget
-{
-  function CP_ContactFormPP_Widget()
-  {
-    $widget_ops = array('classname' => 'CP_ContactFormPP_Widget', 'description' => 'Displays a form integrated with Paypal' );
-    $this->WP_Widget('CP_ContactFormPP_Widget', 'CP Contact Form with Paypal', $widget_ops);
-  }
-
-  function form($instance)
-  {
-    $instance = wp_parse_args( (array) $instance, array( 'title' => '' ) );
-    $title = $instance['title'];
-    ?><p><label for="<?php echo $this->get_field_id('title'); ?>">Title: <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo attribute_escape($title); ?>" /></label></p><?php
-  }
-
-  function update($new_instance, $old_instance)
-  {
-    $instance = $old_instance;
-    $instance['title'] = $new_instance['title'];
-    return $instance;
-  }
-
-  function widget($args, $instance)
-  {
-    extract($args, EXTR_SKIP);
-
-    echo $before_widget;
-    $title = empty($instance['title']) ? ' ' : apply_filters('widget_title', $instance['title']);
-
-    if (!empty($title))
-      echo $before_title . $title . $after_title;
-
-    // WIDGET CODE GOES HERE
-    define('CP_AUTH_INCLUDE', true);
-    @include dirname( __FILE__ ) . '/cp_contactformpp_public_int.inc.php';
-
-    echo $after_widget;
-  }
-
-}
-
-add_action( 'widgets_init', create_function('', 'return register_widget("CP_ContactFormPP_Widget");') );
 
 ?>
