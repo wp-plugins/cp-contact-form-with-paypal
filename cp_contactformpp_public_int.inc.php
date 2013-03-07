@@ -1,31 +1,4 @@
-<?php
-
-if ( !defined('CP_AUTH_INCLUDE') )
-{
-    echo 'Direct access not allowed.';
-    exit;
-}
-
-global $wpdb;
-if (defined('CP_CONTACTFORMPP_ID'))
-    $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE." WHERE id=".CP_CONTACTFORMPP_ID );
-else
-    $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE );
-
-define ('CP_CONTACTFORMPP_ID',$myrows[0]->id);
-wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder_config', array('obj'  	=>
-'{"pub":true,"messages": {
-	                	"required": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_is_required', CP_CONTACTFORMPP_DEFAULT_vs_text_is_required)).'",
-	                	"email": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_is_email', CP_CONTACTFORMPP_DEFAULT_vs_text_is_email)).'",
-	                	"datemmddyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_datemmddyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_datemmddyyyy)).'",
-	                	"dateddmmyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_dateddmmyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_dateddmmyyyy)).'",
-	                	"number": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_number', CP_CONTACTFORMPP_DEFAULT_vs_text_number)).'",
-	                	"digits": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_digits', CP_CONTACTFORMPP_DEFAULT_vs_text_digits)).'",
-	                	"max": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_max', CP_CONTACTFORMPP_DEFAULT_vs_text_max)).'",
-	                	"min": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_min', CP_CONTACTFORMPP_DEFAULT_vs_text_min)).'"
-	                }}'
-));
-?>
+<?php if ( !defined('CP_AUTH_INCLUDE') ) { echo 'Direct access not allowed.';  exit; } ?>
 </p>
 <link href="<?php echo plugins_url('css/stylepublic.css', __FILE__); ?>" type="text/css" rel="stylesheet" />
 <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__); ?>" type="text/css" rel="stylesheet" />
@@ -56,7 +29,7 @@ wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder
  }
 </script>
 
-<form name="cp_contactformpp_pform" id="cp_contactformpp_pform" action="<?php get_site_url(); ?>" method="post"  onsubmit="return doValidate(this);">
+<form class="cpp_form" name="cp_contactformpp_pform" id="cp_contactformpp_pform" action="<?php get_site_url(); ?>" method="post"  onsubmit="return doValidate(this);">
   <input type="hidden" name="cp_contactformpp_pform_process" value="1" />
   <input type="hidden" name="cp_contactformpp_id" value="<?php echo CP_CONTACTFORMPP_ID; ?>" />
   <input type="hidden" name="cp_ref_page" value="<?php esc_attr(cp_contactformpp_get_FULL_site_url); ?>" />
@@ -77,5 +50,5 @@ wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder
   </div>
   <br />
 <?php } ?>
-<input type="submit" class="submit" name="cp_contactformpp_subbtn" id="cp_contactformpp_subbtn" value="<?php _e("Submit"); ?>">
+  <input type="submit" class="submit" name="cp_contactformpp_subbtn" id="cp_contactformpp_subbtn" value="<?php _e("Submit"); ?>">
 </form>
