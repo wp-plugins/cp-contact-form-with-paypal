@@ -370,9 +370,9 @@ function set_cp_contactformpp_insert_button() {
 
 
 function cp_contactformpp_html_post_page() {
-    if ($_GET["cal"] != '')
+    if (isset($_GET["cal"]) && $_GET["cal"] != '')
     {
-        if ($_GET["list"] == '1')
+        if (isset($_GET["list"]) && $_GET["list"] == '1')
             @include_once dirname( __FILE__ ) . '/cp_contactformpp_admin_int_message_list.inc.php';
         else
             @include_once dirname( __FILE__ ) . '/cp_contactformpp_admin_int.php';
@@ -383,7 +383,7 @@ function cp_contactformpp_html_post_page() {
 
 
 function set_cp_contactformpp_insert_adminScripts($hook) {
-    if ($_GET["page"] == "cp_contact_form_paypal")
+    if (isset($_GET["page"]) && $_GET["page"] == "cp_contact_form_paypal")
     {    
         wp_deregister_script('query-stringify');
         wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
@@ -433,7 +433,7 @@ function cp_contactformpp_load_discount_codes() {
     if (!defined('CP_CONTACTFORMPP_ID'))
         define ('CP_CONTACTFORMPP_ID',$_GET["dex_item"]);    
         
-    if ($_GET["add"] == "1")       
+    if (isset($_GET["add"]) && $_GET["add"] == "1")       
         $wpdb->insert( CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME, array('form_id' => CP_CONTACTFORMPP_ID,
                                                                          'code' => $_GET["code"],
                                                                          'discount' => $_GET["discount"],
@@ -441,7 +441,7 @@ function cp_contactformpp_load_discount_codes() {
                                                                          'expires' => $_GET["expires"],
                                                                          ));     
                                                                        
-    if ($_GET["delete"] == "1")       
+    if (isset($_GET["delete"]) && $_GET["delete"] == "1")       
         $wpdb->query( $wpdb->prepare( "DELETE FROM ".CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME." WHERE id = %d", $_GET["code"] ));
     
     $codes = $wpdb->get_results( 'SELECT * FROM '.CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME.' WHERE `form_id`='.CP_CONTACTFORMPP_ID); 
