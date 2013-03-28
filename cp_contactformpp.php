@@ -73,10 +73,10 @@ define('CP_CONTACTFORMPP_DEFAULT_PAYPAL_LANGUAGE','EN');
 define('CP_CONTACTFORMPP_FORMS_TABLE', 'cp_contact_form_paypal_settings');
 
 define('CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME_NO_PREFIX', "cp_contact_form_paypal_discount_codes");
-define('CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME', $wpdb->prefix ."cp_contact_form_paypal_discount_codes");
+define('CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME', @$wpdb->prefix ."cp_contact_form_paypal_discount_codes");
 
 define('CP_CONTACTFORMPP_POSTS_TABLE_NAME_NO_PREFIX', "cp_contact_form_paypal_posts");
-define('CP_CONTACTFORMPP_POSTS_TABLE_NAME', $wpdb->prefix ."cp_contact_form_paypal_posts");
+define('CP_CONTACTFORMPP_POSTS_TABLE_NAME', @$wpdb->prefix ."cp_contact_form_paypal_posts");
 
 
 // end CP Contact Form with Paypal constants
@@ -135,14 +135,8 @@ function _cp_contactformpp_install() {
     
     define('CP_CONTACTFORMPP_DEFAULT_fp_from_email', get_the_author_meta('user_email', get_current_user_id()) );
     define('CP_CONTACTFORMPP_DEFAULT_fp_destination_emails', CP_CONTACTFORMPP_DEFAULT_fp_from_email);
-
+ 
     $table_name = $wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE;
-    $sql = "DROP TABLE IF EXISTS".$table_name.";";
-    $wpdb->query($sql);
-    $sql = "DROP TABLE IF EXISTS".$wpdb->prefix.CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME_NO_PREFIX.";";
-    $wpdb->query($sql);
-    $sql = "DROP TABLE IF EXISTS".$wpdb->prefix.CP_CONTACTFORMPP_POSTS_TABLE_NAME_NO_PREFIX.";";
-    $wpdb->query($sql);
 
     $sql = "CREATE TABLE ".$wpdb->prefix.CP_CONTACTFORMPP_POSTS_TABLE_NAME_NO_PREFIX." (
          id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -150,8 +144,8 @@ function _cp_contactformpp_install() {
          time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
          ipaddr VARCHAR(32) DEFAULT '' NOT NULL,
          notifyto VARCHAR(250) DEFAULT '' NOT NULL,
-         data text DEFAULT '' NOT NULL,
-         paypal_post text DEFAULT '' NOT NULL,
+         data text,
+         paypal_post text,
          paid INT DEFAULT 0 NOT NULL,
          UNIQUE KEY id (id)
          );";
@@ -175,20 +169,20 @@ function _cp_contactformpp_install() {
 
          form_name VARCHAR(250) DEFAULT '' NOT NULL,
 
-         form_structure text DEFAULT '' NOT NULL,
+         form_structure text,
 
          fp_from_email VARCHAR(250) DEFAULT '' NOT NULL,
-         fp_destination_emails text DEFAULT '' NOT NULL,
+         fp_destination_emails text,
          fp_subject VARCHAR(250) DEFAULT '' NOT NULL,
          fp_inc_additional_info VARCHAR(10) DEFAULT '' NOT NULL,
          fp_return_page VARCHAR(250) DEFAULT '' NOT NULL,
-         fp_message text DEFAULT '' NOT NULL,
+         fp_message text,
          fp_emailformat VARCHAR(10) DEFAULT '' NOT NULL,         
 
          cu_enable_copy_to_user VARCHAR(10) DEFAULT '' NOT NULL,
          cu_user_email_field VARCHAR(250) DEFAULT '' NOT NULL,
          cu_subject VARCHAR(250) DEFAULT '' NOT NULL,
-         cu_message text DEFAULT '' NOT NULL,
+         cu_message text,
          cp_emailformat VARCHAR(10) DEFAULT '' NOT NULL,         
 
          vs_use_validation VARCHAR(10) DEFAULT '' NOT NULL,
@@ -223,7 +217,7 @@ function _cp_contactformpp_install() {
          cv_noise_length VARCHAR(20) DEFAULT '' NOT NULL,
          cv_background VARCHAR(20) DEFAULT '' NOT NULL,
          cv_border VARCHAR(20) DEFAULT '' NOT NULL,
-         cv_text_enter_valid_captcha VARCHAR(20) DEFAULT '' NOT NULL,
+         cv_text_enter_valid_captcha VARCHAR(200) DEFAULT '' NOT NULL,
 
          UNIQUE KEY id (id)
          );";
@@ -286,7 +280,7 @@ function _cp_contactformpp_install() {
                                       'cv_text_enter_valid_captcha' => cp_contactformpp_get_option('cv_text_enter_valid_captcha', CP_CONTACTFORMPP_DEFAULT_cv_text_enter_valid_captcha)
                                      )
                       );     
-    }
+    }    
 }
 
 /* Filter for placing the maps into the contents */
@@ -497,10 +491,10 @@ function cp_contact_form_paypal_check_posted_data() {
 	    if ( 'GET' != $_SERVER['REQUEST_METHOD'] || !isset( $_GET['hdcaptcha_cp_contact_form_paypal_post'] ) )
 		    return;
 
-    define("CP_CONTACTFORMPP_ID",$_POST["cp_contactformpp_id"]);
+    if (isset($_POST["cp_contactformpp_id"])) define("CP_CONTACTFORMPP_ID",$_POST["cp_contactformpp_id"]);
 
     @session_start();
-    if ($_GET['hdcaptcha_cp_contact_form_paypal_post'] == '') $_GET['hdcaptcha_cp_contact_form_paypal_post'] = $_POST['hdcaptcha_cp_contact_form_paypal_post'];
+    if (!isset($_GET['hdcaptcha_cp_contact_form_paypal_post']) || $_GET['hdcaptcha_cp_contact_form_paypal_post'] == '') $_GET['hdcaptcha_cp_contact_form_paypal_post'] = $_POST['hdcaptcha_cp_contact_form_paypal_post'];
     if ( 
            (cp_contactformpp_get_option('cv_enable_captcha', CP_CONTACTFORMPP_DEFAULT_cv_enable_captcha) != 'false') &&              
            ( ($_GET['hdcaptcha_cp_contact_form_paypal_post'] != $_SESSION['rand_code']) ||
@@ -755,7 +749,7 @@ function cp_contactformpp_save_options()
                   'cu_subject' => $_POST['cu_subject'],
                   'cu_message' => $_POST['cu_message'],
                   
-                  'enable_paypal' => $_POST["enable_paypal"],
+                  'enable_paypal' => 1,
                   'paypal_email' => $_POST["paypal_email"],
                   'request_cost' => $_POST["request_cost"],
                   'paypal_product_name' => $_POST["paypal_product_name"],
@@ -798,7 +792,7 @@ function cp_contactformpp_get_option ($field, $default_value)
 {
     if (!defined("CP_CONTACTFORMPP_ID"))
         define ("CP_CONTACTFORMPP_ID", 1);
-    global $wpdb, $cp_contactformpp_option_buffered_item;
+    global $wpdb, $cp_contactformpp_option_buffered_item, $cp_contactformpp_option_buffered_id;
     if ($cp_contactformpp_option_buffered_id == CP_CONTACTFORMPP_ID)
         $value = $cp_contactformpp_option_buffered_item->$field;
     else

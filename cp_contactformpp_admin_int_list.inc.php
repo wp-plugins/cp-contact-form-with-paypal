@@ -10,6 +10,9 @@ global $wpdb;
 $message = "";
 if (isset($_GET['a']) && $_GET['a'] == '1')
 {
+    define('CP_CONTACTFORMPP_DEFAULT_fp_from_email', get_the_author_meta('user_email', get_current_user_id()) );
+    define('CP_CONTACTFORMPP_DEFAULT_fp_destination_emails', CP_CONTACTFORMPP_DEFAULT_fp_from_email);
+    
     $wpdb->insert( $wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE, array( 
                                       'form_name' => stripcslashes($_GET["name"]),
 
