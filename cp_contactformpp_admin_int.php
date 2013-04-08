@@ -184,7 +184,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_contactformpp_pos
            qs += "&font="+f.cv_font.options[f.cv_font.selectedIndex].value;
            qs += "&rand="+d;
            
-           document.getElementById("captchaimg").src= "<?php echo plugins_url('/captcha/captcha.php', __FILE__); ?>"+qs;
+           document.getElementById("captchaimg").src= "<?php echo cp_contactformpp_get_site_url(); ?>/?cp_contactformpp=captcha"+qs;
         }
 
      </script>
@@ -340,7 +340,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_contactformpp_pos
          <td colspan="2" rowspan="">
            Preview:<br />
              <br />
-            <img src="<?php echo plugins_url('/captcha/captcha.php', __FILE__); ?>"  id="captchaimg" alt="security code" border="0"  />            
+            <img src="<?php echo cp_contactformpp_get_site_url(); ?>/?cp_contactformpp=captcha"  id="captchaimg" alt="security code" border="0"  />  
          </td> 
         </tr>             
                 

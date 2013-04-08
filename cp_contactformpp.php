@@ -146,6 +146,7 @@ function _cp_contactformpp_install() {
          notifyto VARCHAR(250) DEFAULT '' NOT NULL,
          data text,
          paypal_post text,
+         posted_data text,
          paid INT DEFAULT 0 NOT NULL,
          UNIQUE KEY id (id)
          );";
@@ -480,6 +481,11 @@ function cp_contact_form_paypal_check_posted_data() {
             cp_contactformpp_load_discount_codes();    
     }    
         
+    if (isset( $_GET['cp_contactformpp'] ) && $_GET['cp_contactformpp'] == 'captcha' )
+    {
+        @include_once dirname( __FILE__ ) . '/captcha/captcha.php';            
+        exit;        
+    }   
         
     if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_contactformpp_post_options'] ) && is_admin() )
     {
@@ -494,7 +500,7 @@ function cp_contact_form_paypal_check_posted_data() {
     if (isset($_POST["cp_contactformpp_id"])) define("CP_CONTACTFORMPP_ID",$_POST["cp_contactformpp_id"]);
 
     @session_start();
-    if (!isset($_GET['hdcaptcha_cp_contact_form_paypal_post']) || $_GET['hdcaptcha_cp_contact_form_paypal_post'] == '') $_GET['hdcaptcha_cp_contact_form_paypal_post'] = $_POST['hdcaptcha_cp_contact_form_paypal_post'];
+    if (!isset($_GET['hdcaptcha_cp_contact_form_paypal_post']) || $_GET['hdcaptcha_cp_contact_form_paypal_post'] == '') $_GET['hdcaptcha_cp_contact_form_paypal_post'] = @$_POST['hdcaptcha_cp_contact_form_paypal_post'];
     if ( 
            (cp_contactformpp_get_option('cv_enable_captcha', CP_CONTACTFORMPP_DEFAULT_cv_enable_captcha) != 'false') &&              
            ( ($_GET['hdcaptcha_cp_contact_form_paypal_post'] != $_SESSION['rand_code']) ||
@@ -541,6 +547,8 @@ function cp_contact_form_paypal_check_posted_data() {
         }
     $buffer_A = $buffer;
     
+    cp_contactformpp_add_field_verify(CP_CONTACTFORMPP_POSTS_TABLE_NAME,'posted_data');
+    
     // insert into database
     //---------------------------
     $to = cp_contactformpp_get_option('cu_user_email_field', CP_CONTACTFORMPP_DEFAULT_cu_user_email_field);
@@ -549,6 +557,7 @@ function cp_contact_form_paypal_check_posted_data() {
                                                                         'ipaddr' => $_SERVER['REMOTE_ADDR'],
                                                                         'notifyto' => $_POST[$to],
                                                                         'paypal_post' => serialize($params),
+                                                                        'posted_data' => serialize($params),
                                                                         'data' =>$buffer_A .($coupon?"\n\nCoupon code:".$coupon->code.$discount_note:"")                                                                        
                                                                          ) );
     if (!$rows_affected)
@@ -597,6 +606,16 @@ document.ppform3.submit();
    
 }    
     
+function cp_contactformpp_add_field_verify ($table, $field, $type = "text") 
+{
+    global $wpdb;
+    $results = $wpdb->get_results("SHOW columns FROM `".$table."` where field='".$field."'");    
+    if (!count($results))
+    {               
+        $sql = "ALTER TABLE  `".$table."` ADD `".$field."` ".$type; 
+        $wpdb->query($sql);
+    }
+}    
 
 add_action( 'init', 'cp_contactformpp_check_IPN_verification', 11 );
 
