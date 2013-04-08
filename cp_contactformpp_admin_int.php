@@ -172,7 +172,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_contactformpp_pos
         {            
            var d=new Date();
            var f = document.cpformconf;    
-           var qs = "?width="+f.cv_width.value;
+           var qs = "&width="+f.cv_width.value;
            qs += "&height="+f.cv_height.value;
            qs += "&letter_count="+f.cv_chars.value;
            qs += "&min_size="+f.cv_min_font_size.value;
