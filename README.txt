@@ -30,6 +30,18 @@ This WordPress plugin is useful for different types of contact forms, booking fo
 * **Easy setup** of the PayPal payment, basically just indicate the price and email linked to the PayPal account. There are optional fields for language and currency settings.
 * Includes optional **captcha** verification as part of the contact form.
 
+= How it can be used =
+
+These are some possible scenarios where this plugin is useful:
+
+* Contact form linked to a PayPal payment
+* As a PayPal button
+* For accepting donations through PayPal (leave a zero amount in the payment amount)
+* Support request forms or paid assistance contact forms
+* For receiving product orders, purchases, bookings and reservations.
+* For automatic delivering of information after payment (put the information into the auto-reply message)
+* ... any other use involving contact forms and PayPal payments
+
 == Installation ==
 
 To install CP Contact Form with Paypal, follow these steps:
