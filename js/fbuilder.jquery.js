@@ -874,4 +874,3 @@ var cpfb_started=false;
 		});
 	}
 })(jQuery);
-$contactFormPPQuery = jQuery.noConflict();
