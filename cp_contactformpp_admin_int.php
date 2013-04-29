@@ -142,7 +142,7 @@ if ( 'POST' == $_SERVER['REQUEST_METHOD'] && isset( $_POST['cp_contactformpp_pos
      <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__); ?>" type="text/css" rel="stylesheet" />   
         
      <script>
-     
+         $contactFormPPQuery = jQuery.noConflict();
          $contactFormPPQuery(document).ready(function() {
             var f = $contactFormPPQuery("#fbuilder").fbuilderCFPP();
             
