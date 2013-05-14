@@ -14,7 +14,7 @@ With CP Contact Form with Paypal you can insert a contact form into a WordPress 
 
 With CP Contact Form with Paypal you can insert a **contact form** into a WordPress website and connect it to a PayPal payment.
 
-Once the user has filled the contact form fields and click the submit button the posted data is saved into the WordPress database and the user is automatically redirected to PayPal to complete a payment. After completed the payment the website administrator (the email indicated from the settings) will receive an email with the form data and the user will receive a confirmation/thank you email.
+Once the user has filled the PayPal contact form fields and click the submit button the posted data is saved into the WordPress database and the user is automatically redirected to PayPal to complete a payment. After completed the PayPal payment, the website administrator (the email indicated from the settings) will receive an email with the form data and the user will receive a confirmation/thank you email.
 
 Both the paid and unpaid requests sent from the contact form will appear in the WordPress settings area with the mark of "Paid" or "Not Paid" so you can check all the details and contact the user if needed.
 
@@ -44,32 +44,88 @@ These are some possible scenarios where this plugin is useful:
 
 == Installation ==
 
-To install CP Contact Form with Paypal, follow these steps:
+To install CP Contact Form with PayPal, follow these steps:
 
-1.	Download and unzip the plugin
+1.	Download and unzip the CP Contact Form with PayPal plugin 
 2.	Upload the entire cp-contact-form-with-paypal/ directory to the /wp-content/plugins/ directory
-3.	Activate the plugin through the Plugins menu in WordPress
-4.	Configure the settings at the administration menu >> Settings >> CP Contact Form with Paypal
-5.	To insert the contact form into some content or post use the icon that will appear when editing contents
+3.	Activate the CP Contact Form with PayPal plugin through the Plugins menu in WordPress
+4.	Configure the PayPal contact form settings at the administration menu >> Settings >> CP Contact Form with PayPal
+5.	To insert the PayPal contact form into some content or post use the icon that will appear when editing contents
 
 == Frequently Asked Questions ==
 
-= Q: What means each field in the settings area? =
+= Q: What means each field in the PayPal contact form settings area? =
 
-A: The product's page contains detailed information about each field and customization:
+A: The product's page contains detailed information about each contact form field and customization:
 
 http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
 
-= Q: Where can I publish the contact form? =
+= Q: Where can I publish the PayPal form with the PayPal button? =
 
-A: You can publish the contact forms into pages and posts. Other versions of the plugin also allow publishing it as a widget.
+A: You can publish the PayPal contact forms / PayPal button into pages and posts. Other versions of the plugin also allow publishing the PayPal form as a widget.
+
+= Q: The PayPal payment has been received but the status of the Message isn't being set to Paid. What happens? = 
+
+A:  First check if you are testing the PayPal form on a local website or in an online website. Note you should test this feature into an online website (local websites cannot receive PayPal IPN connections).
+
+After that initial verification, please check if the payment is marked as "Pending" on the seller PayPal account.
+
+If the payment is "pending" PayPal won't send the IPN notification to the website to mark the payment as completed. A pending PayPal payment means that the transaction hasn't been completed and can be cancelled by the buyer.
+
+The PayPal payment may be pending for one of the following reasons:
+
+* The seller PayPal account isn't configured to accept the payments automatically in the selected currency
+* The seller email isn't linked to a PayPal account
+* ... or the seller PayPal account isn't allowed to receive payments
+
+= Q: I'm not receiving the emails after PayPal payment. = 
+
+A: Please check if the messages are marked as "paid" or "not paid" in the contact form messages page.
+
+If the contact form messages are marked as paid then the problem is that your WordPress isn't delivering the emails. You should setup the WordPress to deliver the emails according to your mail server settings. You may have to ask to your web hosting support about the requirements to send emails from WordPress/PHP with their hosting service.
+
+On the other hand if the contact form messages aren't marked as "paid" then the PayPal IPN connection isn't being received. Read the previous FAQ entry for information and solution.
+
+= Q: How can I customize the style of the PayPal button? = 
+
+A: The PayPal button is located at the end of the file "cp_contactformpp_public_int.inc.php". It's a classic submit button, you can change it to any other button that submits the PayPal form.
+
+= Q: How can I add specific fields into the contact form message? = 
+
+A: There is a tag named %INFO% that is replaced with all the information posted from the form, however you can use also optional tags for specific fields into the contact form.
+
+For doing that, click the desired contact form field into the contact form builder and in the settings box for that field there is a read-only setting named "Field tag for the message (optional):". Copy & paste that tag into the message text and after the form submission (after clicking the PayPal button and receiving the PayPal payment) that tag will be replaced with the text entered in the form field.
+
+= Q: Can I use this with PayPal Personal accounts = 
+
+A: Yes, you can use it with PayPal Personal accounts and also with PayPal Premium and PayPal Business accounts.
+
+= Q: Can I accept credit card payments through PayPal directly without forcing the users to create a PayPal account? =
+
+A: That depends of the type of your PayPal account and its status. In most cases PayPal Business accounts and PayPal premium accounts allow accepting payments from users that don't have PayPal accounts. In this case after clicking the PayPal button the PayPal page will appear with two options "Login at your PayPal account" and "Pay directly without having to register". The title of the options at PayPal may vary.
+
+= Q: I'm having problems with non-latin characters in the PayPal contact form. =
+
+A: In most cases the problem is located in the database table collation/encoding. The solution is to change the table encoding to UTF-8. You can do that from the PHPMyAdmin provided by your hosting service. 
+
+For example, if your WordPress database table prefix is "wp_" (the default one) then run these queries (will update only the PayPal contact form tables):
+
+    alter table wp_cp_contact_form_paypal_discount_codes convert to character set utf8 collate utf8_unicode_ci;
+    alter table wp_cp_contact_form_paypal_settings convert to character set utf8 collate utf8_unicode_ci; 
+    alter table wp_cp_contact_form_paypal_posts convert to character set utf8 collate utf8_unicode_ci; 
+
+If you don't know how to do that, contact our support service and we will help you.
+
+= Q: How to setup the CP Contact Form with PayPal to accept a PayPal donation? =
+
+A: To accept a PayPal donation (an open donation amount) just put a zero (0) on the "Request Cost" settings field. That way after filling the contact form clicking the PayPal button (contact form submit button) the PayPal payment page will appear letting the user to enter the amount to pay.
 
 == Screenshots ==
 
-1. Contact Forms List
-2. Contact Form Settings
-3. Inserting a contact form into a page
-4. Sample contact form
+1. PayPal Contact Forms List
+2. PayPal Contact Form Settings
+3. Inserting a PayPal contact form into a page
+4. Sample PayPal contact form
 
 == Changelog ==
 
