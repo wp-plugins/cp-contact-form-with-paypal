@@ -68,15 +68,7 @@ A: You can publish the PayPal contact forms / PayPal button into pages and posts
 
 A:  First check if you are testing the PayPal form on a local website or in an online website. Note you should test this feature into an online website (local websites cannot receive PayPal IPN connections).
 
-After that initial verification, please check if the payment is marked as "Pending" on the seller PayPal account.
-
-If the payment is "pending" PayPal won't send the IPN notification to the website to mark the payment as completed. A pending PayPal payment means that the transaction hasn't been completed and can be cancelled by the buyer.
-
-The PayPal payment may be pending for one of the following reasons:
-
-* The seller PayPal account isn't configured to accept the payments automatically in the selected currency
-* The seller email isn't linked to a PayPal account
-* ... or the seller PayPal account isn't allowed to receive payments
+After that initial verification, please check if the IPN notifications are enabled at your PayPal account. Check also the IPN logs at your PayPal account to confirm if are being received.
 
 = Q: I'm not receiving the emails after PayPal payment. = 
 
