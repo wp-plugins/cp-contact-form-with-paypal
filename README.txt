@@ -106,7 +106,7 @@ A: That depends of the type of your PayPal account and its status. In most cases
 
 = Q: I'm having problems with non-latin characters in the PayPal contact form. =
 
-A: In most cases the problem is located in the database table collation/encoding. The solution is to change the table encoding to UTF-8. You can do that from the PHPMyAdmin provided by your hosting service. 
+A: New: Use the "throubleshoot area" to change the character encoding. If you prefer to do that manually , in most cases the problem is located in the database table collation/encoding. The solution is to change the table encoding to UTF-8. You can do that from the PHPMyAdmin provided by your hosting service. 
 
 For example, if your WordPress database table prefix is "wp_" (the default one) then run these queries (will update only the PayPal contact form tables):
 
@@ -115,6 +115,14 @@ For example, if your WordPress database table prefix is "wp_" (the default one) 
     alter table wp_cp_contact_form_paypal_posts convert to character set utf8 collate utf8_unicode_ci; 
 
 If you don't know how to do that, contact our support service and we will help you.
+
+= Q: The contact form doesn't appear in the public website. Solution? =
+
+A: In the the "throubleshoot area" (located below the list of forms in the settings area) change the "Script load method" from "Classic" to "Direct".
+
+= Q: How can I duplicate a form and its settings? =
+
+A: Use the "Clone" button located in the contact form's list. That button will duplicate the contact form structure and all its settings.
 
 = Q: How to setup the CP Contact Form with PayPal to accept a PayPal donation? =
 
