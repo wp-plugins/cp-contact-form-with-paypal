@@ -16,6 +16,11 @@ License: GPL
 // CP Contact Form with Paypal constants
 
 define('CP_CONTACTFORMPP_DEFAULT_CURRENCY_SYMBOL','$');
+define('CP_CONTACTFORMPP_GBP_CURRENCY_SYMBOL','£'); // Different encoding: £
+define('CP_CONTACTFORMPP_EUR_CURRENCY_SYMBOL_A','?');
+define('CP_CONTACTFORMPP_EUR_CURRENCY_SYMBOL_B','€');
+
+define('CP_CONTACTFORMPP_DEFAULT_DEFER_SCRIPTS_LOADING', (get_option('CP_CFPP_LOAD_SCRIPTS',"1") == "1"?true:false));
 
 define('CP_CONTACTFORMPP_DEFAULT_form_structure', '[[{"name":"email","index":0,"title":"Email","ftype":"femail","userhelp":"","csslayout":"","required":true,"predefined":"","size":"medium"},{"name":"subject","index":1,"title":"Subject","required":true,"ftype":"ftext","userhelp":"","csslayout":"","predefined":"","size":"medium"},{"name":"message","index":2,"size":"large","required":true,"title":"Message","ftype":"ftextarea","userhelp":"","csslayout":"","predefined":""}],[{"title":"Contact Form","description":"","formlayout":"top_aligned"}]]');
 
@@ -310,31 +315,55 @@ function cp_contactformpp_get_public_form() {
         $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE." WHERE id=".CP_CONTACTFORMPP_ID );
     else
         $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE );
-
-    wp_deregister_script('query-stringify');
-    wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
-
-    wp_deregister_script('cp_contactformpp_validate_script');
-    wp_register_script('cp_contactformpp_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
-
-    wp_enqueue_script( 'cp_contactformpp_buikder_script',
-    plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-datepicker","query-stringify","cp_contactformpp_validate_script"), false, true );
-
-    define ('CP_CONTACTFORMPP_ID',$myrows[0]->id);
-    wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder_config', array('obj'  	=>
-    '{"pub":true,"messages": {
-    	                	"required": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_is_required', CP_CONTACTFORMPP_DEFAULT_vs_text_is_required)).'",
-    	                	"email": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_is_email', CP_CONTACTFORMPP_DEFAULT_vs_text_is_email)).'",
-    	                	"datemmddyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_datemmddyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_datemmddyyyy)).'",
-    	                	"dateddmmyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_dateddmmyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_dateddmmyyyy)).'",
-    	                	"number": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_number', CP_CONTACTFORMPP_DEFAULT_vs_text_number)).'",
-    	                	"digits": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_digits', CP_CONTACTFORMPP_DEFAULT_vs_text_digits)).'",
-    	                	"max": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_max', CP_CONTACTFORMPP_DEFAULT_vs_text_max)).'",
-    	                	"min": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_min', CP_CONTACTFORMPP_DEFAULT_vs_text_min)).'"
-    	                }}'
-    ));
+    if (CP_CONTACTFORMPP_DEFAULT_DEFER_SCRIPTS_LOADING)
+    {
+        wp_deregister_script('query-stringify');
+        wp_register_script('query-stringify', plugins_url('/js/jQuery.stringify.js', __FILE__));
+        
+        wp_deregister_script('cp_contactformpp_validate_script');
+        wp_register_script('cp_contactformpp_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
+        
+        wp_enqueue_script( 'cp_contactformpp_buikder_script',
+        plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-datepicker","query-stringify","cp_contactformpp_validate_script"), false, true );
+        
+        define ('CP_CONTACTFORMPP_ID',$myrows[0]->id);
+        wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder_config', array('obj'  	=>
+        '{"pub":true,"messages": {
+        	                	"required": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_is_required', CP_CONTACTFORMPP_DEFAULT_vs_text_is_required)).'",
+        	                	"email": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_is_email', CP_CONTACTFORMPP_DEFAULT_vs_text_is_email)).'",
+        	                	"datemmddyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_datemmddyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_datemmddyyyy)).'",
+        	                	"dateddmmyyyy": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_dateddmmyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_dateddmmyyyy)).'",
+        	                	"number": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_number', CP_CONTACTFORMPP_DEFAULT_vs_text_number)).'",
+        	                	"digits": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_digits', CP_CONTACTFORMPP_DEFAULT_vs_text_digits)).'",
+        	                	"max": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_max', CP_CONTACTFORMPP_DEFAULT_vs_text_max)).'",
+        	                	"min": "'.str_replace(array('"', "'"),array('\\"', "\\'"),cp_contactformpp_get_option('vs_text_min', CP_CONTACTFORMPP_DEFAULT_vs_text_min)).'"
+        	                }}'
+        ));
+    }  
+    else
+    {
+        wp_enqueue_script( "jquery" );
+        wp_enqueue_script( "jquery-ui-core" );
+        wp_enqueue_script( "jquery-ui-datepicker" );
+    }  
     $codes = $wpdb->get_results( 'SELECT * FROM '.CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME.' WHERE `form_id`='.CP_CONTACTFORMPP_ID);
     @include dirname( __FILE__ ) . '/cp_contactformpp_public_int.inc.php';
+    if (!CP_CONTACTFORMPP_DEFAULT_DEFER_SCRIPTS_LOADING) {
+?>
+<?php $plugin_url = plugins_url('', __FILE__); ?>
+<script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/jquery.js'; ?>'></script>
+<script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js'; ?>'></script>
+<script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.datepicker.min.js'; ?>'></script>  
+<script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></script>
+<script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var cp_contactformpp_fbuilder_config = {"obj":"{\"pub\":true,\"messages\": {\n    \t                \t\"required\": \"This field is required.\",\n    \t                \t\"email\": \"Please enter a valid email address.\",\n    \t                \t\"datemmddyyyy\": \"Please enter a valid date with this format(mm\/dd\/yyyy)\",\n    \t                \t\"dateddmmyyyy\": \"Please enter a valid date with this format(dd\/mm\/yyyy)\",\n    \t                \t\"number\": \"Please enter a valid number.\",\n    \t                \t\"digits\": \"Please enter only digits.\",\n    \t                \t\"max\": \"Please enter a value less than or equal to {0}.\",\n    \t                \t\"min\": \"Please enter a value greater than or equal to {0}.\"\n    \t                }}"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='<?php echo plugins_url('js/fbuilder.jquery.js', __FILE__); ?>'></script>
+<?php    
+    }
 }
 
 
@@ -555,7 +584,7 @@ function cp_contact_form_paypal_check_posted_data() {
     $rows_affected = $wpdb->insert( CP_CONTACTFORMPP_POSTS_TABLE_NAME, array( 'formid' => CP_CONTACTFORMPP_ID,
                                                                         'time' => current_time('mysql'),
                                                                         'ipaddr' => $_SERVER['REMOTE_ADDR'],
-                                                                        'notifyto' => $_POST[$to],
+                                                                        'notifyto' => @$_POST[$to],
                                                                         'paypal_post' => serialize($params),
                                                                         'posted_data' => serialize($params),
                                                                         'data' =>$buffer_A .($coupon?"\n\nCoupon code:".$coupon->code.$discount_note:"")                                                                        
@@ -635,14 +664,13 @@ function cp_contactformpp_check_IPN_verification() {
     $receiver_email = $_POST['receiver_email'];
     $payer_email = $_POST['payer_email'];
     $payment_type = $_POST['payment_type'];
-
-
+/**
 	if ($payment_status != 'Completed' && $payment_type != 'echeck')
 	    return;
 
 	if ($payment_type == 'echeck' && $payment_status != 'Pending')
 	    return;
-
+*/
 	$str = '';    
     if ($_POST["first_name"]) $str .= 'Buyer: '.$_POST["first_name"]." ".$_POST["last_name"]."\n";	    
     if ($_POST["payer_email"]) $str .= 'Payer email: '.$_POST["payer_email"]."\n";
@@ -662,11 +690,14 @@ function cp_contactformpp_check_IPN_verification() {
       
     $myrows = $wpdb->get_results( "SELECT * FROM ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." WHERE id=".$_GET['itemnumber'] );
     $params = unserialize($myrows[0]->paypal_post);      
-    
-    $wpdb->query("UPDATE ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." SET paid=1,paypal_post='".$wpdb->escape($str)."' WHERE id=".$_GET['itemnumber']); 
-    cp_contactformpp_process_ready_to_go_reservation($_GET["itemnumber"], $payer_email, $params);
-
-    echo 'OK';
+    if ($myrows[0]->paid == 0)
+    {
+        $wpdb->query("UPDATE ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." SET paid=1,paypal_post='".$wpdb->escape($str)."' WHERE id=".$_GET['itemnumber']); 
+        cp_contactformpp_process_ready_to_go_reservation($_GET["itemnumber"], $payer_email, $params);
+        echo 'OK - processed';
+    }
+    else
+        echo 'OK - already processed';
 
     exit();
 

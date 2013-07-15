@@ -73,6 +73,37 @@ else if (isset($_GET['d']) && $_GET['d'] != '')
 {
     $wpdb->query('DELETE FROM `'.$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE.'` WHERE id='.$_GET['d']);       
     $message = "Item deleted";
+} 
+else if (isset($_GET['c']) && $_GET['c'] != '')
+{
+    $myrows = $wpdb->get_row( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE." WHERE id=".$_GET['c'], ARRAY_A);    
+    unset($myrows["id"]);
+    $myrows["form_name"] = 'Cloned: '.$myrows["form_name"];
+    $wpdb->insert( $wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE, $myrows);
+    $message = "Item duplicated/cloned";
+}
+else if (isset($_GET['ac']) && $_GET['ac'] == 'st')
+{
+    update_option( 'CP_CFPP_LOAD_SCRIPTS', ($_GET["scr"]=="1"?"0":"1") );    
+    if ($_GET["chs"] != '')
+    {
+        $target_charset = $_GET["chs"];
+        $tables = array( $wpdb->prefix.CP_CONTACTFORMPP_POSTS_TABLE_NAME_NO_PREFIX, $wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE );                
+        foreach ($tables as $tab)
+        {  
+            $myrows = $wpdb->get_results( "DESCRIBE {$tab}" );                                                                                 
+            foreach ($myrows as $item)
+	        {
+	            $name = $item->Field;
+		        $type = $item->Type;
+		        if (preg_match("/^varchar\((\d+)\)$/i", $type, $mat) || !strcasecmp($type, "CHAR") || !strcasecmp($type, "TEXT") || !strcasecmp($type, "MEDIUMTEXT"))
+		        {
+	                $wpdb->query("ALTER TABLE {$tab} CHANGE {$name} {$name} {$type} COLLATE {$target_charset}");	            
+	            }
+	        }
+        }
+    }
+    $message = "Throubleshoot settings updated";
 }
 
 
@@ -95,6 +126,11 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
     document.location = 'options-general.php?page=cp_contact_form_paypal&u='+id+'&r='+Math.random()+'&name='+encodeURIComponent(calname);    
  }
  
+ function cp_cloneItem(id)
+ {
+    document.location = 'options-general.php?page=cp_contact_form_paypal&c='+id+'&r='+Math.random();  
+ }
+ 
  function cp_manageSettings(id)
  {
     document.location = 'options-general.php?page=cp_contact_form_paypal&cal='+id+'&r='+Math.random();
@@ -105,17 +141,22 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
     document.location = 'options-general.php?page=cp_contact_form_paypal&cal='+id+'&list=1&r='+Math.random();
  } 
  
- function cp_BookingsList(id)
- {
-    document.location = 'options-general.php?page=cp_contact_form_paypal&cal='+id+'&list=1&r='+Math.random();
- }
- 
  function cp_deleteItem(id)
  {
     if (confirm('Are you sure that you want to delete this item?'))
     {        
         document.location = 'options-general.php?page=cp_contact_form_paypal&d='+id+'&r='+Math.random();
     }
+ }
+ 
+ function cp_updateConfig()
+ {
+    if (confirm('Are you sure that you want to update these settings?'))
+    {        
+        var scr = document.getElementById("ccscriptload").value;    
+        var chs = document.getElementById("cccharsets").value;    
+        document.location = 'options-general.php?page=cp_contact_form_paypal&ac=st&scr='+scr+'&chs='+chs+'&r='+Math.random();
+    }    
  }
  
 </script>
@@ -147,6 +188,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
                              <input type="button" name="calupdate_<?php echo $item->id; ?>" value="Update" onclick="cp_updateItem(<?php echo $item->id; ?>);" /> &nbsp; 
                              <input type="button" name="calmanage_<?php echo $item->id; ?>" value="Settings" onclick="cp_manageSettings(<?php echo $item->id; ?>);" /> &nbsp;                              
                              <input type="button" name="calmanage_<?php echo $item->id; ?>" value="Messages" onclick="cp_viewMessages(<?php echo $item->id; ?>);" /> &nbsp;                              
+                             <input type="button" name="calclone_<?php echo $item->id; ?>" value="Clone" onclick="cp_cloneItem(<?php echo $item->id; ?>);" /> &nbsp;                              
                              <input type="button" name="caldelete_<?php echo $item->id; ?>" value="Delete" onclick="cp_deleteItem(<?php echo $item->id; ?>);" />                             
     </td>
     <td nowrap>[CP_CONTACT_FORM_PAYPAL id="<?php echo $item->id; ?>"]</td>          
@@ -176,6 +218,35 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
   </div>    
  </div>
 
+
+ <div id="metabox_basic_settings" class="postbox" >
+  <h3 class='hndle' style="padding:5px;"><span>Throubleshoot Area</span></h3>
+  <div class="inside"> 
+    <p><strong>Important!</strong>: Use this area <strong>only</strong> if you are experiencing conflicts with third party plugins, with the theme scripts or with the character encoding.</p>
+    <form name="updatesettings">
+      Script load method:<br />
+       <select id="ccscriptload" name="ccscriptload">
+        <option value="0" <?php if (get_option('CP_CFPP_LOAD_SCRIPTS',"1") == "1") echo 'selected'; ?>>Classic (Recommended)</option>
+        <option value="1" <?php if (get_option('CP_CFPP_LOAD_SCRIPTS',"1") != "1") echo 'selected'; ?>>Direct</option>
+       </select><br />
+       <em>* Change the script load method if the form doesn't appear in the public website.</em>
+      
+      <br /><br />
+      Character encoding:<br />
+       <select id="cccharsets" name="cccharsets">
+        <option value="">Keep current charset (Recommended)</option>
+        <option value="utf8_general_ci">UTF-8 (try this first)</option>
+        <option value="latin1_swedish_ci">latin1_swedish_ci</option>
+       </select><br />
+       <em>* Update the charset if you are getting problems displaying special/non-latin characters. After updated you need to edit the special characters again.</em>
+       <br />
+       <input type="button" onclick="cp_updateConfig();" name="gobtn" value="UPDATE" />
+      <br /><br />      
+    </form>
+
+  </div>    
+ </div> 
+ 
 
   
 </div> 
