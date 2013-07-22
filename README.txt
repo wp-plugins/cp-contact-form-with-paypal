@@ -110,7 +110,7 @@ If you don't know how to do that, contact our support service and we will help y
 
 = Q: The contact form doesn't appear in the public website. Solution? =
 
-A: In the the "throubleshoot area" (located below the list of forms in the settings area) change the "Script load method" from "Classic" to "Direct".
+A: In the "throubleshoot area" (located below the list of forms in the settings area) change the "Script load method" from "Classic" to "Direct".
 
 = Q: How can I duplicate a form and its settings? =
 
