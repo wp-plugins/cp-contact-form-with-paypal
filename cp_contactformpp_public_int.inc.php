@@ -10,7 +10,6 @@
         alert('<?php _e('Please enter the captcha verification code.'); ?>');
         return false;
     }
-    // check captcha    
     var result = $dexQuery.ajax({
         type: "GET",
         url: "<?php echo cp_contactformpp_get_site_url(); ?>?hdcaptcha_cp_contact_form_paypal_post="+$dexQuery("#hdcaptcha_cp_contact_form_paypal_post").val(),
