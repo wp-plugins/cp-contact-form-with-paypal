@@ -692,7 +692,7 @@ function cp_contactformpp_check_IPN_verification() {
     $params = unserialize($myrows[0]->paypal_post);      
     if ($myrows[0]->paid == 0)
     {
-        $wpdb->query("UPDATE ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." SET paid=1,paypal_post='".$wpdb->escape($str)."' WHERE id=".$_GET['itemnumber']); 
+        $wpdb->query("UPDATE ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." SET paid=1,paypal_post='".esc_sql($str)."' WHERE id=".$_GET['itemnumber']); 
         cp_contactformpp_process_ready_to_go_reservation($_GET["itemnumber"], $payer_email, $params);
         echo 'OK - processed';
     }
