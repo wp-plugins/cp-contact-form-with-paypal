@@ -302,7 +302,7 @@ function cp_contactformpp_filter_content($atts) {
     ob_start();
     cp_contactformpp_get_public_form();
     $buffered_contents = ob_get_contents();
-    ob_clean();
+    ob_end_clean();
     return $buffered_contents;
 }
 
