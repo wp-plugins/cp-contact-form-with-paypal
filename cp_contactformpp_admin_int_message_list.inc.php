@@ -10,7 +10,22 @@ if (!defined('CP_CONTACTFORMPP_ID'))
     define ('CP_CONTACTFORMPP_ID',intval($_GET["cal"]));
 
 global $wpdb;
-$myform = $wpdb->get_results( 'SELECT * FROM '.$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE .' WHERE id='.CP_CONTACTFORMPP_ID);
+
+$message = "";
+
+if (isset($_GET['lu']) && $_GET['lu'] != '')
+{
+    $wpdb->query('UPDATE `'.CP_CONTACTFORMPP_POSTS_TABLE_NAME.'` SET paid='.esc_sql($_GET["status"]).' WHERE id='.$_GET['lu']);           
+    $message = "Item updated";        
+}
+else if (isset($_GET['ld']) && $_GET['ld'] != '')
+{
+    $wpdb->query('DELETE FROM `'.CP_CONTACTFORMPP_POSTS_TABLE_NAME.'` WHERE id='.$_GET['ld']);       
+    $message = "Item deleted";
+}
+
+if (CP_CONTACTFORMPP_ID != 0)
+    $myform = $wpdb->get_results( 'SELECT * FROM '.$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE .' WHERE id='.CP_CONTACTFORMPP_ID);
 
 
 $current_page = intval($_GET["p"]);
@@ -21,12 +36,28 @@ $cond = '';
 if ($_GET["search"] != '') $cond .= " AND (data like '%".esc_sql($_GET["search"])."%' OR paypal_post LIKE '%".esc_sql($_GET["search"])."%')";
 if ($_GET["dfrom"] != '') $cond .= " AND (`time` >= '".esc_sql($_GET["dfrom"])."')";
 if ($_GET["dto"] != '') $cond .= " AND (`time` <= '".esc_sql($_GET["dto"])." 23:59:59')";
+if (CP_CONTACTFORMPP_ID != 0) $cond .= " AND formid=".CP_CONTACTFORMPP_ID;
 
-
-$events = $wpdb->get_results( "SELECT * FROM ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." WHERE formid=".CP_CONTACTFORMPP_ID.$cond." ORDER BY `time` DESC" );
+$events = $wpdb->get_results( "SELECT * FROM ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." WHERE 1=1 ".$cond." ORDER BY `time` DESC" );
 $total_pages = ceil(count($events) / $records_per_page);
 
+if ($message) echo "<div id='setting-error-settings_updated' class='updated settings-error'><p><strong>".$message."</strong></p></div>";
+
+
 ?>
+<script type="text/javascript">
+ function cp_updateMessageItem(id,status)
+ {    
+    document.location = 'options-general.php?page=cp_contact_form_paypal&cal=<?php echo $_GET["cal"]; ?>&list=1&status='+status+'&lu='+id+'&r='+Math.random( );   
+ } 
+ function cp_deleteMessageItem(id)
+ {
+    if (confirm('Are you sure that you want to delete this item?'))
+    {        
+        document.location = 'options-general.php?page=cp_contact_form_paypal&cal=<?php echo $_GET["cal"]; ?>&list=1&ld='+id+'&r='+Math.random();
+    }
+ }
+</script>
 <div class="wrap">
 <h2>CP Contact Form with Paypal - Message List</h2>
 
@@ -35,7 +66,7 @@ $total_pages = ceil(count($events) / $records_per_page);
 
 <div id="normal-sortables" class="meta-box-sortables">
  <hr />
- <h3>This message list is from: <?php echo $myform[0]->form_name; ?></h3>
+ <h3>This message list is from: <?php if (CP_CONTACTFORMPP_ID != 0) echo $myform[0]->form_name; else echo 'All forms'; ?></h3>
 </div>
 
 
@@ -43,10 +74,19 @@ $total_pages = ceil(count($events) / $records_per_page);
  <input type="hidden" name="page" value="cp_contact_form_paypal" />
  <input type="hidden" name="cal" value="<?php echo CP_CONTACTFORMPP_ID; ?>" />
  <input type="hidden" name="list" value="1" />
- Search for: <input type="text" name="search" value="<?php echo esc_attr($_GET["search"]); ?>" /> &nbsp; &nbsp; &nbsp; 
- From: <input type="text" id="dfrom" name="dfrom" value="<?php echo esc_attr($_GET["dfrom"]); ?>" /> &nbsp; &nbsp; &nbsp; 
- To: <input type="text" id="dto" name="dto" value="<?php echo esc_attr($_GET["dto"]); ?>" /> &nbsp; &nbsp; &nbsp; 
- <span class="submit"><input type="submit" name="ds" value="Filter" /></span>
+ <nobr>Search for: <input type="text" name="search" value="<?php echo esc_attr($_GET["search"]); ?>" /> &nbsp; &nbsp; &nbsp;</nobr> 
+ <nobr>From: <input type="text" id="dfrom" name="dfrom" value="<?php echo esc_attr($_GET["dfrom"]); ?>" /> &nbsp; &nbsp; &nbsp; </nobr>
+ <nobr>To: <input type="text" id="dto" name="dto" value="<?php echo esc_attr($_GET["dto"]); ?>" /> &nbsp; &nbsp; &nbsp; </nobr>
+ <nobr>Item: <select id="cal" name="cal">
+          <option value="0">[All Items]</option>
+   <?php
+    $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE );                                                                     
+    foreach ($myrows as $item)  
+         echo '<option value="'.$item->id.'"'.(intval($item->id)==intval(CP_CONTACTFORMPP_ID)?" selected":"").'>'.$item->form_name.'</option>'; 
+   ?>
+    </select></nobr>
+ <nobr><span class="submit"><input type="submit" name="ds" value="Filter" /></span> &nbsp; &nbsp; &nbsp; 
+ <span class="submit"><input type="submit" name="cp_contactformpp_csv" value="Export to CSV" /></span></nobr>
 </form>
 
 <br />
@@ -75,21 +115,48 @@ echo paginate_links(  array(
 <table class="wp-list-table widefat fixed pages" cellspacing="0">
 	<thead>
 	<tr>
-	  <th style="padding-left:7px;font-weight:bold;">Date</th>
+      <th style="padding-left:7px;font-weight:bold;" width="50" nowrap>ID</th>
+	  <th style="padding-left:7px;font-weight:bold;" width="125">Date</th>
 	  <th style="padding-left:7px;font-weight:bold;">Email</th>
 	  <th style="padding-left:7px;font-weight:bold;">Message</th>
 	  <th style="padding-left:7px;font-weight:bold;">Payment Info</th>	  
+	  <th style="padding-left:7px;font-weight:bold;">Options</th>	
 	</tr>
 	</thead>
 	<tbody id="the-list">
 	 <?php for ($i=($current_page-1)*$records_per_page; $i<$current_page*$records_per_page; $i++) if (isset($events[$i])) { ?>
 	  <tr class='<?php if (!($i%2)) { ?>alternate <?php } ?>author-self status-draft format-default iedit' valign="top">
+        <td><?php echo $events[$i]->id; ?></td>
 		<td><?php echo substr($events[$i]->time,0,16); ?></td>
 		<td><?php echo $events[$i]->notifyto; ?></td>
-		<td><?php echo str_replace("\n","<br />",$events[$i]->data); ?></td>
+		<td><?php 
+		     $data = $events[$i]->data;
+		     $posted_data = unserialize($events[$i]->posted_data);		     
+		     foreach ($posted_data as $item => $value)
+		         if (strpos($item,"_url") && $value != '')		         
+		             $data = str_replace ($posted_data[str_replace("_url","",$item)],'<a href="'.$value.'" target="_blank">'.$posted_data[str_replace("_url","",$item)].'</a><br />',$data);  
+		     echo str_replace("\n","<br />",$data); 
+		     
+		?></td>
 		<td>
-		    <?php if ($events[$i]->paid) echo '<span style="color:#00aa00;font-weight:bold">'.__("Paid").'</span><hr />'.str_replace("\n","<br />",$events[$i]->paypal_post); else echo '<span style="color:#ff0000;font-weight:bold">'.__("Not Paid").'</span>'; ?>
+		    <?php 
+		          if ($events[$i]->paid) {
+		              echo '<span style="color:#00aa00;font-weight:bold">'.__("Paid").'</span><hr />';
+		              if (substr($events[$i]->paypal_post,0,2) != 'a:') echo str_replace("\n","<br />",$events[$i]->paypal_post); 
+		          }    
+		          else 
+		              echo '<span style="color:#ff0000;font-weight:bold">'.__("Not Paid").'</span>'; 
+		    ?>
 		    
+		</td>
+		<td>
+		  <?php if ($events[$i]->paid) { ?>
+   	        <input type="button" name="calmanage_<?php echo $events[$i]->id; ?>" value="Change status to NOT PAID" onclick="cp_updateMessageItem(<?php echo $events[$i]->id; ?>,0);" />                             
+ 		  <?php } else { ?>
+ 		    <input type="button" name="calmanage_<?php echo $events[$i]->id; ?>" value="Change status to PAID" onclick="cp_updateMessageItem(<?php echo $events[$i]->id; ?>,1);" />                             
+ 		  <?php } ?>
+		  &nbsp;
+		  <input type="button" name="caldelete_<?php echo $events[$i]->id; ?>" value="Delete" onclick="cp_deleteMessageItem(<?php echo $events[$i]->id; ?>);" />                             
 		</td>
       </tr>
      <?php } ?>

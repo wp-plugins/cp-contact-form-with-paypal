@@ -28,6 +28,9 @@ This WordPress plugin is useful for different types of contact forms, booking fo
 * The website administrator receives an **email notification** of the paid contact message.
 * The customer receives a **"thank you - confirmation" message**.
 * **Easy setup** of the PayPal payment, basically just indicate the price and email linked to the PayPal account. There are optional fields for language and currency settings.
+* Export the contact form messages to CSV/Excel
+* Support PayPal taxes configuration
+* Optionally request address at PayPal (useful for the delivery of tangible items)
 * Includes optional **captcha** verification as part of the contact form.
 
 = How it can be used =
@@ -119,6 +122,22 @@ A: Use the "Clone" button located in the contact form's list. That button will d
 = Q: How to setup the CP Contact Form with PayPal to accept a PayPal donation? =
 
 A: To accept a PayPal donation (an open donation amount) just put a zero (0) on the "Request Cost" settings field. That way after filling the contact form clicking the PayPal button (contact form submit button) the PayPal payment page will appear letting the user to enter the amount to pay.
+
+
+== Other Notes ==
+
+**Requesting address at PayPal:** If you are selling tangible items and you need to request the customer address at PayPal you can enable that option into the settings field "Request address at PayPal" available separately for each contact form.
+
+**Taxes at PayPal:** You can indicate the taxes to charge at PayPal over the "request cost" as a percent into the settings field "Taxes (percent)". Each contact form can have a different taxes setting.
+
+**Edit submit button label:** You can easily edit the submit button label into each contact form settings. The **class="cp_subbtn"** can be used to modify the button styles. The styles can be applied into any of the CSS files of your theme or into the CSS file "cp-contact-form-with-paypal\css\stylepublic.css". For further modifications the submit button is located at the end of the file "cp_contactformpp_public_int.inc.php".
+
+**Use a specific field from the form for the payment amount:** If a field is selected in this settings field, any price in the selected field will be added to the above request cost. Use this field for example for having an open donation amount. This field is more useful in the pro version since it supports adding more fields to the contact form.
+
+**Button to change status to paid:** The messages list contains a button to change the status of the "Not paid" contact form messages to "Paid". This is mainly for administrative purposes.
+
+**Export data to CSV/Excel:** The messages list contains an option to export the contact messages received from the contact form to a CSV/Excel file. This way you can export the email address and other data from the contact messages to other applications or manage the data in Excel. The filters in the message list apply also to the exported CSV/Excel file.
+
 
 == Screenshots ==
 
