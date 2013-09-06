@@ -13,6 +13,17 @@ if (isset($_GET['a']) && $_GET['a'] == '1')
     define('CP_CONTACTFORMPP_DEFAULT_fp_from_email', get_the_author_meta('user_email', get_current_user_id()) );
     define('CP_CONTACTFORMPP_DEFAULT_fp_destination_emails', CP_CONTACTFORMPP_DEFAULT_fp_from_email);
     
+    // temporal lines to guarantee migration
+    cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'paypal_zero_payment'," varchar(10) NOT NULL default ''");
+    cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'fp_emailformat'," varchar(10) NOT NULL default ''");
+    cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'cu_emailformat'," varchar(10) NOT NULL default ''");
+    cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'paypal_notiemails'," varchar(20) NOT NULL default ''");
+    cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'paypal_mode'," varchar(20) NOT NULL default ''");
+    cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'paypal_recurrent'," varchar(20) NOT NULL default ''");
+    cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'paypal_identify_prices'," varchar(20) NOT NULL default ''");       
+    cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'cp_emailformat'," varchar(10) NOT NULL default ''");       
+    
+    // insert line
     $wpdb->insert( $wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE, array( 
                                       'form_name' => stripcslashes($_GET["name"]),
 
@@ -24,11 +35,13 @@ if (isset($_GET['a']) && $_GET['a'] == '1')
                                       'fp_inc_additional_info' => cp_contactformpp_get_option('fp_inc_additional_info', CP_CONTACTFORMPP_DEFAULT_fp_inc_additional_info),
                                       'fp_return_page' => cp_contactformpp_get_option('fp_return_page', CP_CONTACTFORMPP_DEFAULT_fp_return_page),
                                       'fp_message' => cp_contactformpp_get_option('fp_message', CP_CONTACTFORMPP_DEFAULT_fp_message),
+                                      'fp_emailformat' => cp_contactformpp_get_option('fp_emailformat', CP_CONTACTFORMPP_DEFAULT_email_format),
 
                                       'cu_enable_copy_to_user' => cp_contactformpp_get_option('cu_enable_copy_to_user', CP_CONTACTFORMPP_DEFAULT_cu_enable_copy_to_user),
                                       'cu_user_email_field' => cp_contactformpp_get_option('cu_user_email_field', CP_CONTACTFORMPP_DEFAULT_cu_user_email_field),
                                       'cu_subject' => cp_contactformpp_get_option('cu_subject', CP_CONTACTFORMPP_DEFAULT_cu_subject),
                                       'cu_message' => cp_contactformpp_get_option('cu_message', CP_CONTACTFORMPP_DEFAULT_cu_message),
+                                      'cp_emailformat' => cp_contactformpp_get_option('cp_emailformat', CP_CONTACTFORMPP_DEFAULT_email_format),
 
                                       'vs_use_validation' => cp_contactformpp_get_option('vs_use_validation', CP_CONTACTFORMPP_DEFAULT_vs_use_validation),
                                       'vs_text_is_required' => cp_contactformpp_get_option('vs_text_is_required', CP_CONTACTFORMPP_DEFAULT_vs_text_is_required),
@@ -41,9 +54,10 @@ if (isset($_GET['a']) && $_GET['a'] == '1')
                                       'vs_text_min' => cp_contactformpp_get_option('vs_text_min', CP_CONTACTFORMPP_DEFAULT_vs_text_min),
                                       
                                       'enable_paypal' => cp_contactformpp_get_option('enable_paypal', CP_CONTACTFORMPP_DEFAULT_ENABLE_PAYPAL),
+                                      'paypal_notiemails' => cp_contactformpp_get_option('paypal_notiemails', '0'),
                                       'paypal_email' => cp_contactformpp_get_option('paypal_email', CP_CONTACTFORMPP_DEFAULT_PAYPAL_EMAIL),
                                       'request_cost' => cp_contactformpp_get_option('request_cost', CP_CONTACTFORMPP_DEFAULT_COST),
-                                      'paypal_product_name' => cp_contactformpp_get_option('paypal_product_name',CP_CONTACTFORMPP_DEFAULT_PRODUCT_NAME ),
+                                      'paypal_product_name' => cp_contactformpp_get_option('paypal_product_name', CP_CONTACTFORMPP_DEFAULT_PRODUCT_NAME),
                                       'currency' => cp_contactformpp_get_option('currency', CP_CONTACTFORMPP_DEFAULT_CURRENCY),
                                       'paypal_language' => cp_contactformpp_get_option('paypal_language', CP_CONTACTFORMPP_DEFAULT_PAYPAL_LANGUAGE),                                         
 
@@ -83,8 +97,8 @@ else if (isset($_GET['c']) && $_GET['c'] != '')
     $message = "Item duplicated/cloned";
 }
 else if (isset($_GET['ac']) && $_GET['ac'] == 'st')
-{
-    update_option( 'CP_CFPP_LOAD_SCRIPTS', ($_GET["scr"]=="1"?"0":"1") );    
+{   
+    update_option( 'CP_CFPP_LOAD_SCRIPTS', ($_GET["scr"]=="1"?"0":"1") );   
     if ($_GET["chs"] != '')
     {
         $target_charset = $_GET["chs"];
@@ -129,7 +143,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
  function cp_cloneItem(id)
  {
     document.location = 'options-general.php?page=cp_contact_form_paypal&c='+id+'&r='+Math.random();  
- }
+ } 
  
  function cp_manageSettings(id)
  {
@@ -246,7 +260,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
 
   </div>    
  </div> 
- 
+
 
   
 </div> 

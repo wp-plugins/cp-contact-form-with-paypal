@@ -8,6 +8,8 @@ error_reporting(7);
 
 ob_clean();
 
+if (!isset($_GET["ps"])) $_GET["ps"] = '';
+
 if ($_GET["hdwtest"] == "sessiontest")
 {
     session_start();
@@ -90,7 +92,7 @@ $length = 0;
 for ($i = 0; $i < $letter_count; $i++) {
 	 $str .= chr(mt_rand(97, 122))." ";
 }
-$_SESSION['rand_code'] = str_replace(" ", "", $str);
+$_SESSION['rand_code'.$_GET["ps"]] = str_replace(" ", "", $str);
 
 
 $image = imagecreatetruecolor($imgX, $imgY);
