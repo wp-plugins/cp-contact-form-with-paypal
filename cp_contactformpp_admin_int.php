@@ -314,32 +314,7 @@ $scriptmethod = cp_contactformpp_get_option('script_load_method','0');
      	   });
      		    
          });
-        
-        
-         var $j = jQuery.noConflict();
-         $j(function() {
-         	$j("#dex_dc_expires").datepicker({     	                
-                            dateFormat: 'yy-mm-dd'
-                         }); 	
-         });
-         $j('#dex_nocodes_availmsg').load('<?php echo cp_contactformpp_get_site_url(); ?>/?cp_contact_form_paypal_post=loadcoupons&dex_item=<?php echo CP_CONTACTFORMPP_ID; ?>');
-         $j('#dex_dc_subccode').click (function() {
-                                       var code = $j('#dex_dc_code').val();
-                                       var discount = $j('#dex_dc_discount').val();
-                                       var discounttype = $j('#dex_dc_discounttype').val();
-                                       var expires = $j('#dex_dc_expires').val();
-                                       if (code == '') { alert('Please enter a code'); return; }
-                                       if (parseInt(discount)+"" != discount) { alert('Please numeric discount percent'); return; }
-                                       if (expires == '') { alert('Please enter an expiration date for the code'); return; }
-                                       var params = '&add=1&expires='+encodeURI(expires)+'&discount='+encodeURI(discount)+'&discounttype='+encodeURI(discounttype)+'&code='+encodeURI(code);
-                                       $j('#dex_nocodes_availmsg').load('<?php echo cp_contactformpp_get_site_url(); ?>/?cp_contact_form_paypal_post=loadcoupons&dex_item=<?php echo CP_CONTACTFORMPP_ID; ?>'+params);
-                                       $j('#dex_dc_code').val();
-                                     });
-                                     
-          function dex_delete_coupon(id)                             
-          {
-             $j('#dex_nocodes_availmsg').load('<?php echo cp_contactformpp_get_site_url(); ?>/?cp_contact_form_paypal_post=loadcoupons&dex_item=<?php echo CP_CONTACTFORMPP_ID; ?>&delete=1&code='+id);
-          }        
+                    
         
         
         function generateCaptcha()
