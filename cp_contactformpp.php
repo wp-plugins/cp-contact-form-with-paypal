@@ -341,7 +341,7 @@ function cp_contactformpp_get_public_form($id) {
         wp_register_script('cp_contactformpp_validate_script', plugins_url('/js/jquery.validate.js', __FILE__));
         
         wp_enqueue_script( 'cp_contactformpp_buikder_script',
-        plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-datepicker","query-stringify","cp_contactformpp_validate_script"), false, true );
+        plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-datepicker","jquery-ui-tooltip","query-stringify","cp_contactformpp_validate_script"), false, true );
         
         if ($id == '') $id = $myrows[0]->id;
         wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder_config'.$CP_CPP_global_form_count, array('obj'  	=>
@@ -373,7 +373,8 @@ function cp_contactformpp_get_public_form($id) {
 <?php $plugin_url = plugins_url('', __FILE__); ?>
 <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/jquery.js'; ?>'></script>
 <script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js'; ?>'></script>
-<script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.datepicker.min.js'; ?>'></script>  
+<script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.datepicker.min.js'; ?>'></script>
+<script type='text/javascript' src='<?php echo $plugin_url.'/../../../wp-includes/js/jquery/ui/jquery.ui.tooltip.min.js'; ?>'></script>
 <script type='text/javascript' src='<?php echo plugins_url('js/jQuery.stringify.js', __FILE__); ?>'></script>
 <script type='text/javascript' src='<?php echo plugins_url('js/jquery.validate.js', __FILE__); ?>'></script>
 <script type='text/javascript'>
