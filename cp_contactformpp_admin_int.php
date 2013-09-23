@@ -375,9 +375,10 @@ $scriptmethod = cp_contactformpp_get_option('script_load_method','0');
         <td><input type="text" name="vs_text_submitbtn" size="40" value="<?php $label = esc_attr(cp_contactformpp_get_option('vs_text_submitbtn', 'Submit')); echo ($label==''?'Submit':$label); ?>" /></td>
         </tr>    
         <tr valign="top">
-        <td colspan="2"> - The  <em>class="cp_subbtn"</em> can be used to modify the button styles. <br />
+        <td colspan="2"> - The  <em>class="pbSubmit"</em> can be used to modify the button styles. <br />
         - The styles can be applied into any of the CSS files of your theme or into the CSS file <em>"cp-contact-form-with-paypal\css\stylepublic.css"</em>. <br />
-        - For further modifications the submit button is located at the end of the file <em>"cp_contactformpp_public_int.inc.php"</em>.
+        - For further modifications the submit button is located at the end of the file <em>"cp_contactformpp_public_int.inc.php"</em>.<br />
+        - For general CSS styles modifications to the form and samples <a href="http://wordpress.dwbooster.com/faq/cp-contact-form-with-paypal#q61" target="_blank">check this FAQ</a>.
         </tr>
      </table>
   </div>    
