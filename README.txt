@@ -45,6 +45,16 @@ These are some possible scenarios where this plugin is useful:
 * For automatic delivering of information after payment (put the information into the auto-reply message)
 * ... any other use involving contact forms and PayPal payments
 
+= Pro Features: =
+
+The following features aren't part of the free version. The following features are present only in the pro version
+
+* Visual form builder: The free version includes a classic predefined form. If you need a different form you will need the pro version.
+* Recurrent payments, work without PayPal, sandbox, discount codes and dynamic/open prices.
+
+If you are interested in a version with the pro features you can get it here: http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
+
+
 == Installation ==
 
 To install CP Contact Form with PayPal, follow these steps:
