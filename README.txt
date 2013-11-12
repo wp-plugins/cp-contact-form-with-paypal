@@ -165,7 +165,7 @@ A: To accept a PayPal donation (an open donation amount) just put a zero (0) on 
 = 1.0.1 =
 * Speed improvements, the contact form loads faster
 * Improved validation options for the contact form fields
-* Tested and fully compatible with WordPress 3.7.x
+* Tested and fully compatible with WordPress 3.7.x.
 
 == Upgrade Notice ==
 
