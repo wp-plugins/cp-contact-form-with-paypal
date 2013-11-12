@@ -332,6 +332,7 @@ function cp_contactformpp_get_public_form($id) {
         $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE." WHERE id=".$id );
     else
         $myrows = $wpdb->get_results( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE );
+    if ($id == '') $id = $myrows[0]->id;
     if (CP_CONTACTFORMPP_DEFAULT_DEFER_SCRIPTS_LOADING)
     {
         wp_deregister_script('query-stringify');
@@ -343,7 +344,7 @@ function cp_contactformpp_get_public_form($id) {
         wp_enqueue_script( 'cp_contactformpp_buikder_script',
         plugins_url('/js/fbuilder.jquery.js', __FILE__),array("jquery","jquery-ui-core","jquery-ui-datepicker","jquery-ui-widget","jquery-ui-position","jquery-ui-tooltip","query-stringify","cp_contactformpp_validate_script"), false, true );
         
-        if ($id == '') $id = $myrows[0]->id;
+        
         wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder_config'.$CP_CPP_global_form_count, array('obj'  	=>
         '{"pub":true,"identifier":"'.$CP_CPP_global_form_count.'","messages": {
         	                	"required": "'.str_replace(array('"'),array('\\"'),cp_contactformpp_get_option('vs_text_is_required', CP_CONTACTFORMPP_DEFAULT_vs_text_is_required,$id)).'",
