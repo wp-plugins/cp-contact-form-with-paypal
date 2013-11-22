@@ -289,7 +289,7 @@ $scriptmethod = cp_contactformpp_get_option('script_load_method','0');
      <em>Note: This free version includes a classic predefined contact form. The form builder for a total form customization
          is available in the <a href="http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal#download">pro version</a>.</em>
         <br /><br />
-     <input type="hidden" name="form_structure" id="form_structure" size="180" value="<?php echo str_replace("\r","",str_replace("\n","",esc_attr(cp_contactformpp_cleanJSON(cp_contactformpp_get_option('form_structure', CP_CONTACTFORMPP_DEFAULT_form_structure))))); ?>" />
+     <input type="hidden" name="form_structure" id="form_structure" size="180" value="<?php echo str_replace('"','&quot;',str_replace("\r","",str_replace("\n","",esc_attr(cp_contactformpp_cleanJSON(cp_contactformpp_get_option('form_structure', CP_CONTACTFORMPP_DEFAULT_form_structure)))))); ?>" />
      
      <link href="<?php echo plugins_url('css/style.css', __FILE__); ?>" type="text/css" rel="stylesheet" />   
      <link href="<?php echo plugins_url('css/cupertino/jquery-ui-1.8.20.custom.css', __FILE__); ?>" type="text/css" rel="stylesheet" />   
