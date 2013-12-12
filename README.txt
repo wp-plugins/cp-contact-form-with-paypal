@@ -3,7 +3,7 @@ Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
 Tags: contact form,contact,form,paypal,payment,mail,email,forms,form to email,paypal button,paypal payment,paypal donation
 Requires at least: 3.0.5
-Tested up to: 3.7
+Tested up to: 3.8
 Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
