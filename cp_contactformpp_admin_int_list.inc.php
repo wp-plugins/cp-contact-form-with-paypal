@@ -27,7 +27,7 @@ if (isset($_GET['a']) && $_GET['a'] == '1')
     $wpdb->insert( $wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE, array( 
                                       'form_name' => stripcslashes($_GET["name"]),
 
-                                      'form_structure' => cp_contactformpp_get_option('form_structure', CP_CONTACTFORMPP_DEFAULT_form_structure),
+                                      'form_structure' => CP_CONTACTFORMPP_DEFAULT_form_structure,
 
                                       'fp_from_email' => cp_contactformpp_get_option('fp_from_email', CP_CONTACTFORMPP_DEFAULT_fp_from_email),
                                       'fp_destination_emails' => cp_contactformpp_get_option('fp_destination_emails', CP_CONTACTFORMPP_DEFAULT_fp_destination_emails),
