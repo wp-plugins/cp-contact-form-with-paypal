@@ -12,7 +12,7 @@
     }
     var result = $dexQuery.ajax({
         type: "GET",
-        url: "<?php echo cp_contactformpp_get_site_url(); ?>?ps=<?php echo $CP_CPP_global_form_count; ?>&hdcaptcha_cp_contact_form_paypal_post="+$dexQuery("#hdcaptcha_cp_contact_form_paypal_post<?php echo $CP_CPP_global_form_count; ?>").val(),
+        url: "<?php echo cp_contactformpp_get_site_url(); ?>?ps=<?php echo $CP_CPP_global_form_count; ?>"+String.fromCharCode(38)+"hdcaptcha_cp_contact_form_paypal_post="+$dexQuery("#hdcaptcha_cp_contact_form_paypal_post<?php echo $CP_CPP_global_form_count; ?>").val(),
         async: false
     }).responseText;
     if (result == "captchafailed")
