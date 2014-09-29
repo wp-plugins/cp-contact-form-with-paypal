@@ -95,6 +95,18 @@ On the other hand if the contact form messages aren't marked as "paid" then the 
 
 A: The PayPal button is located at the end of the file "cp_contactformpp_public_int.inc.php". It's a classic submit button, you can change it to any other button that submits the PayPal form.
 
+= Q: How can I have an actual PayPal button as the submit button for the form instead of the default grey button? = 
+
+A: At the end of the file "cp_contactformpp_public_int.inc.php" replace this:
+
+        <?php _e($button_label); ?>
+
+... by this:
+
+        <img src="http://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" />
+        
+You may also want to change the background color of the button with the CSS style class="pbSubmit".
+
 = Q: How can I add specific fields into the contact form message? = 
 
 A: There is a tag named %INFO% that is replaced with all the information posted from the form, however you can use also optional tags for specific fields into the contact form.
