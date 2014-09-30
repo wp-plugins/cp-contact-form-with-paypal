@@ -1,7 +1,7 @@
 === CP Contact Form with Paypal ===
 Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
-Tags: contact form,contact,form,paypal,payment,mail,email,forms,form to email,paypal button,paypal payment,paypal donation
+Tags: contact form,contact,form,paypal,payment,post,mail,email,forms,form to email,plugin,paypal button,page,paypal payment,paypal donation
 Requires at least: 3.0.5
 Tested up to: 4.0
 Stable tag: 1.0.1
@@ -144,6 +144,12 @@ A: Use the "Clone" button located in the contact form's list. That button will d
 = Q: How to setup the CP Contact Form with PayPal to accept a PayPal donation? =
 
 A: To accept a PayPal donation (an open donation amount) just put a zero (0) on the "Request Cost" settings field. That way after filling the contact form clicking the PayPal button (contact form submit button) the PayPal payment page will appear letting the user to enter the amount to pay.
+
+= Q: How to show a company name instead the email address at the PayPal payment page? =
+
+A: To show a company name instead the email address at the PayPal payment page (after the contact form submission) you have to use a PayPal Standard Business account. Note that in Personal and Premier Standard accounts the email is shown instead the company name since there is no company name in that case.
+
+Note also that if you are testing the contact form in the SandBox mode then the email may be shown instead the name of the production account.
 
 
 == Other Notes ==
