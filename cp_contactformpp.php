@@ -641,6 +641,14 @@ function cp_contact_form_paypal_check_posted_data() {
     $params["PayPal Product Name"] = $paypal_product_name; 
     $params["Cost"] = $price;
     
+    $current_user = wp_get_current_user();
+    $params["user_login"] = $current_user->user_login;
+    $params["user_id"] = $current_user->ID;
+    $params["user_email"] = $current_user->user_email;
+    $params["user_firstname"] = $current_user->user_firstname; 
+    $params["user_lastname"] = $current_user->user_lastname; 
+    $params["display_name"] = $current_user->display_name;     
+    
     cp_contactformpp_add_field_verify(CP_CONTACTFORMPP_POSTS_TABLE_NAME,'posted_data');
 
     // insert into database
