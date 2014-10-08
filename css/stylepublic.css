@@ -69,10 +69,10 @@ z-index:1000;
 #fbuilder .pbreak.pb0{display:block}
 #fbuilder .pbreak .pbPrevious,.pbreak .pbNext,.pbSubmit{background:#ccc;color:#000;display:block;float:left;cursor:pointer;margin:30px 10px 0px 0px;padding:5px 20px}
 #fbuilder .pbreak.pb0 .pbPrevious{display:none}
-.pbreak.pbEnd .pbNext{display:none}
+#fbuilder .pbreak.pbEnd .pbNext{display:none}
 .ignore{border:5px solid black}
-.pbreak fieldset{border:1px solid #ccc;padding:10px}
-.pbreak legend{border:1px solid #ccc;padding:5px 10px}
+#fbuilder .pbreak fieldset{border:1px solid #ccc;padding:10px}
+#fbuilder .pbreak legend{border:1px solid #ccc;padding:5px 10px}
 .cpcaptchalayer,.cp_subbtn{display:none}
 
 #fbuilder input[type='radio'],#fbuilder input[type='checkbox']{width:auto}
