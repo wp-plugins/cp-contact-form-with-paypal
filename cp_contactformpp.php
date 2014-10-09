@@ -980,6 +980,10 @@ function cp_contactformpp_save_options()
     cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'paypal_price_field'," varchar(250) NOT NULL default ''");
     cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'vs_text_submitbtn'," varchar(250) NOT NULL default ''");
 
+    foreach ($_POST as $item => $value)
+      if (!is_array($value))
+          $_POST[$item] = stripcslashes($value);
+          
     $data = array(
 
                   'fp_from_email' => $_POST['fp_from_email'],
