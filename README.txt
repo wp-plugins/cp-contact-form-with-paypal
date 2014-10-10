@@ -180,12 +180,17 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * First stable version released.
 * More configuration options added.
 
-= 1.0.1 =
-* Speed improvements, the contact form loads faster
-* Improved validation options for the contact form fields
-* Tested and fully compatible with WordPress 3.7.x.
-
 == Upgrade Notice ==
 
 = 1.0.1 =
-First stable version released.
+* Compatible with latest WordPress versions
+* Speed improvements, the contact form loads faster
+* Improved validation options for the contact form fields
+* New email content editing feature and interface changes
+* New tooltip scripts
+* Fixed bug related to discount codes
+* Fixed conflict with captcha image generation.
+* New feature to get the logged in user information into the notification email
+* Update to CSS styles for minimizing the CSS conflicts.
+* Improvements to CSS styles.
+* Fixes problem with backslash when saving the contact form settings.
