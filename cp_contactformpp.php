@@ -966,7 +966,7 @@ function cp_contactformpp_save_options()
         define ('CP_CONTACTFORMPP_ID',$_POST["cp_contactformpp_id"]);
 
     // temporal line2 to guarantee migration from previous version
-    cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'paypal_zero_payment'," varchar(10) NOT NULL default ''");
+    //cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'paypal_zero_payment'," varchar(10) NOT NULL default ''");
     cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'fp_emailformat'," varchar(10) NOT NULL default ''");
     cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'cu_emailformat'," varchar(10) NOT NULL default ''");
     cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'paypal_notiemails'," varchar(20) NOT NULL default ''");
