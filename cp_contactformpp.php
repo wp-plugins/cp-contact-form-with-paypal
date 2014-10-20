@@ -929,7 +929,7 @@ function cp_contactformpp_export_csv ()
     
     
     header("Content-type: application/octet-stream");
-    header("Content-Disposition: attachment; filename=export.csv");  
+    header("Content-Disposition: attachment; filename=export".date("Y-m-d").".csv");  
     
     $end = count($fields); 
     for ($i=0; $i<$end; $i++)
