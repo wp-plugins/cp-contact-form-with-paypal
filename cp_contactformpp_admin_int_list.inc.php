@@ -131,35 +131,35 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
  function cp_addItem()
  {
     var calname = document.getElementById("cp_itemname").value;
-    document.location = 'options-general.php?page=cp_contact_form_paypal&a=1&r='+Math.random()+'&name='+encodeURIComponent(calname);       
+    document.location = 'admin.php?page=cp_contact_form_paypal&a=1&r='+Math.random()+'&name='+encodeURIComponent(calname);       
  }
  
  function cp_updateItem(id)
  {
     var calname = document.getElementById("calname_"+id).value;    
-    document.location = 'options-general.php?page=cp_contact_form_paypal&u='+id+'&r='+Math.random()+'&name='+encodeURIComponent(calname);    
+    document.location = 'admin.php?page=cp_contact_form_paypal&u='+id+'&r='+Math.random()+'&name='+encodeURIComponent(calname);    
  }
  
  function cp_cloneItem(id)
  {
-    document.location = 'options-general.php?page=cp_contact_form_paypal&c='+id+'&r='+Math.random();  
+    document.location = 'admin.php?page=cp_contact_form_paypal&c='+id+'&r='+Math.random();  
  } 
  
  function cp_manageSettings(id)
  {
-    document.location = 'options-general.php?page=cp_contact_form_paypal&cal='+id+'&r='+Math.random();
+    document.location = 'admin.php?page=cp_contact_form_paypal&cal='+id+'&r='+Math.random();
  }
  
  function cp_viewMessages(id)
  {
-    document.location = 'options-general.php?page=cp_contact_form_paypal&cal='+id+'&list=1&r='+Math.random();
+    document.location = 'admin.php?page=cp_contact_form_paypal&cal='+id+'&list=1&r='+Math.random();
  } 
  
  function cp_deleteItem(id)
  {
     if (confirm('Are you sure that you want to delete this item?'))
     {        
-        document.location = 'options-general.php?page=cp_contact_form_paypal&d='+id+'&r='+Math.random();
+        document.location = 'admin.php?page=cp_contact_form_paypal&d='+id+'&r='+Math.random();
     }
  }
  
@@ -169,7 +169,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
     {        
         var scr = document.getElementById("ccscriptload").value;    
         var chs = document.getElementById("cccharsets").value;    
-        document.location = 'options-general.php?page=cp_contact_form_paypal&ac=st&scr='+scr+'&chs='+chs+'&r='+Math.random();
+        document.location = 'admin.php?page=cp_contact_form_paypal&ac=st&scr='+scr+'&chs='+chs+'&r='+Math.random();
     }    
  }
  

@@ -41,7 +41,7 @@ $scriptmethod = cp_contactformpp_get_option('script_load_method','0');
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css" type="text/css" rel="stylesheet" />   
 <?php } ?>
 
-<input type="button" name="backbtn" value="Back to items list..." onclick="document.location='options-general.php?page=cp_contact_form_paypal';">
+<input type="button" name="backbtn" value="Back to items list..." onclick="document.location='admin.php?page=cp_contact_form_paypal';">
 <br /><br />
 
 <form method="post" action="" name="cpformconf"> 
@@ -146,7 +146,19 @@ $scriptmethod = cp_contactformpp_get_option('script_load_method','0');
              <option value="1" <?php if (cp_contactformpp_get_option('request_address','0') == '1') echo 'selected'; ?>>Yes</option> 
             </select>
         </td>
-        </tr>         
+        </tr>    
+        
+        <tr valign="top">        
+        <th scope="row">Paypal Mode</th>
+        <td><select name="paypal_mode">
+             <option value="production" <?php if (cp_contactformpp_get_option('paypal_mode',CP_CONTACTFORMPP_DEFAULT_PAYPAL_MODE) != 'sandbox') echo 'selected'; ?>>Production - real payments processed</option> 
+             <option value="sandbox" <?php if (cp_contactformpp_get_option('paypal_mode',CP_CONTACTFORMPP_DEFAULT_PAYPAL_MODE) == 'sandbox') echo 'selected'; ?>>SandBox - PayPal testing sandbox area</option> 
+            </select>
+            <br />
+           <em> * Note that if you are testing it in a localhost site the PayPal IPN notification won't reach to your website. Related FAQ entry:
+            <a href="http://wordpress.dwbooster.com/faq/cp-contact-form-with-paypal#q76">http://wordpress.dwbooster.com/faq/cp-contact-form-with-paypal#q76</a></em>
+        </td>
+        </tr>             
         
         <tr valign="top">
         <th scope="row" colspan="2">------- The following set of fields are only partially available in this version ------</th>
@@ -212,24 +224,7 @@ $scriptmethod = cp_contactformpp_get_option('script_load_method','0');
              [<a href="javascript:displaylessin(4);">- less information</a>]
             </div>
         </td>
-        </tr>        
-        
-        <tr valign="top">        
-        <th scope="row">Paypal Mode</th>
-        <td>
-            <div id="cpcfppmoreinlink5"><select name="paypal_mode">
-             <option value="production" <?php if (cp_contactformpp_get_option('paypal_mode',CP_CONTACTFORMPP_DEFAULT_PAYPAL_MODE) != 'sandbox') echo 'selected'; ?>>Production - real payments processed</option>              
-            </select> &nbsp; [<a href="javascript:displaymorein(5);">+ more information</a>]</div>
-            <div id="cpcfppmorein5" style="display:none;border:1px solid black;background-color:#ffffcc;padding:10px;">             
-             <p>The <a href="http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal">pro version</a> includes these options:</p>
-             <p>
-               &nbsp; &nbsp; - Production - real payments processed.<br />
-               &nbsp; &nbsp; - SandBox - PayPal testing sandbox area.
-             </p>
-             [<a href="javascript:displaylessin(5);">- less information</a>]
-            </div>
-        </td>
-        </tr>                                 
+        </tr>                                      
         
         <tr valign="top">        
         <th scope="row">A $0 amount to pay means:</th>
