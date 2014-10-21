@@ -48,13 +48,13 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
 <script type="text/javascript">
  function cp_updateMessageItem(id,status)
  {    
-    document.location = 'options-general.php?page=cp_contact_form_paypal&cal=<?php echo $_GET["cal"]; ?>&list=1&status='+status+'&lu='+id+'&r='+Math.random( );   
+    document.location = 'admin.php?page=cp_contact_form_paypal&cal=<?php echo $_GET["cal"]; ?>&list=1&status='+status+'&lu='+id+'&r='+Math.random( );   
  } 
  function cp_deleteMessageItem(id)
  {
     if (confirm('Are you sure that you want to delete this item?'))
     {        
-        document.location = 'options-general.php?page=cp_contact_form_paypal&cal=<?php echo $_GET["cal"]; ?>&list=1&ld='+id+'&r='+Math.random();
+        document.location = 'admin.php?page=cp_contact_form_paypal&cal=<?php echo $_GET["cal"]; ?>&list=1&ld='+id+'&r='+Math.random();
     }
  }
 </script>

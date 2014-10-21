@@ -104,6 +104,13 @@ if ( is_admin() ) {
 
     function cp_contactformpp_admin_menu() {
         add_options_page('CP Contact Form with Paypal Options', 'CP Contact Form with Paypal', 'manage_options', 'cp_contact_form_paypal', 'cp_contactformpp_html_post_page' );
+        add_menu_page( 'CP Contact Form with Paypal', 'CP Contact Form with Paypal', 'manage_options', 'cp_contact_form_paypal', 'cp_contactformpp_html_post_page' );
+        
+        add_submenu_page( 'cp_contact_form_paypal', 'Manage Forms', 'Manage Forms', 'manage_options', "cp_contact_form_paypal",  'cp_contactformpp_html_post_page' );
+        add_submenu_page( 'cp_contact_form_paypal', 'Help: Online demo', 'Help: Online demo', 'manage_options', "cp_contact_form_paypal_demo", 'cp_contactformpp_html_post_page' );       
+        add_submenu_page( 'cp_contact_form_paypal', 'Upgrade', 'Upgrade', 'edit_pages', "cp_contact_form_paypal_upgrade", 'cp_contactformpp_html_post_page' );
+ 
+
     }
 } else { // if not admin
     add_shortcode( 'CP_CONTACT_FORM_PAYPAL', 'cp_contactformpp_filter_content' );
@@ -426,7 +433,20 @@ function cp_contactformpp_html_post_page() {
             @include_once dirname( __FILE__ ) . '/cp_contactformpp_admin_int.php';
     }
     else
-        @include_once dirname( __FILE__ ) . '/cp_contactformpp_admin_int_list.inc.php';
+    {                
+        if (isset($_GET["page"]) &&$_GET["page"] == 'cp_contact_form_paypal_upgrade')
+        {
+            echo("Redirecting to upgrade page...<script type='text/javascript'>document.location='http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal#download';</script>");
+            exit;
+        } 
+        else if (isset($_GET["page"]) &&$_GET["page"] == 'cp_contact_form_paypal_demo')
+        {
+            echo("Redirecting to upgrade page...<script type='text/javascript'>document.location='http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal#demo';</script>");
+            exit;
+        } 
+        else
+            @include_once dirname( __FILE__ ) . '/cp_contactformpp_admin_int_list.inc.php';
+    }
 }
 
 
@@ -675,7 +695,10 @@ function cp_contact_form_paypal_check_posted_data() {
  	// save data here
     $item_number = $myrows[0]->max_id;
 
-    $ppurl = 'https://www.paypal.com/cgi-bin/webscr';    
+    if (cp_contactformpp_get_option('paypal_mode',CP_CONTACTFORMPP_DEFAULT_PAYPAL_MODE) == "sandbox")
+        $ppurl = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+    else
+        $ppurl = 'https://www.paypal.com/cgi-bin/webscr';
 ?>
 <html>
 <head><title>Redirecting to Paypal...</title></head>
