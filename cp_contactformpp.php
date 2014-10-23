@@ -441,7 +441,7 @@ function cp_contactformpp_html_post_page() {
         } 
         else if (isset($_GET["page"]) &&$_GET["page"] == 'cp_contact_form_paypal_demo')
         {
-            echo("Redirecting to upgrade page...<script type='text/javascript'>document.location='http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal#demo';</script>");
+            echo("Redirecting to demo page...<script type='text/javascript'>document.location='http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal#demo';</script>");
             exit;
         } 
         else
