@@ -50,7 +50,7 @@ These are some possible scenarios where this plugin is useful:
 The following features aren't part of the free version. The following features are present only in the pro version
 
 * Visual form builder: The free version includes a classic predefined form. If you need a different form you will need the pro version.
-* Recurrent payments, work without PayPal, sandbox, discount codes and dynamic/open prices.
+* Recurrent payments, work without PayPal, discount codes and dynamic/open prices.
 
 If you are interested in a version with the pro features you can get it here: http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
 
