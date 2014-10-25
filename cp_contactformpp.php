@@ -722,7 +722,7 @@ function cp_contact_form_paypal_check_posted_data() {
 <input type="hidden" name="lc" value="<?php echo cp_contactformpp_get_option('paypal_language', CP_CONTACTFORMPP_DEFAULT_PAYPAL_LANGUAGE); ?>" />
 <input type="hidden" name="notify_url" value="<?php echo cp_contactformpp_get_FULL_site_url(); ?>/?cp_contactformpp_ipncheck=1&itemnumber=<?php echo $item_number; ?>" />
 <input type="hidden" name="ipn_test" value="1" />
-<input class="pbutton" type="hidden" value="Buy Now" /></div>
+<input class="pbutton" type="hidden" value="Buy Now" />
 </form>
 <script type="text/javascript">
 document.ppform3.submit();
