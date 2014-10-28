@@ -15,7 +15,7 @@
         url: "<?php echo cp_contactformpp_get_site_url(); ?>?ps=<?php echo $CP_CPP_global_form_count; ?>"+String.fromCharCode(38)+"hdcaptcha_cp_contact_form_paypal_post="+$dexQuery("#hdcaptcha_cp_contact_form_paypal_post<?php echo $CP_CPP_global_form_count; ?>").val(),
         async: false
     }).responseText;
-    if (result == "captchafailed")
+    if (result.indexOf("captchafailed") != -1)
     {
         $dexQuery("#captchaimg<?php echo $CP_CPP_global_form_count; ?>").attr('src', $dexQuery("#captchaimg<?php echo $CP_CPP_global_form_count; ?>").attr('src')+'&'+Date());
         alert('<?php _e('Incorrect captcha code. Please try again.'); ?>');
