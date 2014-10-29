@@ -714,6 +714,7 @@ function cp_contact_form_paypal_check_posted_data() {
 <input type="hidden" name="tax_rate"  value="<?php echo $taxes; ?>" />
 <?php } ?>
 <input type="hidden" name="page_style" value="Primary" />
+<input type="hidden" name="charset" value="utf-8">
 <input type="hidden" name="no_shipping" value="<?php if (cp_contactformpp_get_option('request_address','0') != '1') echo '1'; else echo '2'; ?>" />
 <input type="hidden" name="return" value="<?php echo cp_contactformpp_get_option('fp_return_page', CP_CONTACTFORMPP_DEFAULT_fp_return_page); ?>">
 <input type="hidden" name="cancel_return" value="<?php echo $_POST["cp_ref_page"]; ?>" />
