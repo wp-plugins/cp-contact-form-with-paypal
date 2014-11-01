@@ -602,6 +602,10 @@ function cp_contact_form_paypal_check_posted_data() {
            ( ($_GET['hdcaptcha_cp_contact_form_paypal_post'] != $_SESSION['rand_code'.$sequence]) ||
              ($_SESSION['rand_code'.$sequence] == '')
            )
+           &&
+           ( (md5(strtolower($_GET['hdcaptcha_cp_contact_form_paypal_post'])) != $_COOKIE['rand_code'.$sequence]) ||
+             ($_COOKIE['rand_code'.$sequence] == '')
+           )
        )
     {
         echo 'captchafailed';
