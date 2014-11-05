@@ -552,14 +552,4 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
     left: -4px; /*must have*/
     width: 200px; /*must have*/
     height: 200px; /*must have*/
-}/*!
- * jQuery UI Progressbar 1.8.20
- *
- * Copyright 2012, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Progressbar#theming
- */
-.ui-progressbar { height:2em; text-align: left; overflow: hidden; }
-.ui-progressbar .ui-progressbar-value {margin: -1px; height:100%; }
+}
