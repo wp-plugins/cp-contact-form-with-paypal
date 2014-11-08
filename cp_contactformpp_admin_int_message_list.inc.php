@@ -135,7 +135,7 @@ echo paginate_links(  array(
 		     foreach ($posted_data as $item => $value)
 		         if (strpos($item,"_url") && $value != '')		         
 		             $data = str_replace ($posted_data[str_replace("_url","",$item)],'<a href="'.$value.'" target="_blank">'.$posted_data[str_replace("_url","",$item)].'</a><br />',$data);  
-		     echo str_replace("\n","<br />",$data); 
+		     echo str_replace("\n","<br />",str_replace('<','&lt;',$data));  
 		     
 		?></td>
 		<td>
