@@ -712,7 +712,7 @@ function cp_contact_form_paypal_check_posted_data() {
 <input type="hidden" name="item_name" value="<?php echo $paypal_product_name; ?>" />
 <input type="hidden" name="item_number" value="<?php echo $item_number; ?>" />
 <input type="hidden" name="cmd" value="_xclick" />
-<input type="hidden" name="bn" value="PP-BuyNowBF" />
+<input type="hidden" name="bn" value="NetFactorSL_SI_Custom" />
 <input type="hidden" name="amount" value="<?php echo $price; ?>" />
 <?php if ($taxes != '0' && $taxes != '') { ?>
 <input type="hidden" name="tax_rate"  value="<?php echo $taxes; ?>" />
