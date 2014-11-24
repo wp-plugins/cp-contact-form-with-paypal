@@ -193,6 +193,7 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * Improvements to CSS styles.
 * Fixes problem with backslash when saving the contact form settings.
 * PayPal Sandbox option added
+* Added language support through MO/PO files
 
 == Upgrade Notice ==
 
@@ -209,3 +210,4 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * Improvements to CSS styles.
 * Fixes problem with backslash when saving the contact form settings.
 * PayPal Sandbox option added
+* Added language support through MO/PO files
