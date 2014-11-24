@@ -166,6 +166,17 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 
 **Export data to CSV/Excel:** The messages list contains an option to export the contact messages received from the contact form to a CSV/Excel file. This way you can export the email address and other data from the contact messages to other applications or manage the data in Excel. The filters in the message list apply also to the exported CSV/Excel file.
 
+= Language Support =
+
+The Contact Form with PayPal plugin is compatible with all charsets. The troubleshoot area contains options to change the encoding of the plugin database tables if needed.
+
+Translations are supported through PO/MO files located in the Contact Form with PayPal plugin folder "languages".
+
+The following translations are already included in the plugin:
+
+* English
+* Spanish
+
 
 == Screenshots ==
 
