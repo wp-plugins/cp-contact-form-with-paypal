@@ -92,6 +92,11 @@ register_activation_hook(__FILE__,'cp_contactformpp_install');
 
 add_action( 'init', 'cp_contact_form_paypal_check_posted_data', 11 );
 
+function cpcfwpp_plugin_init() {
+   load_plugin_textdomain( 'cpcfwpp', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
+add_action('plugins_loaded', 'cpcfwpp_plugin_init');
+
 if ( is_admin() ) {
     add_action('media_buttons', 'set_cp_contactformpp_insert_button', 100);
     add_action('admin_enqueue_scripts', 'set_cp_contactformpp_insert_adminScripts', 1);
@@ -354,14 +359,14 @@ function cp_contactformpp_get_public_form($id) {
         
         wp_localize_script('cp_contactformpp_buikder_script', 'cp_contactformpp_fbuilder_config'.$CP_CPP_global_form_count, array('obj'  	=>
         '{"pub":true,"identifier":"'.$CP_CPP_global_form_count.'","messages": {
-        	                	"required": "'.str_replace(array('"'),array('\\"'),cp_contactformpp_get_option('vs_text_is_required', CP_CONTACTFORMPP_DEFAULT_vs_text_is_required,$id)).'",
-        	                	"email": "'.str_replace(array('"'),array('\\"'),cp_contactformpp_get_option('vs_text_is_email', CP_CONTACTFORMPP_DEFAULT_vs_text_is_email,$id)).'",
-        	                	"datemmddyyyy": "'.str_replace(array('"'),array('\\"'),cp_contactformpp_get_option('vs_text_datemmddyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_datemmddyyyy,$id)).'",
-        	                	"dateddmmyyyy": "'.str_replace(array('"'),array('\\"'),cp_contactformpp_get_option('vs_text_dateddmmyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_dateddmmyyyy,$id)).'",
-        	                	"number": "'.str_replace(array('"'),array('\\"'),cp_contactformpp_get_option('vs_text_number', CP_CONTACTFORMPP_DEFAULT_vs_text_number,$id)).'",
-        	                	"digits": "'.str_replace(array('"'),array('\\"'),cp_contactformpp_get_option('vs_text_digits', CP_CONTACTFORMPP_DEFAULT_vs_text_digits,$id)).'",
-        	                	"max": "'.str_replace(array('"'),array('\\"'),cp_contactformpp_get_option('vs_text_max', CP_CONTACTFORMPP_DEFAULT_vs_text_max,$id)).'",
-        	                	"min": "'.str_replace(array('"'),array('\\"'),cp_contactformpp_get_option('vs_text_min', CP_CONTACTFORMPP_DEFAULT_vs_text_min,$id)).'"
+        	                	"required": "'.str_replace(array('"'),array('\\"'),__(cp_contactformpp_get_option('vs_text_is_required', CP_CONTACTFORMPP_DEFAULT_vs_text_is_required,$id),'cpcfwpp')).'",
+        	                	"email": "'.str_replace(array('"'),array('\\"'),__(cp_contactformpp_get_option('vs_text_is_email', CP_CONTACTFORMPP_DEFAULT_vs_text_is_email,$id),'cpcfwpp')).'",
+        	                	"datemmddyyyy": "'.str_replace(array('"'),array('\\"'),__(cp_contactformpp_get_option('vs_text_datemmddyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_datemmddyyyy,$id),'cpcfwpp')).'",
+        	                	"dateddmmyyyy": "'.str_replace(array('"'),array('\\"'),__(cp_contactformpp_get_option('vs_text_dateddmmyyyy', CP_CONTACTFORMPP_DEFAULT_vs_text_dateddmmyyyy,$id),'cpcfwpp')).'",
+        	                	"number": "'.str_replace(array('"'),array('\\"'),__(cp_contactformpp_get_option('vs_text_number', CP_CONTACTFORMPP_DEFAULT_vs_text_number,$id),'cpcfwpp')).'",
+        	                	"digits": "'.str_replace(array('"'),array('\\"'),__(cp_contactformpp_get_option('vs_text_digits', CP_CONTACTFORMPP_DEFAULT_vs_text_digits,$id),'cpcfwpp')).'",
+        	                	"max": "'.str_replace(array('"'),array('\\"'),__(cp_contactformpp_get_option('vs_text_max', CP_CONTACTFORMPP_DEFAULT_vs_text_max,$id),'cpcfwpp')).'",
+        	                	"min": "'.str_replace(array('"'),array('\\"'),__(cp_contactformpp_get_option('vs_text_min', CP_CONTACTFORMPP_DEFAULT_vs_text_min,$id),'cpcfwpp')).'"
         	                }}'
         ));
     }  
@@ -978,6 +983,16 @@ function cp_contactformpp_export_csv ()
     
     exit;    
 }
+
+function cp_contactformpp_translate_json($str)
+{
+    $form_data = json_decode(cp_contactformpp_cleanJSON($str));        
+    for ($i=0; $i < count($form_data[0]); $i++)    
+        $form_data[0][$i]->title = __($form_data[0][$i]->title,'cpcfwpp');   
+    $str = json_encode($form_data);
+    return $str;
+}
+
 
 function cp_contactformpp_update_script_method()
 {
