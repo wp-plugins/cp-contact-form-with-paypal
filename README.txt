@@ -181,6 +181,7 @@ The following translations are already included in the plugin:
 * German
 * Portuguese
 * Portuguese(Brasil)
+* Russian
 
 
 == Screenshots ==
