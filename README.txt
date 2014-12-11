@@ -188,6 +188,7 @@ The following translations are already included in the plugin:
 * Dutch
 * Polish
 * Arabic
+* Afrikaans
 
 == Screenshots ==
 
