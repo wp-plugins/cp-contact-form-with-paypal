@@ -187,6 +187,7 @@ The following translations are already included in the plugin:
 * Finnish
 * Dutch
 * Polish
+* Arabic
 
 == Screenshots ==
 
