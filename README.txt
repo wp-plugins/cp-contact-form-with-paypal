@@ -187,9 +187,10 @@ The following translations are already included in the plugin:
 * Finnish
 * Dutch
 * Polish
-* Arabic
 * Afrikaans (af)
 * Albanian (sq)
+* Arabic (ar)
+* Armenian (hy_AM)
 
 == Screenshots ==
 
