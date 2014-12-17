@@ -197,6 +197,7 @@ The following translations are already included in the plugin:
 * Bosnian (bs_BA)
 * Bulgarian (bg_BG)
 * Catalan (ca)
+* Central Kurdish (ckb)
 
 == Screenshots ==
 
