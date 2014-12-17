@@ -182,10 +182,7 @@ The following translations are already included in the plugin:
 * Portuguese
 * Portuguese(Brasil)
 * Russian
-* Czech
-* Danish
 * Finnish
-* Dutch
 * Polish
 * Afrikaans (af)
 * Albanian (sq)
@@ -201,6 +198,9 @@ The following translations are already included in the plugin:
 * Chinese (China zh_CN)
 * Chinese (Taiwan zh_TW)
 * Croatian (hr)
+* Czech (cs_CZ)
+* Danish (da_DK)
+* Dutch (nl_NL)
 
 == Screenshots ==
 
