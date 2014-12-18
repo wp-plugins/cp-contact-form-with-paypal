@@ -203,6 +203,7 @@ The following translations are already included in the plugin:
 * Dutch (nl_NL)
 * Esperanto (eo_EO)
 * Estonian
+* Galician
 
 == Screenshots ==
 
