@@ -3,7 +3,7 @@ Contributors: codepeople
 Donate link: http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
 Tags: contact form,contact,form,paypal,payment,post,mail,email,forms,form to email,plugin,paypal button,page,paypal payment,paypal donation
 Requires at least: 3.0.5
-Tested up to: 4.0
+Tested up to: 4.1
 Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -176,13 +176,10 @@ The following translations are already included in the plugin:
 
 * English
 * Spanish
-* French
 * Italian
-* German
 * Portuguese
 * Portuguese(Brasil)
 * Russian
-* Finnish
 * Polish
 * Afrikaans (af)
 * Albanian (sq)
@@ -202,9 +199,12 @@ The following translations are already included in the plugin:
 * Danish (da_DK)
 * Dutch (nl_NL)
 * Esperanto (eo_EO)
-* Estonian
+* Estonian (et)
+* Finnish (fi)
+* French (fr_FR)
 * Galician (gl_ES)
 * Georgian (ka_GE)
+* German (de_DE)
 
 == Screenshots ==
 
