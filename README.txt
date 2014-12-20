@@ -205,6 +205,7 @@ The following translations are already included in the plugin:
 * Galician (gl_ES)
 * Georgian (ka_GE)
 * German (de_DE)
+* Greek (el)
 
 == Screenshots ==
 
