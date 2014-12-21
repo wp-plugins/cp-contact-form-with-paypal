@@ -208,6 +208,7 @@ The following translations are already included in the plugin:
 * Greek (el)
 * Gujarati (gu_IN)
 * Hebrew (he_IL)
+* Hindi (hi_IN)
 
 == Screenshots ==
 
