@@ -207,6 +207,7 @@ The following translations are already included in the plugin:
 * German (de_DE)
 * Greek (el)
 * Gujarati (gu_IN)
+* Hebrew (he_IL)
 
 == Screenshots ==
 
