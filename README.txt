@@ -210,6 +210,7 @@ The following translations are already included in the plugin:
 * Hebrew (he_IL)
 * Hindi (hi_IN)
 * Hungarian (hu_HU)
+* Indian Bengali (bn_IN)
 
 == Screenshots ==
 
