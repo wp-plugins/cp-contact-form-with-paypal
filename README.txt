@@ -209,6 +209,7 @@ The following translations are already included in the plugin:
 * Gujarati (gu_IN)
 * Hebrew (he_IL)
 * Hindi (hi_IN)
+* Hungarian (hu_HU)
 
 == Screenshots ==
 
