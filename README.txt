@@ -213,6 +213,7 @@ The following translations are already included in the plugin:
 * Indian Bengali (bn_IN)
 * Indonesian (id_ID)
 * Irish (ga_IE)
+* Japanese (ja)
 
 == Screenshots ==
 
