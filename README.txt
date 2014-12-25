@@ -214,6 +214,7 @@ The following translations are already included in the plugin:
 * Indonesian (id_ID)
 * Irish (ga_IE)
 * Japanese (ja)
+* Korean (ko_KR)
 
 == Screenshots ==
 
