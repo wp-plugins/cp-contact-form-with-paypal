@@ -216,6 +216,8 @@ The following translations are already included in the plugin:
 * Japanese (ja)
 * Korean (ko_KR)
 * Latvian (lv)
+* Lithuanian (lt_LT)
+* Macedonian (mk_MK)
 
 == Screenshots ==
 
