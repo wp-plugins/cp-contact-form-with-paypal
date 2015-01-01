@@ -221,6 +221,7 @@ The following translations are already included in the plugin:
 * Malay (ms_MY)
 * Malayalam (ml_IN)
 * Maltese (mt_MT)
+* Norwegian (nb_NO)
 
 == Screenshots ==
 
