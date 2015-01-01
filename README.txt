@@ -220,6 +220,7 @@ The following translations are already included in the plugin:
 * Macedonian (mk_MK)
 * Malay (ms_MY)
 * Malayalam (ml_IN)
+* Maltese (mt_MT)
 
 == Screenshots ==
 
