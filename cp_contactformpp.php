@@ -27,12 +27,12 @@ define('CP_CONTACTFORMPP_DEFAULT_form_structure', '[[{"name":"email","index":0,"
 define('CP_CONTACTFORMPP_DEFAULT_fp_subject', 'Contact from the blog...');
 define('CP_CONTACTFORMPP_DEFAULT_fp_inc_additional_info', 'true');
 define('CP_CONTACTFORMPP_DEFAULT_fp_return_page', get_site_url());
-define('CP_CONTACTFORMPP_DEFAULT_fp_message', "The following contact message has been sent:\n\n<%INFO%>\n\n");
+define('CP_CONTACTFORMPP_DEFAULT_fp_message', "The following contact message has been sent:\n\n<"."%INFO%".">\n\n");
 
 define('CP_CONTACTFORMPP_DEFAULT_cu_enable_copy_to_user', 'true');
 define('CP_CONTACTFORMPP_DEFAULT_cu_user_email_field', '');
 define('CP_CONTACTFORMPP_DEFAULT_cu_subject', 'Confirmation: Message received...');
-define('CP_CONTACTFORMPP_DEFAULT_cu_message', "Thank you for your message. We will reply you as soon as possible.\n\nThis is a copy of the data sent:\n\n<%INFO%>\n\nBest Regards.");
+define('CP_CONTACTFORMPP_DEFAULT_cu_message', "Thank you for your message. We will reply you as soon as possible.\n\nThis is a copy of the data sent:\n\n<"."%INFO%".">\n\nBest Regards.");
 define('CP_CONTACTFORMPP_DEFAULT_email_format','text');
 
 define('CP_CONTACTFORMPP_DEFAULT_vs_use_validation', 'true');
@@ -852,18 +852,18 @@ function cp_contactformpp_process_ready_to_go_reservation($itemnumber, $payer_em
     //---------------------------
     $attachments = array();
     if ('html' == cp_contactformpp_get_option('fp_emailformat', CP_CONTACTFORMPP_DEFAULT_email_format))
-        $message = str_replace('<%INFO%>',str_replace("\n","<br />",str_replace('<','&lt;',$buffer)),cp_contactformpp_get_option('fp_message', CP_CONTACTFORMPP_DEFAULT_fp_message));
+        $message = str_replace('<'.'%INFO%'.'>',str_replace("\n","<br />",str_replace('<','&lt;',$buffer)),cp_contactformpp_get_option('fp_message', CP_CONTACTFORMPP_DEFAULT_fp_message));
     else    
-        $message = str_replace('<%INFO%>',$buffer,cp_contactformpp_get_option('fp_message', CP_CONTACTFORMPP_DEFAULT_fp_message));    
+        $message = str_replace('<'.'%INFO%'.'>',$buffer,cp_contactformpp_get_option('fp_message', CP_CONTACTFORMPP_DEFAULT_fp_message));    
     foreach ($params as $item => $value)
     {
-        $message = str_replace('<%'.$item.'%>',(is_array($value)?(implode(", ",$value)):($value)),$message);
+        $message = str_replace('<'.'%'.$item.'%'.'>',(is_array($value)?(implode(", ",$value)):($value)),$message);
         if (strpos($item,"_link"))
             $attachments[] = $value;
     }
     for ($i=0;$i<500;$i++)
-        $message = str_replace('<%fieldname'.$i.'%>',"",$message);        
-    $message = str_replace('<%itemnumber%>',$itemnumber,$message);    
+        $message = str_replace('<'.'%fieldname'.$i.'%'.'>',"",$message);        
+    $message = str_replace('<'.'%itemnumber%'.'>',$itemnumber,$message);    
     $subject = cp_contactformpp_get_option('fp_subject', CP_CONTACTFORMPP_DEFAULT_fp_subject);
     $from = cp_contactformpp_get_option('fp_from_email', CP_CONTACTFORMPP_DEFAULT_fp_from_email);
     $to = explode(",",cp_contactformpp_get_option('fp_destination_emails', CP_CONTACTFORMPP_DEFAULT_fp_destination_emails));
@@ -887,12 +887,12 @@ function cp_contactformpp_process_ready_to_go_reservation($itemnumber, $payer_em
     if ((trim($_POST[$to]) != '' || $payer_email != '') && 'true' == cp_contactformpp_get_option('cu_enable_copy_to_user', CP_CONTACTFORMPP_DEFAULT_cu_enable_copy_to_user))
     {
         if ('html' == cp_contactformpp_get_option('cu_emailformat', CP_CONTACTFORMPP_DEFAULT_email_format))
-            $message = str_replace('<%INFO%>',str_replace("\n","<br />",str_replace('<','&lt;',$buffer_A)).'</pre>',cp_contactformpp_get_option('cu_message', CP_CONTACTFORMPP_DEFAULT_cu_message));
+            $message = str_replace('<'.'%INFO%'.'>',str_replace("\n","<br />",str_replace('<','&lt;',$buffer_A)).'</pre>',cp_contactformpp_get_option('cu_message', CP_CONTACTFORMPP_DEFAULT_cu_message));
         else    
-            $message = str_replace('<%INFO%>',$buffer_A,cp_contactformpp_get_option('cu_message', CP_CONTACTFORMPP_DEFAULT_cu_message));
+            $message = str_replace('<'.'%INFO%'.'>',$buffer_A,cp_contactformpp_get_option('cu_message', CP_CONTACTFORMPP_DEFAULT_cu_message));
         foreach ($params as $item => $value)
-            $message = str_replace('<%'.$item.'%>',(is_array($value)?(implode(", ",$value)):($value)),$message);
-        $message = str_replace('<%itemnumber%>',$itemnumber,$message);        
+            $message = str_replace('<'.'%'.$item.'%'.'>',(is_array($value)?(implode(", ",$value)):($value)),$message);
+        $message = str_replace('<'.'%itemnumber%'.'>',$itemnumber,$message);        
         $subject = cp_contactformpp_get_option('cu_subject', CP_CONTACTFORMPP_DEFAULT_cu_subject);
         if ('html' == cp_contactformpp_get_option('cu_emailformat', CP_CONTACTFORMPP_DEFAULT_email_format)) $content_type = "Content-Type: text/html; charset=utf-8\n"; else $content_type = "Content-Type: text/plain; charset=utf-8\n";
         if ($_POST[$to] != '')
