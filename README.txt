@@ -222,6 +222,7 @@ The following translations are already included in the plugin:
 * Malayalam (ml_IN)
 * Maltese (mt_MT)
 * Norwegian (nb_NO)
+* Persian (fa_IR)
 
 == Screenshots ==
 
