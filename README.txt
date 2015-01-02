@@ -177,10 +177,7 @@ The following translations are already included in the plugin:
 * English
 * Spanish
 * Italian
-* Portuguese
-* Portuguese(Brasil)
 * Russian
-* Polish
 * Afrikaans (af)
 * Albanian (sq)
 * Arabic (ar)
@@ -223,6 +220,10 @@ The following translations are already included in the plugin:
 * Maltese (mt_MT)
 * Norwegian (nb_NO)
 * Persian (fa_IR)
+* Polish (pl_PL)
+* Portuguese Brazil(pt_BR)
+* Portuguese (pt_PT)
+* Punjabi (pa_IN)
 
 == Screenshots ==
 
