@@ -176,8 +176,6 @@ The following translations are already included in the plugin:
 
 * English
 * Spanish
-* Italian
-* Russian
 * Afrikaans (af)
 * Albanian (sq)
 * Arabic (ar)
@@ -210,6 +208,7 @@ The following translations are already included in the plugin:
 * Indian Bengali (bn_IN)
 * Indonesian (id_ID)
 * Irish (ga_IE)
+* Italian (it_IT)
 * Japanese (ja)
 * Korean (ko_KR)
 * Latvian (lv)
@@ -224,6 +223,8 @@ The following translations are already included in the plugin:
 * Portuguese Brazil(pt_BR)
 * Portuguese (pt_PT)
 * Punjabi (pa_IN)
+* Russian (ru_RU)
+* Romanian (ro_RO)
 
 == Screenshots ==
 
