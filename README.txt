@@ -225,6 +225,7 @@ The following translations are already included in the plugin:
 * Punjabi (pa_IN)
 * Russian (ru_RU)
 * Romanian (ro_RO)
+* Serbian (sr_RS)
 
 == Screenshots ==
 
