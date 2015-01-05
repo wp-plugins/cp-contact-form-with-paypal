@@ -226,6 +226,7 @@ The following translations are already included in the plugin:
 * Russian (ru_RU)
 * Romanian (ro_RO)
 * Serbian (sr_RS)
+* Slovak (sk_SK)
 
 == Screenshots ==
 
