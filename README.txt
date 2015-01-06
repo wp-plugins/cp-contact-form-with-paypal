@@ -175,7 +175,6 @@ Translations are supported through PO/MO files located in the Contact Form with 
 The following translations are already included in the plugin:
 
 * English
-* Spanish
 * Afrikaans (af)
 * Albanian (sq)
 * Arabic (ar)
@@ -228,6 +227,7 @@ The following translations are already included in the plugin:
 * Serbian (sr_RS)
 * Slovak (sk_SK)
 * Slovene (sl_SI)
+* Spanish (es_ES)
 
 == Screenshots ==
 
