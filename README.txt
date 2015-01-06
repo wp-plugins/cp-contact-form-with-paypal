@@ -228,6 +228,7 @@ The following translations are already included in the plugin:
 * Slovak (sk_SK)
 * Slovene (sl_SI)
 * Spanish (es_ES)
+* Swedish (sv_SE)
 
 == Screenshots ==
 
