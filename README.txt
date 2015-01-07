@@ -229,6 +229,7 @@ The following translations are already included in the plugin:
 * Slovene (sl_SI)
 * Spanish (es_ES)
 * Swedish (sv_SE)
+* Tagalog (tl)
 
 == Screenshots ==
 
