@@ -230,6 +230,7 @@ The following translations are already included in the plugin:
 * Spanish (es_ES)
 * Swedish (sv_SE)
 * Tagalog (tl)
+* Tamil (ta)
 
 == Screenshots ==
 
