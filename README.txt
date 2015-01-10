@@ -54,6 +54,72 @@ The following features aren't part of the free version. The following features a
 
 If you are interested in a version with the pro features you can get it here: http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
 
+= Language Support =
+
+The Contact Form with PayPal plugin is compatible with all charsets. The troubleshoot area contains options to change the encoding of the plugin database tables if needed.
+
+Translations are supported through PO/MO files located in the Contact Form with PayPal plugin folder "languages".
+
+The following translations are already included in the plugin:
+
+* English
+* Afrikaans (af)
+* Albanian (sq)
+* Arabic (ar)
+* Armenian (hy_AM)
+* Azerbaijani (az)
+* Basque (eu)
+* Belarusian (be_BY)
+* Bosnian (bs_BA)
+* Bulgarian (bg_BG)
+* Catalan (ca)
+* Central Kurdish (ckb)
+* Chinese (China zh_CN)
+* Chinese (Taiwan zh_TW)
+* Croatian (hr)
+* Czech (cs_CZ)
+* Danish (da_DK)
+* Dutch (nl_NL)
+* Esperanto (eo_EO)
+* Estonian (et)
+* Finnish (fi)
+* French (fr_FR)
+* Galician (gl_ES)
+* Georgian (ka_GE)
+* German (de_DE)
+* Greek (el)
+* Gujarati (gu_IN)
+* Hebrew (he_IL)
+* Hindi (hi_IN)
+* Hungarian (hu_HU)
+* Indian Bengali (bn_IN)
+* Indonesian (id_ID)
+* Irish (ga_IE)
+* Italian (it_IT)
+* Japanese (ja)
+* Korean (ko_KR)
+* Latvian (lv)
+* Lithuanian (lt_LT)
+* Macedonian (mk_MK)
+* Malay (ms_MY)
+* Malayalam (ml_IN)
+* Maltese (mt_MT)
+* Norwegian (nb_NO)
+* Persian (fa_IR)
+* Polish (pl_PL)
+* Portuguese Brazil(pt_BR)
+* Portuguese (pt_PT)
+* Punjabi (pa_IN)
+* Russian (ru_RU)
+* Romanian (ro_RO)
+* Serbian (sr_RS)
+* Slovak (sk_SK)
+* Slovene (sl_SI)
+* Spanish (es_ES)
+* Swedish (sv_SE)
+* Tagalog (tl)
+* Tamil (ta)
+
 
 == Installation ==
 
@@ -166,71 +232,6 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 
 **Export data to CSV/Excel:** The messages list contains an option to export the contact messages received from the contact form to a CSV/Excel file. This way you can export the email address and other data from the contact messages to other applications or manage the data in Excel. The filters in the message list apply also to the exported CSV/Excel file.
 
-= Language Support =
-
-The Contact Form with PayPal plugin is compatible with all charsets. The troubleshoot area contains options to change the encoding of the plugin database tables if needed.
-
-Translations are supported through PO/MO files located in the Contact Form with PayPal plugin folder "languages".
-
-The following translations are already included in the plugin:
-
-* English
-* Afrikaans (af)
-* Albanian (sq)
-* Arabic (ar)
-* Armenian (hy_AM)
-* Azerbaijani (az)
-* Basque (eu)
-* Belarusian (be_BY)
-* Bosnian (bs_BA)
-* Bulgarian (bg_BG)
-* Catalan (ca)
-* Central Kurdish (ckb)
-* Chinese (China zh_CN)
-* Chinese (Taiwan zh_TW)
-* Croatian (hr)
-* Czech (cs_CZ)
-* Danish (da_DK)
-* Dutch (nl_NL)
-* Esperanto (eo_EO)
-* Estonian (et)
-* Finnish (fi)
-* French (fr_FR)
-* Galician (gl_ES)
-* Georgian (ka_GE)
-* German (de_DE)
-* Greek (el)
-* Gujarati (gu_IN)
-* Hebrew (he_IL)
-* Hindi (hi_IN)
-* Hungarian (hu_HU)
-* Indian Bengali (bn_IN)
-* Indonesian (id_ID)
-* Irish (ga_IE)
-* Italian (it_IT)
-* Japanese (ja)
-* Korean (ko_KR)
-* Latvian (lv)
-* Lithuanian (lt_LT)
-* Macedonian (mk_MK)
-* Malay (ms_MY)
-* Malayalam (ml_IN)
-* Maltese (mt_MT)
-* Norwegian (nb_NO)
-* Persian (fa_IR)
-* Polish (pl_PL)
-* Portuguese Brazil(pt_BR)
-* Portuguese (pt_PT)
-* Punjabi (pa_IN)
-* Russian (ru_RU)
-* Romanian (ro_RO)
-* Serbian (sr_RS)
-* Slovak (sk_SK)
-* Slovene (sl_SI)
-* Spanish (es_ES)
-* Swedish (sv_SE)
-* Tagalog (tl)
-* Tamil (ta)
 
 == Screenshots ==
 
