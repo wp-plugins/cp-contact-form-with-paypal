@@ -119,6 +119,7 @@ The following translations are already included in the plugin:
 * Swedish (sv_SE)
 * Tagalog (tl)
 * Tamil (ta)
+* Thai (th)
 
 
 == Installation ==
