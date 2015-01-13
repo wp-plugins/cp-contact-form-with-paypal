@@ -120,6 +120,7 @@ The following translations are already included in the plugin:
 * Tagalog (tl)
 * Tamil (ta)
 * Thai (th)
+* Ukrainian (uk)
 
 
 == Installation ==
