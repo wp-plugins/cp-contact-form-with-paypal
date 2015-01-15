@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
 Tags: contact form,contact,form,paypal,payment,post,mail,email,forms,form to email,plugin,paypal button,page,paypal payment,paypal donation
 Requires at least: 3.0.5
 Tested up to: 4.1
-Stable tag: 1.0.1
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -264,19 +264,24 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * PayPal Sandbox option added
 * Added language support through MO/PO files
 
+= 1.1.2 =
+* Compatible with the latest WP versions
+* Better interface and access to the plugin options
+* Captcha image works better in different server environments
+* New translations added
+* Minor bug fixes
+
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
+
 == Upgrade Notice ==
 
-= 1.0.1 =
-* Compatible with latest WordPress versions
-* Speed improvements, the contact form loads faster
-* Improved validation options for the contact form fields
-* New email content editing feature and interface changes
-* New tooltip scripts
-* Fixed bug related to discount codes
-* Fixed conflict with captcha image generation.
-* New feature to get the logged in user information into the notification email
-* Update to CSS styles for minimizing the CSS conflicts.
-* Improvements to CSS styles.
-* Fixes problem with backslash when saving the contact form settings.
-* PayPal Sandbox option added
-* Added language support through MO/PO files
+Very Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
+
+= 1.1.2 =
+* Compatible with the latest WP versions
+* Better interface and access to the plugin options
+* Captcha image works better in different server environments
+* New translations added
+* Minor bug fixes
+
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
