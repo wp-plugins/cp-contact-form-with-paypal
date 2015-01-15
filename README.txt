@@ -121,6 +121,7 @@ The following translations are already included in the plugin:
 * Tamil (ta)
 * Thai (th)
 * Ukrainian (uk)
+* Vietnamese (vi)
 
 
 == Installation ==
