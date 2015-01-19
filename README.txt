@@ -4,7 +4,7 @@ Donate link: http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
 Tags: contact form,contact,form,paypal,payment,post,mail,email,forms,form to email,plugin,paypal button,page,paypal payment,paypal donation
 Requires at least: 3.0.5
 Tested up to: 4.1
-Stable tag: 1.0.1
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -117,10 +117,10 @@ The following translations are already included in the plugin:
 * Slovene (sl_SI)
 * Spanish (es_ES)
 * Swedish (sv_SE)
-* Turkish (tr_TR)
 * Tagalog (tl)
 * Tamil (ta)
 * Thai (th)
+* Turkish (tr_TR)
 * Ukrainian (uk)
 * Vietnamese (vi)
 
@@ -267,6 +267,9 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 
 == Upgrade Notice ==
 
+
+Very Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
+
 = 1.0.1 =
 * Compatible with latest WordPress versions
 * Speed improvements, the contact form loads faster
@@ -281,3 +284,5 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * Fixes problem with backslash when saving the contact form settings.
 * PayPal Sandbox option added
 * Added language support through MO/PO files
+
+If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
