@@ -129,7 +129,7 @@ The following translations are already included in the plugin:
 
 To install CP Contact Form with PayPal, follow these steps:
 
-1.	Download and unzip the CP Contact Form with PayPal plugin 
+1.	Download and unzip the CP Contact Form with PayPal plugin
 2.	Upload the entire cp-contact-form-with-paypal/ directory to the /wp-content/plugins/ directory
 3.	Activate the CP Contact Form with PayPal plugin through the Plugins menu in WordPress
 4.	Configure the PayPal contact form settings at the administration menu >> Settings >> CP Contact Form with PayPal
@@ -147,13 +147,13 @@ http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
 
 A: You can publish the PayPal contact forms / PayPal button into pages and posts. Other versions of the plugin also allow publishing the PayPal form as a widget.
 
-= Q: The PayPal payment has been received but the status of the Message isn't being set to Paid. What happens? = 
+= Q: The PayPal payment has been received but the status of the Message isn't being set to Paid. What happens? =
 
 A:  First check if you are testing the PayPal form on a local website or in an online website. Note you should test this feature into an online website (local websites cannot receive PayPal IPN connections).
 
 After that initial verification, please check if the IPN notifications are enabled at your PayPal account. Check also the IPN logs at your PayPal account to confirm if are being received.
 
-= Q: I'm not receiving the emails after PayPal payment. = 
+= Q: I'm not receiving the emails after PayPal payment. =
 
 A: Please check if the messages are marked as "paid" or "not paid" in the contact form messages page.
 
@@ -161,11 +161,11 @@ If the contact form messages are marked as paid then the problem is that your Wo
 
 On the other hand if the contact form messages aren't marked as "paid" then the PayPal IPN connection isn't being received. Read the previous FAQ entry for information and solution.
 
-= Q: How can I customize the style of the PayPal button? = 
+= Q: How can I customize the style of the PayPal button? =
 
 A: The PayPal button is located at the end of the file "cp_contactformpp_public_int.inc.php". It's a classic submit button, you can change it to any other button that submits the PayPal form.
 
-= Q: How can I have an actual PayPal button as the submit button for the form instead of the default grey button? = 
+= Q: How can I have an actual PayPal button as the submit button for the form instead of the default grey button? =
 
 A: At the end of the file "cp_contactformpp_public_int.inc.php" replace this:
 
@@ -174,16 +174,16 @@ A: At the end of the file "cp_contactformpp_public_int.inc.php" replace this:
 ... by this:
 
         <img src="http://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif" />
-        
+
 You may also want to change the background color of the button with the CSS style class="pbSubmit".
 
-= Q: How can I add specific fields into the contact form message? = 
+= Q: How can I add specific fields into the contact form message? =
 
 A: There is a tag named %INFO% that is replaced with all the information posted from the form, however you can use also optional tags for specific fields into the contact form.
 
 For doing that, click the desired contact form field into the contact form builder and in the settings box for that field there is a read-only setting named "Field tag for the message (optional):". Copy & paste that tag into the message text and after the form submission (after clicking the PayPal button and receiving the PayPal payment) that tag will be replaced with the text entered in the form field.
 
-= Q: Can I use this with PayPal Personal accounts = 
+= Q: Can I use this with PayPal Personal accounts =
 
 A: Yes, you can use it with PayPal Personal accounts and also with PayPal Premium and PayPal Business accounts.
 
@@ -193,13 +193,13 @@ A: That depends of the type of your PayPal account and its status. In most cases
 
 = Q: I'm having problems with non-latin characters in the PayPal contact form. =
 
-A: New: Use the "throubleshoot area" to change the character encoding. If you prefer to do that manually , in most cases the problem is located in the database table collation/encoding. The solution is to change the table encoding to UTF-8. You can do that from the PHPMyAdmin provided by your hosting service. 
+A: New: Use the "throubleshoot area" to change the character encoding. If you prefer to do that manually , in most cases the problem is located in the database table collation/encoding. The solution is to change the table encoding to UTF-8. You can do that from the PHPMyAdmin provided by your hosting service.
 
 For example, if your WordPress database table prefix is "wp_" (the default one) then run these queries (will update only the PayPal contact form tables):
 
     alter table wp_cp_contact_form_paypal_discount_codes convert to character set utf8 collate utf8_unicode_ci;
-    alter table wp_cp_contact_form_paypal_settings convert to character set utf8 collate utf8_unicode_ci; 
-    alter table wp_cp_contact_form_paypal_posts convert to character set utf8 collate utf8_unicode_ci; 
+    alter table wp_cp_contact_form_paypal_settings convert to character set utf8 collate utf8_unicode_ci;
+    alter table wp_cp_contact_form_paypal_posts convert to character set utf8 collate utf8_unicode_ci;
 
 If you don't know how to do that, contact our support service and we will help you.
 
@@ -265,24 +265,24 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * PayPal Sandbox option added
 * Added language support through MO/PO files
 
-== Upgrade Notice ==
+= 1.1.2 =
+* Compatible with the latest WP versions
+* Better interface and access to the plugin options
+* Captcha image works better in different server environments
+* New translations added
+* Minor bug fixes
 
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
+
+== Upgrade Notice ==
 
 Very Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
-= 1.0.1 =
-* Compatible with latest WordPress versions
-* Speed improvements, the contact form loads faster
-* Improved validation options for the contact form fields
-* New email content editing feature and interface changes
-* New tooltip scripts
-* Fixed bug related to discount codes
-* Fixed conflict with captcha image generation.
-* New feature to get the logged in user information into the notification email
-* Update to CSS styles for minimizing the CSS conflicts.
-* Improvements to CSS styles.
-* Fixes problem with backslash when saving the contact form settings.
-* PayPal Sandbox option added
-* Added language support through MO/PO files
+= 1.1.2 =
+* Compatible with the latest WP versions
+* Better interface and access to the plugin options
+* Captcha image works better in different server environments
+* New translations added
+* Minor bug fixes
 
-If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
