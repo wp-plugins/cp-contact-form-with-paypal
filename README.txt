@@ -62,7 +62,6 @@ Translations are supported through PO/MO files located in the Contact Form with 
 
 The following translations are already included in the plugin:
 
-* English
 * Afrikaans (af)
 * Albanian (sq)
 * Arabic (ar)
