@@ -269,6 +269,7 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * Better interface and access to the plugin options
 * Captcha image works better in different server environments
 * New translations added
+* Fixed bug in multisite installations
 * Minor bug fixes
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
@@ -282,6 +283,7 @@ Very Important note: If you are using the Professional version don't update via 
 * Better interface and access to the plugin options
 * Captcha image works better in different server environments
 * New translations added
+* Fixed bug in multisite installations
 * Minor bug fixes
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
