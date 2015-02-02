@@ -383,7 +383,7 @@ function cp_contactformpp_get_public_form($id) {
     @include dirname( __FILE__ ) . '/cp_contactformpp_public_int.inc.php';
     if (!CP_CONTACTFORMPP_DEFAULT_DEFER_SCRIPTS_LOADING) {
             $prefix_ui = '';
-            if (file_exists(dirname( __FILE__ ).'/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js'))
+            if (@file_exists(dirname( __FILE__ ).'/../../../wp-includes/js/jquery/ui/jquery.ui.core.min.js'))
                 $prefix_ui = 'jquery.ui.';         
 ?>
 <?php $plugin_url = plugins_url('', __FILE__); ?>
