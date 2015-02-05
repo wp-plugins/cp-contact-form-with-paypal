@@ -80,17 +80,17 @@ if (isset($_GET['a']) && $_GET['a'] == '1')
 } 
 else if (isset($_GET['u']) && $_GET['u'] != '')
 {
-    $wpdb->query('UPDATE `'.$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE.'` SET form_name="'.esc_sql($_GET["name"]).'" WHERE id='.$_GET['u']);           
+    $wpdb->query('UPDATE `'.$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE.'` SET form_name="'.esc_sql($_GET["name"]).'" WHERE id='.intval($_GET['u']));           
     $message = "Item updated";        
 }
 else if (isset($_GET['d']) && $_GET['d'] != '')
 {
-    $wpdb->query('DELETE FROM `'.$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE.'` WHERE id='.$_GET['d']);       
+    $wpdb->query('DELETE FROM `'.$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE.'` WHERE id='.intval($_GET['d']));       
     $message = "Item deleted";
 } 
 else if (isset($_GET['c']) && $_GET['c'] != '')
 {
-    $myrows = $wpdb->get_row( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE." WHERE id=".$_GET['c'], ARRAY_A);    
+    $myrows = $wpdb->get_row( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE." WHERE id=".intval($_GET['c']), ARRAY_A);    
     unset($myrows["id"]);
     $myrows["form_name"] = 'Cloned: '.$myrows["form_name"];
     $wpdb->insert( $wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE, $myrows);
