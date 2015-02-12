@@ -806,12 +806,12 @@ function cp_contactformpp_check_IPN_verification() {
 	if ($_POST["business"]) $str .= 'Business: '.$_POST["business"]."\n";
 	if ($_POST["receiver_email"]) $str .= 'Receiver email: '.$_POST["receiver_email"]."\n";
 
-    $myrows = $wpdb->get_results( "SELECT * FROM ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." WHERE id=".$_GET['itemnumber']);
+    $myrows = $wpdb->get_results( "SELECT * FROM ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." WHERE id=".intval($_GET['itemnumber']));
     $params = unserialize($myrows[0]->posted_data);
 
     if ($myrows[0]->paid == 0)
     {
-        $wpdb->query("UPDATE ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." SET paid=1,paypal_post='".esc_sql($str)."' WHERE id=".$_GET['itemnumber']);
+        $wpdb->query("UPDATE ".CP_CONTACTFORMPP_POSTS_TABLE_NAME." SET paid=1,paypal_post='".esc_sql($str)."' WHERE id=".intval($_GET['itemnumber']));
         cp_contactformpp_process_ready_to_go_reservation($_GET["itemnumber"], $payer_email, $params);
         echo 'OK - processed';
     }
@@ -826,6 +826,7 @@ function cp_contactformpp_process_ready_to_go_reservation($itemnumber, $payer_em
 {
 
    global $wpdb;
+    $itemnumber = intval($itemnumber);
    
     if (!defined('CP_CONTACTFORMPP_DEFAULT_fp_from_email'))  define('CP_CONTACTFORMPP_DEFAULT_fp_from_email', get_the_author_meta('user_email', get_current_user_id()) );
     if (!defined('CP_CONTACTFORMPP_DEFAULT_fp_destination_emails')) define('CP_CONTACTFORMPP_DEFAULT_fp_destination_emails', CP_CONTACTFORMPP_DEFAULT_fp_from_email);
