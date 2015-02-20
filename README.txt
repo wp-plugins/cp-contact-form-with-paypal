@@ -123,6 +123,9 @@ The following translations are already included in the plugin:
 * Ukrainian (uk)
 * Vietnamese (vi)
 
+= Updates =
+
+New features has been published in the current CP Contact Form with PayPal version 1.1.2 based on the feedback received and we would like to thank you all the people that have supported the development, provided feedback and feature requests. The plugin is currently over the 37,000 downloads/installations and a new set of updates is already being prepared, any feature requests will be welcome. Thank you!
 
 == Installation ==
 
