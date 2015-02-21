@@ -473,16 +473,22 @@ function set_cp_contactformpp_insert_adminScripts($hook) {
 }
 
 
-function cp_contactformpp_get_site_url()
+function cp_contactformpp_get_site_url($admin = false)
 {
-    $url = parse_url(get_site_url());
+    $blog = get_current_blog_id();
+    if( $admin ) 
+        $url = get_admin_url( $blog );	
+    else 
+        $url = get_home_url( $blog );	
+
+    $url = parse_url($url);
     $url = rtrim(@$url["path"],"/");
     return $url;
 }
 
-function cp_contactformpp_get_FULL_site_url()
+function cp_contactformpp_get_FULL_site_url($admin = false)
 {
-    $url = cp_contactformpp_get_site_url();
+    $url = cp_contactformpp_get_site_url($admin);
     $pos = strpos($url, "://");    
     if ($pos === false)
         $url = 'http://'.$_SERVER["HTTP_HOST"].$url;
