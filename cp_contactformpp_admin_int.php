@@ -331,7 +331,7 @@ $scriptmethod = cp_contactformpp_get_option('script_load_method','0');
            qs += "&font="+f.cv_font.options[f.cv_font.selectedIndex].value;
            qs += "&rand="+d;
            
-           document.getElementById("captchaimg").src= "<?php echo cp_contactformpp_get_site_url(); ?>/?cp_contactformpp=captcha"+qs;
+           document.getElementById("captchaimg").src= "<?php echo cp_contactformpp_get_site_url(true); ?>/?cp_contactformpp=captcha"+qs;
         }
 
      </script>
@@ -514,7 +514,7 @@ $scriptmethod = cp_contactformpp_get_option('script_load_method','0');
          <td colspan="2" rowspan="">
            Preview:<br />
              <br />
-            <img src="<?php echo cp_contactformpp_get_site_url(); ?>/?cp_contactformpp=captcha"  id="captchaimg" alt="security code" border="0"  />            
+            <img src="<?php echo cp_contactformpp_get_site_url(true); ?>/?cp_contactformpp=captcha"  id="captchaimg" alt="security code" border="0"  />            
          </td> 
         </tr>             
                 
