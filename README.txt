@@ -275,6 +275,7 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * Fixed bug in multisite installations
 * Minor bug fixes
 * Fixed warning that appeared with PHP safe mode restrictions 
+* Fixed issue with the site home URL in WP with folders in non-default locations
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
@@ -290,5 +291,6 @@ Very Important note: If you are using the Professional version don't update via 
 * Fixed bug in multisite installations
 * Minor bug fixes
 * Fixed warning that appeared with PHP safe mode restrictions 
+* Fixed issue with the site home URL in WP with folders in non-default locations
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
