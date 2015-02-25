@@ -679,6 +679,7 @@ function cp_contact_form_paypal_check_posted_data() {
     $paypal_product_name = cp_contactformpp_get_option('paypal_product_name', CP_CONTACTFORMPP_DEFAULT_PRODUCT_NAME).$discount_note;
     $params["PayPal Product Name"] = $paypal_product_name; 
     $params["Cost"] = $price;
+    $params["Costtax"] = $price + round($price * ($taxes/100),2);
     
     $current_user = wp_get_current_user();
     $params["user_login"] = $current_user->user_login;
