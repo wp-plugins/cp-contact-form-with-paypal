@@ -159,9 +159,9 @@ function _cp_contactformpp_install() {
          time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
          ipaddr VARCHAR(32) DEFAULT '' NOT NULL,
          notifyto VARCHAR(250) DEFAULT '' NOT NULL,
-         data text,
-         paypal_post text,
-         posted_data text,
+         data mediumtext,
+         paypal_post mediumtext,
+         posted_data mediumtext,
          paid INT DEFAULT 0 NOT NULL,
          UNIQUE KEY id (id)
          );";
@@ -185,7 +185,7 @@ function _cp_contactformpp_install() {
 
          form_name VARCHAR(250) DEFAULT '' NOT NULL,
 
-         form_structure text,
+         form_structure mediumtext,
 
          fp_from_email VARCHAR(250) DEFAULT '' NOT NULL,
          fp_destination_emails text,
@@ -909,7 +909,7 @@ function cp_contactformpp_process_ready_to_go_reservation($itemnumber, $payer_em
                     "From: \"$from\" <".$from.">\r\n".
                     $content_type.
                     "X-Mailer: PHP/" . phpversion());
-        if ($_POST[$to] != $payer_email && $payer_email != '')
+        if (strtolower($_POST[$to]) != strtolower($payer_email) && $payer_email != '')
             wp_mail(trim($payer_email), $subject, $message,
                     "From: \"$from\" <".$from.">\r\n".
                     $content_type.
