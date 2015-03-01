@@ -282,14 +282,15 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * Fixed issue with the site home URL in WP with folders in non-default locations
 
 = 1.1.3 =
-
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
-== Upgrade Notice ==
 * Update to generate the IPN addres with HTTPS if available.
 * Security update for SQL queries (vulnerability was found by Joaquin Ramirez Martinez with the help Christian Mondragon Uriel Zarate)
 * Fixed bug that caused double emails
 * Fixed issues with WP sites not configured in the default folders
+
+Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
+
+== Upgrade Notice ==
+
 
 Very Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
