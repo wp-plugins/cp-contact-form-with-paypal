@@ -127,6 +127,10 @@ The following translations are already included in the plugin:
 
 New features has been published in the current CP Contact Form with PayPal version 1.1.2 based on the feedback received and we would like to thank you all the people that have supported the development, provided feedback and feature requests. The plugin is currently over the 37,000 downloads/installations and a new set of updates is already being prepared, any feature requests will be welcome. Thank you!
 
+= Note =
+
+This plugin has been developed by an [Official PayPal Partner](https://www.paypal-marketing.com/paypal/html/hosted/emarketing/partner/directory/#k=net+factor&n=2000009361343&m=p).
+
 == Installation ==
 
 To install CP Contact Form with PayPal, follow these steps:
@@ -277,20 +281,22 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * Fixed warning that appeared with PHP safe mode restrictions 
 * Fixed issue with the site home URL in WP with folders in non-default locations
 
+= 1.1.3 =
+
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 == Upgrade Notice ==
+* Update to generate the IPN addres with HTTPS if available.
+* Security update for SQL queries (vulnerability was found by Joaquin Ramirez Martinez with the help Christian Mondragon Uriel Zarate)
+* Fixed bug that caused double emails
+* Fixed issues with WP sites not configured in the default folders
 
 Very Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
-= 1.1.2 =
-* Compatible with the latest WP versions
-* Better interface and access to the plugin options
-* Captcha image works better in different server environments
-* New translations added
-* Fixed bug in multisite installations
-* Minor bug fixes
-* Fixed warning that appeared with PHP safe mode restrictions 
-* Fixed issue with the site home URL in WP with folders in non-default locations
+= 1.1.3 =
+* Update to generate the IPN addres with HTTPS if available.
+* Security update for SQL queries (vulnerability was found by Joaquin Ramirez Martinez with the help Christian Mondragon Uriel Zarate)
+* Fixed bug that caused double emails
+* Fixed issues with WP sites not configured in the default folders
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support

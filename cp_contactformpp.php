@@ -3,7 +3,7 @@
 Plugin Name: CP Contact Form with Paypal
 Plugin URI: http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
 Description: Inserts a contact form into your website and let you connect it to a Paypal payment.
-Version: 1.1.2
+Version: 1.1.3
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -518,14 +518,14 @@ function cp_contactformpp_load_discount_codes() {
     }
 
     if (!defined('CP_CONTACTFORMPP_ID'))
-        define ('CP_CONTACTFORMPP_ID',$_GET["dex_item"]);
+        define ('CP_CONTACTFORMPP_ID',intval($_GET["dex_item"]));
 
     if (isset($_GET["add"]) && $_GET["add"] == "1")
         $wpdb->insert( CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME, array('form_id' => CP_CONTACTFORMPP_ID,
-                                                                         'code' => $_GET["code"],
+                                                                         'code' => esc_sql($_GET["code"]),
                                                                          'discount' => $_GET["discount"],
                                                                          'availability' => $_GET["discounttype"],
-                                                                         'expires' => $_GET["expires"],
+                                                                         'expires' => esc_sql($_GET["expires"]),
                                                                          ));
 
     if (isset($_GET["delete"]) && $_GET["delete"] == "1")

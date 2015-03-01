@@ -101,7 +101,7 @@ else if (isset($_GET['ac']) && $_GET['ac'] == 'st')
     update_option( 'CP_CFPP_LOAD_SCRIPTS', ($_GET["scr"]=="1"?"0":"1") );   
     if ($_GET["chs"] != '')
     {
-        $target_charset = $_GET["chs"];
+        $target_charset = esc_sql($_GET["chs"]);
         $tables = array( $wpdb->prefix.CP_CONTACTFORMPP_POSTS_TABLE_NAME_NO_PREFIX, $wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE );                
         foreach ($tables as $tab)
         {  
