@@ -287,6 +287,11 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * Fixed bug that caused double emails
 * Fixed issues with WP sites not configured in the default folders
 
+= 1.1.4 =
+* Fixed bug in https detection.
+* Improved documentation.
+* Improved debug messages to get feedback.
+
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 == Upgrade Notice ==
@@ -294,10 +299,9 @@ Important note: If you are using the Professional version don't update via the W
 
 Very Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
-= 1.1.3 =
-* Update to generate the IPN addres with HTTPS if available.
-* Security update for SQL queries (vulnerability was found by Joaquin Ramirez Martinez with the help Christian Mondragon Uriel Zarate)
-* Fixed bug that caused double emails
-* Fixed issues with WP sites not configured in the default folders
+= 1.1.4 =
+* Fixed bug in https detection.
+* Improved documentation.
+* Improved debug messages to get feedback.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
