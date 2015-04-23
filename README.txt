@@ -291,6 +291,7 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * Fixed bug in https detection.
 * Improved documentation.
 * Improved debug messages to get feedback.
+* Compatible with the latest WordPress 4.2.x version
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
