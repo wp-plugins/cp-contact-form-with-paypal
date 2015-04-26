@@ -320,8 +320,6 @@ function cp_contactformpp_filter_content($atts) {
     extract( shortcode_atts( array(
 		'id' => '',
 	), $atts ) );
-    //if ($id != '')
-    //    define ('CP_CONTACTFORMPP_ID',$id);
     ob_start();
     cp_contactformpp_get_public_form($id);
     $buffered_contents = ob_get_contents();
@@ -377,7 +375,7 @@ function cp_contactformpp_get_public_form($id) {
         wp_enqueue_script( "jquery-ui-datepicker" );
     }  
     $codes = $wpdb->get_results( 'SELECT * FROM '.CP_CONTACTFORMPP_DISCOUNT_CODES_TABLE_NAME.' WHERE `form_id`='.$id);
-    //$scriptmethod = cp_contactformpp_get_option('script_load_method','0',$id);
+
     $button_label = cp_contactformpp_get_option('vs_text_submitbtn', 'Submit',$id);
     $button_label = ($button_label==''?'Submit':$button_label);
     @include dirname( __FILE__ ) . '/cp_contactformpp_public_int.inc.php';
@@ -1023,8 +1021,7 @@ function cp_contactformpp_save_options()
     if (!defined('CP_CONTACTFORMPP_ID'))
         define ('CP_CONTACTFORMPP_ID',$_POST["cp_contactformpp_id"]);
 
-    // temporal line2 to guarantee migration from previous version
-    //cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'paypal_zero_payment'," varchar(10) NOT NULL default ''");
+    // temporal lines to guarantee migration from previous version    
     cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'fp_emailformat'," varchar(10) NOT NULL default ''");
     cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'cu_emailformat'," varchar(10) NOT NULL default ''");
     cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'paypal_notiemails'," varchar(20) NOT NULL default ''");
