@@ -25,7 +25,7 @@ else if (isset($_GET['ld']) && $_GET['ld'] != '')
 }
 
 if (CP_CONTACTFORMPP_ID != 0)
-    $myform = $wpdb->get_results( 'SELECT * FROM '.$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE .' WHERE id='.CP_CONTACTFORMPP_ID);
+    $myform = $wpdb->get_results( 'SELECT * FROM '.$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE .' WHERE id='.intval(CP_CONTACTFORMPP_ID));
 
 
 $current_page = intval($_GET["p"]);
