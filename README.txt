@@ -293,6 +293,9 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * Improved debug messages to get feedback.
 * Compatible with the latest WordPress 4.2.x version
 
+= 1.1.5 =
+* Compatible with the WordPress 4.2.1 version
+
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 == Upgrade Notice ==
@@ -300,9 +303,7 @@ Important note: If you are using the Professional version don't update via the W
 
 Very Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
-= 1.1.4 =
-* Fixed bug in https detection.
-* Improved documentation.
-* Improved debug messages to get feedback.
+= 1.1.5 =
+* Compatible with the WordPress 4.2.1 version
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
