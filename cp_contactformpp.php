@@ -1000,8 +1000,24 @@ function cp_contactformpp_export_csv ()
 function cp_contactformpp_translate_json($str)
 {
     $form_data = json_decode(cp_contactformpp_cleanJSON($str));        
+    
+    $form_data[1][0]->title = __($form_data[1][0]->title,'cpcfwpp');   
+    $form_data[1][0]->description = __($form_data[1][0]->description,'cpcfwpp');   
+            
     for ($i=0; $i < count($form_data[0]); $i++)    
+    {
         $form_data[0][$i]->title = __($form_data[0][$i]->title,'cpcfwpp');   
+        $form_data[0][$i]->userhelpTooltip = __($form_data[0][$i]->userhelpTooltip,'cpcfwpp'); 
+        $form_data[0][$i]->userhelp = __($form_data[0][$i]->userhelp,'cpcfwpp'); 
+        if ($form_data[0][$i]->ftype == 'fCommentArea')
+            $form_data[0][$i]->userhelp = __($form_data[0][$i]->userhelp,'cpcfwpp');   
+        else 
+            if ($form_data[0][$i]->ftype == 'fradio' || $form_data[0][$i]->ftype == 'fcheck' || $form_data[0][$i]->ftype == 'fradio')    
+            {
+                for ($j=0; $j < count($form_data[0][$i]->choices); $j++)  
+                    $form_data[0][$i]->choices[$j] = __($form_data[0][$i]->choices[$j],'cpcfwpp'); 
+            } 
+    }           
     $str = json_encode($form_data);
     return $str;
 }
