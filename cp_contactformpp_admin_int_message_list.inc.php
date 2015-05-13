@@ -15,7 +15,7 @@ $message = "";
 
 if (isset($_GET['lu']) && $_GET['lu'] != '')
 {
-    $wpdb->query('UPDATE `'.CP_CONTACTFORMPP_POSTS_TABLE_NAME.'` SET paid='.esc_sql($_GET["status"]).' WHERE id='.intval($_GET['lu']));           
+    $wpdb->query('UPDATE `'.CP_CONTACTFORMPP_POSTS_TABLE_NAME.'` SET paid='.intval($_GET["status"]).' WHERE id='.intval($_GET['lu']));           
     $message = "Item updated";        
 }
 else if (isset($_GET['ld']) && $_GET['ld'] != '')
