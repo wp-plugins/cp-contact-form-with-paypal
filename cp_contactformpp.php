@@ -3,7 +3,7 @@
 Plugin Name: CP Contact Form with Paypal
 Plugin URI: http://wordpress.dwbooster.com/forms/cp-contact-form-with-paypal
 Description: Inserts a contact form into your website and let you connect it to a Paypal payment.
-Version: 1.1.5
+Version: 1.1.6
 Author: CodePeople.net
 Author URI: http://codepeople.net
 License: GPL
@@ -607,7 +607,7 @@ function cp_contact_form_paypal_check_posted_data() {
 	    if ( 'GET' != $_SERVER['REQUEST_METHOD'] || !isset( $_GET['hdcaptcha_cp_contact_form_paypal_post'] ) )
 		    return;
 
-    if (isset($_POST["cp_contactformpp_id"])) define("CP_CONTACTFORMPP_ID",$_POST["cp_contactformpp_id"]);
+    if (isset($_POST["cp_contactformpp_id"])) define("CP_CONTACTFORMPP_ID",intval($_POST["cp_contactformpp_id"]));
 
     @session_start();
     if (isset($_GET["ps"])) $sequence = $_GET["ps"]; else if (isset($_POST["cp_pform_psequence"])) $sequence = $_POST["cp_pform_psequence"];
@@ -1035,7 +1035,7 @@ function cp_contactformpp_save_options()
 {
     global $wpdb;
     if (!defined('CP_CONTACTFORMPP_ID'))
-        define ('CP_CONTACTFORMPP_ID',$_POST["cp_contactformpp_id"]);
+        define ('CP_CONTACTFORMPP_ID',intval($_POST["cp_contactformpp_id"]));
 
     // temporal lines to guarantee migration from previous version    
     cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'fp_emailformat'," varchar(10) NOT NULL default ''");

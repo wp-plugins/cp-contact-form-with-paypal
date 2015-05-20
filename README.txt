@@ -296,6 +296,9 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 = 1.1.5 =
 * Compatible with the WordPress 4.2.2 version
 
+= 1.1.6 =
+* Fixes security bug: CSRF, XSS, SQLi
+
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
 == Upgrade Notice ==
@@ -303,7 +306,7 @@ Important note: If you are using the Professional version don't update via the W
 
 Very Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 
-= 1.1.5 =
-* Compatible with the WordPress 4.2.2 version
+= 1.1.6 =
+* Fixes security bug: CSRF, XSS, SQLi
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
