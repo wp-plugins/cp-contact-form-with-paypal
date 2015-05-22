@@ -297,7 +297,7 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 * Compatible with the WordPress 4.2.2 version
 
 = 1.1.6 =
-* Fixes security bug: XSS, SQLi - thank you to [Nitin Venkatesh](http://in.linkedin.com/in/nitinvenkatesh/) for the report
+* Fixes security bug: CSRF, XSS, SQLi - thank you to [Nitin Venkatesh](http://in.linkedin.com/in/nitinvenkatesh/) for the report
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
 

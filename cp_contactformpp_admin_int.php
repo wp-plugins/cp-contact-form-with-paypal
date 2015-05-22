@@ -8,7 +8,6 @@ if ( !is_admin() )
 
 if (!defined('CP_CONTACTFORMPP_ID'))
     define ('CP_CONTACTFORMPP_ID',intval($_GET["cal"]));
-    
 
 define('CP_CONTACTFORMPP_DEFAULT_fp_from_email', get_the_author_meta('user_email', get_current_user_id()) );
 define('CP_CONTACTFORMPP_DEFAULT_fp_destination_emails', CP_CONTACTFORMPP_DEFAULT_fp_from_email);
@@ -92,7 +91,7 @@ $scriptmethod = cp_contactformpp_get_option('script_load_method','0');
         </tr>        
         <tr valign="top">
         <th scope="row">Message</th>
-        <td><textarea type="text" name="fp_message" rows="6" cols="80"><?php echo cp_contactformpp_get_option('fp_message', CP_CONTACTFORMPP_DEFAULT_fp_message); ?></textarea></td>
+        <td><textarea type="text" name="fp_message" rows="6" cols="80"><?php echo esc_attr(cp_contactformpp_get_option('fp_message', CP_CONTACTFORMPP_DEFAULT_fp_message)); ?></textarea></td>
         </tr>                                                               
      </table>  
   </div>    
@@ -475,7 +474,7 @@ $scriptmethod = cp_contactformpp_get_option('script_load_method','0');
         </tr>  
         <tr valign="top">
         <th scope="row">Message</th>
-        <td><textarea type="text" name="cu_message" rows="6" cols="80"><?php echo cp_contactformpp_get_option('cu_message', CP_CONTACTFORMPP_DEFAULT_cu_message); ?></textarea></td>
+        <td><textarea type="text" name="cu_message" rows="6" cols="80"><?php echo esc_attr(cp_contactformpp_get_option('cu_message', CP_CONTACTFORMPP_DEFAULT_cu_message)); ?></textarea></td>
         </tr>        
      </table>  
   </div>    
