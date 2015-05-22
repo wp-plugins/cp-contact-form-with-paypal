@@ -6,9 +6,11 @@ if ( !is_admin() )
     exit;
 }
 
+$verify_nonce = wp_verify_nonce( $_REQUEST['r'], 'cfwpp_update_actions');
+
 global $wpdb;
 $message = "";
-if (isset($_GET['a']) && $_GET['a'] == '1')
+if (isset($_GET['a']) && $_GET['a'] == '1' && $verify_nonce)
 {
     define('CP_CONTACTFORMPP_DEFAULT_fp_from_email', get_the_author_meta('user_email', get_current_user_id()) );
     define('CP_CONTACTFORMPP_DEFAULT_fp_destination_emails', CP_CONTACTFORMPP_DEFAULT_fp_from_email);
@@ -78,17 +80,17 @@ if (isset($_GET['a']) && $_GET['a'] == '1')
     
     $message = "Item added";
 } 
-else if (isset($_GET['u']) && $_GET['u'] != '')
+else if (isset($_GET['u']) && $_GET['u'] != '' && $verify_nonce)
 {
     $wpdb->query('UPDATE `'.$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE.'` SET form_name="'.esc_sql($_GET["name"]).'" WHERE id='.intval($_GET['u']));           
     $message = "Item updated";        
 }
-else if (isset($_GET['d']) && $_GET['d'] != '')
+else if (isset($_GET['d']) && $_GET['d'] != '' && $verify_nonce)
 {
     $wpdb->query('DELETE FROM `'.$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE.'` WHERE id='.intval($_GET['d']));       
     $message = "Item deleted";
 } 
-else if (isset($_GET['c']) && $_GET['c'] != '')
+else if (isset($_GET['c']) && $_GET['c'] != '' && $verify_nonce)
 {
     $myrows = $wpdb->get_row( "SELECT * FROM ".$wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE." WHERE id=".intval($_GET['c']), ARRAY_A);    
     unset($myrows["id"]);
@@ -120,6 +122,7 @@ else if (isset($_GET['ac']) && $_GET['ac'] == 'st')
     $message = "Troubleshoot settings updated";
 }
 
+$nonce = wp_create_nonce( 'cfwpp_update_actions' );
 
 if ($message) echo "<div id='setting-error-settings_updated' class='updated settings-error'><p><strong>".$message."</strong></p></div>";
 
@@ -131,35 +134,35 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
  function cp_addItem()
  {
     var calname = document.getElementById("cp_itemname").value;
-    document.location = 'admin.php?page=cp_contact_form_paypal&a=1&r='+Math.random()+'&name='+encodeURIComponent(calname);       
+    document.location = 'admin.php?page=cp_contact_form_paypal&a=1&r=<?php echo $nonce; ?>&name='+encodeURIComponent(calname);       
  }
  
  function cp_updateItem(id)
  {
     var calname = document.getElementById("calname_"+id).value;    
-    document.location = 'admin.php?page=cp_contact_form_paypal&u='+id+'&r='+Math.random()+'&name='+encodeURIComponent(calname);    
+    document.location = 'admin.php?page=cp_contact_form_paypal&u='+id+'&r=<?php echo $nonce; ?>&name='+encodeURIComponent(calname);    
  }
  
  function cp_cloneItem(id)
  {
-    document.location = 'admin.php?page=cp_contact_form_paypal&c='+id+'&r='+Math.random();  
+    document.location = 'admin.php?page=cp_contact_form_paypal&c='+id+'&r=<?php echo $nonce; ?>';
  } 
  
  function cp_manageSettings(id)
  {
-    document.location = 'admin.php?page=cp_contact_form_paypal&cal='+id+'&r='+Math.random();
+    document.location = 'admin.php?page=cp_contact_form_paypal&cal='+id+'&r=<?php echo $nonce; ?>';
  }
  
  function cp_viewMessages(id)
  {
-    document.location = 'admin.php?page=cp_contact_form_paypal&cal='+id+'&list=1&r='+Math.random();
+    document.location = 'admin.php?page=cp_contact_form_paypal&cal='+id+'&list=1&r=<?php echo $nonce; ?>';
  } 
  
  function cp_deleteItem(id)
  {
     if (confirm('Are you sure that you want to delete this item?'))
     {        
-        document.location = 'admin.php?page=cp_contact_form_paypal&d='+id+'&r='+Math.random();
+        document.location = 'admin.php?page=cp_contact_form_paypal&d='+id+'&r=<?php echo $nonce; ?>';
     }
  }
  
