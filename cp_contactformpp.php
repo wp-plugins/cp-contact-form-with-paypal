@@ -1037,6 +1037,14 @@ function cp_contactformpp_save_options()
     if (!defined('CP_CONTACTFORMPP_ID'))
         define ('CP_CONTACTFORMPP_ID',intval($_POST["cp_contactformpp_id"]));
 
+
+    $verify_nonce = wp_verify_nonce( $_POST['rsave'], 'cfwpp_update_actions_post');
+    if (!$verify_nonce)
+    {
+        echo 'Error: Form cannot be authenticated. Please contact our <a href="http://wordpress.dwbooster.com/support">support service</a> for verification and solution. Thank you.';
+        return;
+    }
+
     // temporal lines to guarantee migration from previous version    
     cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'fp_emailformat'," varchar(10) NOT NULL default ''");
     cp_contactformpp_add_field_verify($wpdb->prefix.CP_CONTACTFORMPP_FORMS_TABLE,'cu_emailformat'," varchar(10) NOT NULL default ''");

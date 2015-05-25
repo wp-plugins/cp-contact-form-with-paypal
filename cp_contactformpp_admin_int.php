@@ -6,6 +6,8 @@ if ( !is_admin() )
     exit;
 }
 
+$nonce = wp_create_nonce( 'cfwpp_update_actions_post' );
+
 if (!defined('CP_CONTACTFORMPP_ID'))
     define ('CP_CONTACTFORMPP_ID',intval($_GET["cal"]));
 
@@ -45,6 +47,7 @@ $scriptmethod = cp_contactformpp_get_option('script_load_method','0');
 
 <form method="post" action="" name="cpformconf"> 
 <input name="cp_contactformpp_post_options" type="hidden" id="1" />
+<input name="rsave" type="hidden" value="<?php echo $nonce; ?>" />
 <input name="cp_contactformpp_id" type="hidden" value="<?php echo CP_CONTACTFORMPP_ID; ?>" />
 
    
