@@ -614,7 +614,7 @@ function cp_contact_form_paypal_check_posted_data() {
     if (!isset($_GET['hdcaptcha_cp_contact_form_paypal_post']) || $_GET['hdcaptcha_cp_contact_form_paypal_post'] == '') $_GET['hdcaptcha_cp_contact_form_paypal_post'] = @$_POST['hdcaptcha_cp_contact_form_paypal_post'];
     if (
            (cp_contactformpp_get_option('cv_enable_captcha', CP_CONTACTFORMPP_DEFAULT_cv_enable_captcha) != 'false') &&
-           ( ($_GET['hdcaptcha_cp_contact_form_paypal_post'] != $_SESSION['rand_code'.$sequence]) ||
+           ( (strtolower($_GET['hdcaptcha_cp_contact_form_paypal_post']) != strtolower($_SESSION['rand_code'.$sequence])) ||
              ($_SESSION['rand_code'.$sequence] == '')
            )
            &&
