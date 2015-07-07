@@ -8,7 +8,7 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-With CP Contact Form with Paypal you can insert a contact form into a WordPress website and connect it to a PayPal payment. Developed by an Official Paypal Parner.
+CP Contact Form with Paypal lets you insert a contact form into a WordPress website and connect it to a PayPal payment. Developed by an Official Paypal Parner.
 
 == Description ==
 
