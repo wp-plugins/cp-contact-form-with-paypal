@@ -652,9 +652,7 @@ function cp_contact_form_paypal_check_posted_data() {
     $form_data = json_decode(cp_contactformpp_cleanJSON(cp_contactformpp_get_option('form_structure', CP_CONTACTFORMPP_DEFAULT_form_structure)));
     $fields = array();
     foreach ($form_data[0] as $item)
-    {
         $fields[$item->name] = $item->title;                
-    }
 
     // calculate discounts if any
     //---------------------------
