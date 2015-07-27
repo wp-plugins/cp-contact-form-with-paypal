@@ -696,7 +696,7 @@ function cp_contact_form_paypal_check_posted_data() {
                                                                         'notifyto' => @$_POST[$to],
                                                                         'paypal_post' => serialize($params),
                                                                         'posted_data' => serialize($params),
-                                                                        'data' =>$buffer_A .($coupon?"\n\nCoupon code:".$coupon->code.$discount_note:"")
+                                                                        'data' =>$buffer_A
                                                                          ) );
     if (!$rows_affected)
     {
