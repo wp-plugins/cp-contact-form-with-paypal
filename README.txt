@@ -299,14 +299,24 @@ Note also that if you are testing the contact form in the SandBox mode then the 
 = 1.1.6 =
 * Fixes security bug: CSRF, XSS, SQLi - thank you to [Nitin Venkatesh](http://in.linkedin.com/in/nitinvenkatesh/) for the report
 
-Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
+= 1.1.7 =
+* Fixed issue in SSL detection for the PayPal IPN address.
+* Improved captha generation code.
+* Update to fix bug in captcha image generation
+* Update to the captcha processing code.
+* Added nonce verification in the form settings.
+* Security update for CSRF issue.
+
 
 == Upgrade Notice ==
 
 
-Very Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
-
-= 1.1.6 =
-* Fixes security bug: XSS, SQLi - thank you to [Nitin Venkatesh](http://in.linkedin.com/in/nitinvenkatesh/) for the report
+= 1.1.7 =
+* Fixed issue in SSL detection for the PayPal IPN address.
+* Improved captha generation code.
+* Update to fix bug in captcha image generation
+* Update to the captcha processing code.
+* Added nonce verification in the form settings.
+* Security update for CSRF issue.
 
 Important note: If you are using the Professional version don't update via the WP dashboard but using your personal update link. Contact us if you need further information: http://wordpress.dwbooster.com/support
