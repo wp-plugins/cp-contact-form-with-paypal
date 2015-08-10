@@ -128,7 +128,7 @@ if ($message) echo "<div id='setting-error-settings_updated' class='updated sett
 
 ?>
 <div class="wrap">
-<h2>CP Contact Form with Paypal</h2>
+<h1>CP Contact Form with Paypal</h1>
 
 <script type="text/javascript">
  function cp_addItem()

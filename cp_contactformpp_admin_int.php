@@ -33,7 +33,7 @@ $scriptmethod = cp_contactformpp_get_option('script_load_method','0');
  }
 </script>
 <div class="wrap">
-<h2>CP Contact Form with Paypal</h2>
+<h1>CP Contact Form with Paypal</h1>
 
 <?php if ($scriptmethod == '1') { ?>
 <script type='text/javascript' src='../wp-content/plugins/cp-contact-form-with-paypal/js/jquery-ui-1.8.20.custom.min.js'></script>
